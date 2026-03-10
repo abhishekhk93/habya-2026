@@ -58,6 +58,11 @@ export default function WaveParticles({ isVisible }: WaveParticlesProps) {
 
             const isMobile = width < 768;
 
+            // Dot sizes scale down on mobile specifically so the line doesn't appear overly thick
+            const dotW = isMobile ? 4 : 6;
+            const dotH = isMobile ? 3 : 4;
+            const dotR = isMobile ? 2 : 3;
+
             // Adjust the wave constraints securely so they are small and tight on mobile
             // Maximum vertically allowed amplitude
             const waveHeight = isMobile ? Math.min(height * 0.1, 50) : Math.min(height * 0.2, 100);
@@ -83,7 +88,7 @@ export default function WaveParticles({ isVisible }: WaveParticlesProps) {
                         + Math.cos(x * (frequency * 1.5) - time * 0.8) * (waveHeight * 0.4);
 
                     ctx.moveTo(x, y);
-                    ctx.roundRect(x, y, 6, 4, 3);
+                    ctx.roundRect(x, y, dotW, dotH, dotR);
                 }
             }
             ctx.fill();
