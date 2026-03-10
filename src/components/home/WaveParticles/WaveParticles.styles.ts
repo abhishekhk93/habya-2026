@@ -9,6 +9,6 @@ export const waveParticlesStyles = {
         "ease-in-out",
     ].join(" "),
 
-    visible: "opacity-30", // More transparent
+    visible: "opacity-[0.20]", // Between 10% and 20%
     hidden: "opacity-0",
 } as const;
