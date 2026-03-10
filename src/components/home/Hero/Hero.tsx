@@ -1,0 +1,43 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { heroStyles } from "./Hero.styles";
+import type { HeroProps } from "./Hero.types";
+
+export default function Hero({ headline, description }: HeroProps) {
+    const [displayedText, setDisplayedText] = useState("");
+    const [isTypingCompleted, setIsTypingCompleted] = useState(false);
+
+    useEffect(() => {
+        let i = 0;
+        setDisplayedText(""); // Reset when headline changes
+        setIsTypingCompleted(false);
+        const typingInterval = setInterval(() => {
+            if (i < headline.length) {
+                setDisplayedText(headline.slice(0, i + 1));
+                i++;
+            } else {
+                setIsTypingCompleted(true);
+                clearInterval(typingInterval);
+            }
+        }, 90); // ~1.3x speed increase (120ms / 1.3 ≈ 92ms)
+
+        return () => clearInterval(typingInterval);
+    }, [headline]);
+
+    return (
+        <section className={heroStyles.wrapper}>
+            <div className={heroStyles.content}>
+                <h1 className={heroStyles.headline}>
+                    {displayedText}
+                    {!isTypingCompleted && <span className={heroStyles.cursor} />}
+                </h1>
+                {description && (
+                    <p className={`${heroStyles.description} ${isTypingCompleted ? heroStyles.descriptionVisible : heroStyles.descriptionHidden}`}>
+                        {description}
+                    </p>
+                )}
+            </div>
+        </section>
+    );
+}

@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* ─── Design Tokens ─── */
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --font-primary: "Google Sans Flex", sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-primary);
+  --animate-blink: blink 1s step-end infinite;
+  --animate-fade-up: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+/* ─── Base Styles ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-primary);
+  min-height: 100dvh;
+}
