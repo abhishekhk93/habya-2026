@@ -1,6 +1,7 @@
-
 export const heroStyles = {
     wrapper: [
+        "relative",
+        "overflow-hidden",
         "flex",
         "items-center",
         "justify-center",

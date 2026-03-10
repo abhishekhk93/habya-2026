@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { heroStyles } from "./Hero.styles";
 import type { HeroProps } from "./Hero.types";
+import { WaveParticles } from "@/components/home/WaveParticles";
 
 export default function Hero({ headline, description }: HeroProps) {
     const [displayedText, setDisplayedText] = useState("");
@@ -20,14 +21,16 @@ export default function Hero({ headline, description }: HeroProps) {
                 setIsTypingCompleted(true);
                 clearInterval(typingInterval);
             }
-        }, 90); // ~1.3x speed increase (120ms / 1.3 ≈ 92ms)
+        }, 90); // ~1.3x speed increase
 
         return () => clearInterval(typingInterval);
     }, [headline]);
 
     return (
         <section className={heroStyles.wrapper}>
-            <div className={heroStyles.content}>
+            <WaveParticles isVisible={isTypingCompleted} />
+
+            <div className={`relative z-10 ${heroStyles.content}`}>
                 <h1 className={heroStyles.headline}>
                     {displayedText}
                     {!isTypingCompleted && <span className={heroStyles.cursor} />}
