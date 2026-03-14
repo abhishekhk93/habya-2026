@@ -56,4 +56,17 @@ export const heroStyles = {
         "ml-2",
         "shrink-0",
     ].join(" "),
+
+    illustrationTop: [
+        "w-44",
+        "sm:w-52",
+        "md:w-64",
+        "h-auto",
+        "transition-all",
+        "duration-1000",
+        "ease-out",
+    ].join(" "),
+
+    illustrationHidden: "opacity-0 translate-y-4",
+    illustrationVisible: "opacity-100 translate-y-0",
 } as const;

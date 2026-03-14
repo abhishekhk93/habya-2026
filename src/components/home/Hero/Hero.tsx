@@ -31,6 +31,11 @@ export default function Hero({ headline, description }: HeroProps) {
             <WaveParticles isVisible={isTypingCompleted} />
 
             <div className={`relative z-10 ${heroStyles.content}`}>
+                <img 
+                    src="/illustration-1.png" 
+                    alt="Habya Illustration"
+                    className={`${heroStyles.illustrationTop} ${isTypingCompleted ? heroStyles.illustrationVisible : heroStyles.illustrationHidden}`}
+                />
                 <h1 className={heroStyles.headline}>
                     {displayedText}
                     {!isTypingCompleted && <span className={heroStyles.cursor} />}
