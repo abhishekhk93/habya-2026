@@ -22,7 +22,7 @@ export const navbarStyles = {
 
     logo: [
         "text-2xl",
-        "font-bold",
+        "font-medium",
         "text-black",
         "tracking-tight",
     ].join(" "),

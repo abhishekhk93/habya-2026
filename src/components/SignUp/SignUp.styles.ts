@@ -58,7 +58,7 @@ export const signUpStyles = {
         "flex",
         "flex-col",
         "px-6",
-        "pt-24",
+        "pt-12",
         "md:p-12",
         "lg:p-24",
         "h-full", // Take strictly full height available

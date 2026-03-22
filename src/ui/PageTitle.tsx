@@ -6,7 +6,7 @@ type PageTitleProps = {
 };
 
 function PageTitle({ children, type = "light" }: PageTitleProps) {
-  const base = "text-3xl font-bold tracking-tight mb-2 text-center";
+  const base = "text-2xl font-light tracking-tight mb-2 text-center";
 
   const styles: Record<NonNullable<PageTitleProps["type"]>, string> = {
     light: base + " text-black",
