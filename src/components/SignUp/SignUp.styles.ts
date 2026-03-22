@@ -80,6 +80,7 @@ export const signUpStyles = {
         "md:border-black/5",
         "p-8",
         "sm:p-10",
+        "mt-4",
         "my-auto", // Center vertically if space allows, without cutting off if scrollable
     ].join(" "),
     
@@ -87,7 +88,7 @@ export const signUpStyles = {
         "flex",
         "flex-col",
         "gap-5",
-        "pt-4",
+        // "pt-4",
         "pb-2"
     ].join(" "),
     
@@ -108,12 +109,6 @@ export const signUpStyles = {
         "h-5",
         "text-black/40",
         "pointer-events-none",
-    ].join(" "),
-    
-    label: [
-        "text-base",
-        "font-medium",
-        "text-black/80",
     ].join(" "),
     
     input: [
@@ -164,7 +159,7 @@ export const signUpStyles = {
     ].join(" "),
     
     loginText: [
-        "mt-8",
+        // "mt-8",
         "text-center",
         "text-sm",
         "text-black/60",

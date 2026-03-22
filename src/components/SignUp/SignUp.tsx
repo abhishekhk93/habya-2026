@@ -121,7 +121,6 @@ export default function SignUp({ className }: SignUpProps) {
                         </div>
 
                         <div className={signUpStyles.inputGroup}>
-                            {/* <span className={signUpStyles.label}>Gender</span> */}
                             <div className={signUpStyles.radioGroup}>
                                 <label className={signUpStyles.radioLabel}>
                                     <input

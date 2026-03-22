@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
+@source "../components/**/*.ts";
+@source "../components/**/*.tsx";
 
 /* ─── Design Tokens ─── */
 :root {
@@ -45,7 +47,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
+  /* margin: 0; */
   /* padding: 0; */
 }
 
@@ -70,4 +72,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 body.menu-open main {
   opacity: 0;
+}
+
+/* ─── Tooltip ─── */
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-container .tooltip-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.tooltip-container:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
 }

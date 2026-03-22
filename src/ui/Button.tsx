@@ -5,11 +5,12 @@ type ButtonProps = {
   disabled?: boolean;
   btnType?: "primary" | "small" | "secondary";
   type?: "button" | "submit" | "reset";
+  onClick?: () => void;
 };
 
-function Button({ children, disabled = false, btnType = "primary", type = "button" }: ButtonProps) {
+function Button({ children, disabled = false, btnType = "primary", type = "button", onClick }: ButtonProps) {
   const base =
-    "w-full mt-4 py-2 px-2 bg-black text-white font-medium rounded-xl hover:bg-black/90 active:scale-[0.98] transition-all duration-200 shadow-xl shadow-black/20";
+    "w-full mt-2 py-2 px-2 bg-black text-white font-medium rounded-xl hover:bg-black/90 active:scale-[0.98] transition-all duration-200 shadow-xl shadow-black/20";
 
   const styles: Record<NonNullable<ButtonProps["btnType"]>, string> = {
     primary: base,
@@ -19,7 +20,7 @@ function Button({ children, disabled = false, btnType = "primary", type = "butto
   };
 
   return (
-    <button disabled={disabled} className={styles[btnType]} type={type}>
+    <button disabled={disabled} className={styles[btnType]} type={type} onClick={onClick}>
       {children}
     </button>
   );
