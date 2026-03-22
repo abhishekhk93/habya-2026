@@ -46,7 +46,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
 }
 
 html {
@@ -60,4 +60,14 @@ body {
   color: var(--foreground);
   font-family: var(--font-primary);
   min-height: 100dvh;
+}
+
+/* Hide default calendar icon for date inputs */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+body.menu-open main {
+  opacity: 0;
 }
