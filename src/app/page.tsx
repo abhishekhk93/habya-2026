@@ -5,7 +5,7 @@ export default function HomePage() {
     <main>
       <Hero
         headline="Habya 2026"
-        description="Delpoyment test - Ten Editions, Infinite Possibilities."
+        description="Ten Editions, Infinite Possibilities."
       />
     </main>
   );
