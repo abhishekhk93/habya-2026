@@ -43,7 +43,7 @@ export const loginUser = createAsyncThunk(
 
 export const createUser = createAsyncThunk(
   'auth/createUser',
-  async (userData: { name: string; phone: string; gender: string; dob: string }, { rejectWithValue }) => {
+  async (userData: { name: string; phone: string; gender: string; dob: string; captchaToken: string }, { rejectWithValue }) => {
     try {
       const data = await fetchApi<LoginResponse>("/api/auth/create", {
         method: "POST",
