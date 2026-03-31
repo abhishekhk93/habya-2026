@@ -6,11 +6,25 @@ import { authActionsStyles as s } from "./AuthActions.styles";
 import type { AuthActionsProps } from "./AuthActions.types";
 
 export default function AuthActions({ isVisible }: AuthActionsProps) {
-  const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, isLoading, user } = useAppSelector((state) => state.auth);
 
-  // Don't show anything if loading or already logged in
-  // (when logged in, the hamburger is in the Navbar instead)
-  if (isLoading || isLoggedIn) return null;
+  if (isLoading) return null;
+
+  if (isLoggedIn && user) {
+    return (
+      <div className={`${s.wrapper} ${isVisible ? s.visible : s.hidden}`}>
+        <div className={s.loggedInContainer}>
+          <div className={s.loggedInText}>
+            <div>Hi <span className="capitalize">{user.name}</span>! Welcome.</div>
+            <div className="mt-1">Your Profile ID is <span className="font-medium text-black">{user.profileId}</span>.</div>
+          </div>
+          <div className={s.loggedInSubText}>
+            Please note this as the profile ID is required to login when you revisit the site.
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${s.wrapper} ${isVisible ? s.visible : s.hidden}`}>

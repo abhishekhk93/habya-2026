@@ -9,7 +9,7 @@ interface UserRecord {
 }
 
 const USERS: Record<string, UserRecord> = {
-  player: {
+  abhishek: {
     password: "Hji@5004",
     profileId: 1000,
     role: "player",
