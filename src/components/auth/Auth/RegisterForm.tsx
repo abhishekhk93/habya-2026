@@ -3,6 +3,7 @@
 import { useState, useRef, type FormEvent, useEffect } from "react";
 import { useAppDispatch } from "@/store/hooks";
 import { createUser } from "@/store/features/authSlice";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { signInFormStyles as s } from "./AuthForm.styles";
 import type { SignInFormProps } from "./AuthForm.types";
 
@@ -15,6 +16,8 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
 
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   // Custom Dropdown State
   const [isGenderOpen, setIsGenderOpen] = useState(false);
@@ -44,18 +47,26 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
       setError("Please select your date of birth.");
       return;
     }
+    if (!captchaToken) {
+      setError("Please complete the CAPTCHA security check.");
+      return;
+    }
 
     setIsSubmitting(true);
 
     try {
-      const resultAction = await dispatch(createUser({ name, phone, gender, dob }));
+      const resultAction = await dispatch(createUser({ name, phone, gender, dob, captchaToken }));
       if (createUser.fulfilled.match(resultAction)) {
         onSuccess?.();
       } else {
         setError((resultAction.payload as string) || "Registration failed. Please try again.");
+        turnstileRef.current?.reset();
+        setCaptchaToken("");
       }
     } catch {
       setError("An unexpected error occurred. Please try again.");
+      turnstileRef.current?.reset();
+      setCaptchaToken("");
     } finally {
       setIsSubmitting(false);
     }
@@ -144,6 +155,23 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
             tabIndex={-1}
           />
         </div>
+      </div>
+
+      <div className={s.inputGroup}>
+        <p className="text-[11px] text-black/40 mb-2 uppercase tracking-widest font-semibold flex items-center gap-1">
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+          Security Check
+        </p>
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+          onSuccess={(token) => {
+            setCaptchaToken(token);
+            setError("");
+          }}
+          onError={() => setError("CAPTCHA verification failed. Please try again.")}
+          onExpire={() => setCaptchaToken("")}
+        />
       </div>
 
       {error && <p className={s.error}>{error}</p>}
