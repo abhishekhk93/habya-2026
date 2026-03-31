@@ -52,4 +52,37 @@ export const authActionsStyles = {
     "duration-300",
     "group-hover:translate-x-0.5",
   ].join(" "),
+
+  // Logged in text
+  loggedInContainer: [
+    "flex",
+    "flex-col",
+    "items-center",
+    "justify-center",
+    "text-center",
+    "gap-3",
+    "w-[65vw]",
+    "bg-gray-50/80",
+    "backdrop-blur-md",
+    "border",
+    "border-black/10",
+    "rounded-xl",
+    "p-6",
+    "sm:p-8",
+    "shadow-sm",
+  ].join(" "),
+
+  loggedInText: [
+    "text-lg",
+    "sm:text-xl",
+    "font-light",
+    "text-black/80",
+  ].join(" "),
+
+  loggedInSubText: [
+    "text-sm",
+    "font-light",
+    "text-black/60",
+    "max-w-md",
+  ].join(" "),
 } as const;
