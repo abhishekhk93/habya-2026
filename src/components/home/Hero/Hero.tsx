@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { heroStyles } from "./Hero.styles";
 import type { HeroProps } from "./Hero.types";
 import { WaveParticles } from "@/components/home/WaveParticles";
+import { AuthActions } from "@/components/home/AuthActions";
 
 export default function Hero({ headline, description }: HeroProps) {
     const [displayedText, setDisplayedText] = useState("");
@@ -45,6 +46,7 @@ export default function Hero({ headline, description }: HeroProps) {
                         {description}
                     </p>
                 )}
+                <AuthActions isVisible={isTypingCompleted} />
             </div>
         </section>
     );
