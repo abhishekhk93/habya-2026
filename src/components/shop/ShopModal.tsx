@@ -6,7 +6,7 @@ import { shopStyles as s } from "./Shop.styles";
 import type { ShirtDesign, ShirtSize } from "./Shop.types";
 import { availableSizes, availableKidsSizes, sizeChart } from "./Shop.data";
 import Button from "../uiComponents/Button";
-import { addToCart } from "@/lib/atc/addToCart";
+import { addShirtsToCart } from "@/lib/atc/addShirtsToCart";
 
 interface ShopModalProps {
     isOpen: boolean;
@@ -44,17 +44,11 @@ export default function ShopModal({ isOpen, design, onClose, setShowBadge }: Sho
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!design) return;
-        console.log(e);
-        addToCart({
-            itemType: "TSHIRT",
-            itemAmount: null,
-            itemQuantity: 1,
-            itemAttributes: {
-                type: design.name,
-                displayName: nameToPrint,
-                size: selectedSize ?? "",
-            },
+        if (!design || !selectedSize) return;
+        addShirtsToCart({
+            type: design.name,
+            displayName: nameToPrint,
+            size: selectedSize ?? "",
         });
         setShowBadge(true);
         handleClose();
