@@ -1,0 +1,190 @@
+"use client";
+
+import React, { useState } from "react";
+import Image from "next/image";
+import { shopStyles as s } from "./Shop.styles";
+import type { ShirtDesign, ShirtSize } from "./Shop.types";
+import { availableSizes, availableKidsSizes, sizeChart } from "./Shop.data";
+import Button from "../uiComponents/Button";
+import { addToCart } from "@/lib/atc/addToCart";
+
+interface ShopModalProps {
+    isOpen: boolean;
+    design: ShirtDesign | null;
+    onClose: () => void;
+    setShowBadge: (value: boolean) => void;
+    // onAddToCart: (e: React.FormEvent) => void;
+}
+
+export default function ShopModal({ isOpen, design, onClose, setShowBadge }: ShopModalProps) {
+    const [selectedSize, setSelectedSize] = useState<ShirtSize | null>(null);
+    const [nameToPrint, setNameToPrint] = useState("");
+    const [isKidsDropdownOpen, setIsKidsDropdownOpen] = useState(false);
+
+
+    // Reset internal state whenever the modal opens with a new design
+    React.useEffect(() => {
+        if (isOpen) {
+            setSelectedSize(null);
+            setNameToPrint("");
+            setIsKidsDropdownOpen(false);
+        }
+    }, [isOpen, design?.id]);
+
+    const resetModalState = () => {
+        setSelectedSize(null);
+        setNameToPrint("");
+        setIsKidsDropdownOpen(false);
+    };
+
+    const handleClose = () => {
+        resetModalState();
+        onClose();
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!design) return;
+        console.log(e);
+        addToCart({
+            itemType: "TSHIRT",
+            itemAmount: null,
+            itemQuantity: 1,
+            itemAttributes: {
+                type: design.name,
+                displayName: nameToPrint,
+                size: selectedSize ?? "",
+            },
+        });
+        setShowBadge(true);
+        handleClose();
+    };
+
+    const selectedSizeInfo = sizeChart.find(row => row.size === selectedSize);
+
+    return (
+        <>
+            <div
+                className={`${s.modalOverlay} ${isOpen ? s.modalOverlayOpen : ""}`}
+                style={{ pointerEvents: isOpen ? "auto" : "none" }}
+            >
+                <div
+                    className={`${s.modalContent} ${isOpen ? s.modalContentOpen : ""}`}
+                    onClick={e => e.stopPropagation()}
+                >
+                    {/* Image preview */}
+                    <div className={s.modalImageSection}>
+                        {design && (
+                            <Image
+                                src={design.frontImage}
+                                alt={design.name}
+                                fill
+                                unoptimized
+                                className="object-contain"
+                            />
+                        )}
+                    </div>
+
+                    {/* Form */}
+                    <div className={s.modalFormSection}>
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                            {/* Header with close button */}
+                            <div className="flex justify-between items-center">
+                                <button
+                                    type="button"
+                                    onClick={handleClose}
+                                    className={s.closeButton}
+                                    aria-label="Close"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            {/* Size selection */}
+                            <div className={s.formGroup}>
+                                <label className={s.label}>
+                                    Select Size <span style={{ color: "red" }}>*</span>
+                                </label>
+                                <div className={s.chipsContainer}>
+                                    {availableSizes.map(size => (
+                                        <div
+                                            key={size}
+                                            onClick={() => { setSelectedSize(size); setIsKidsDropdownOpen(false); }}
+                                            className={`${s.chip} ${selectedSize === size ? s.chipSelected : s.chipUnselected}`}
+                                        >
+                                            {size}
+                                        </div>
+                                    ))}
+
+                                    {/* Kid's size dropdown */}
+                                    <div className="relative">
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsKidsDropdownOpen(v => !v)}
+                                            className={`${s.chip} ${availableKidsSizes.includes(selectedSize as ShirtSize) ? s.chipSelected : s.chipUnselected} flex items-center gap-2`}
+                                        >
+                                            Kid&apos;s size
+                                            <svg
+                                                className={`w-3 h-3 transition-transform ${isKidsDropdownOpen ? "rotate-180" : ""}`}
+                                                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </button>
+
+                                        {isKidsDropdownOpen && (
+                                            <div className={s.kidsDropdown}>
+                                                {availableKidsSizes.map(size => (
+                                                    <div
+                                                        key={size}
+                                                        onClick={() => { setSelectedSize(size); setIsKidsDropdownOpen(false); }}
+                                                        className={`${s.chip} ${selectedSize === size ? s.chipSelected : s.chipUnselected}`}
+                                                    >
+                                                        {size}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Size info */}
+                            {selectedSizeInfo ?
+                                <p className={s.sizeInfo}>
+                                    <span>Chest ({selectedSizeInfo.width}in) - Length ({selectedSizeInfo.length}in)</span>
+                                </p>
+                                :
+                                <p className={s.sizeInfo}>Select a size to proceed!</p>
+                            }
+
+                            {/* Name to print */}
+                            <div className={s.formGroup}>
+                                <label className={s.label} htmlFor="printName">
+                                    Name to Print on the back
+                                </label>
+                                <input
+                                    type="text"
+                                    id="printName"
+                                    value={nameToPrint}
+                                    onChange={e => setNameToPrint(e.target.value)}
+                                    maxLength={20}
+                                    className={s.input}
+                                    placeholder="e.g. TEST (Leave blank for none)"
+                                />
+                            </div>
+
+                            {/* Submit */}
+                            <Button type="submit" btnType="small" disabled={!selectedSize}>
+                                Add to Cart — ₹{design?.price}
+                            </Button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </>
+    );
+}

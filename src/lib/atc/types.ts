@@ -9,7 +9,7 @@ export interface TShirtAttributes {
   type: string;
   displayName: string;
   size: string;
-  color: string;
+  color?: string;
 }
 
 export type SponsorshipAttributes = Record<string, never>;
