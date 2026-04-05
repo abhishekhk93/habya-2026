@@ -6,6 +6,7 @@ import { createUser } from "@/store/features/authSlice";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { signInFormStyles as s } from "./AuthForm.styles";
 import type { SignInFormProps } from "./AuthForm.types";
+import Button from "@/components/uiComponents/Button";
 
 export function RegisterForm({ onSuccess }: SignInFormProps) {
   const dispatch = useAppDispatch();
@@ -150,6 +151,7 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
             ref={dobInputRef}
             type="date"
             value={dob}
+            max={new Date().toISOString().split('T')[0]}
             onChange={(e) => setDob(e.target.value)}
             className="absolute inset-0 w-0 h-0 opacity-0 pointer-events-none"
             tabIndex={-1}
@@ -176,9 +178,9 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
 
       {error && <p className={s.error}>{error}</p>}
 
-      <button type="submit" disabled={isSubmitting} className={s.submitButton}>
+      <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Registering..." : "Register"}
-      </button>
+      </Button>
     </form>
   );
 }

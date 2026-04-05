@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { loginUser } from "@/store/features/authSlice";
 import { signInFormStyles as s } from "./AuthForm.styles";
 import type { SignInFormProps } from "./AuthForm.types";
+import Button from "@/components/uiComponents/Button";
 
 export function LoginForm({ onSuccess }: SignInFormProps) {
   const dispatch = useAppDispatch();
@@ -67,10 +68,9 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
       </div>
 
       {error && <p className={s.error}>{error}</p>}
-
-      <button type="submit" disabled={isSubmitting} className={s.submitButton}>
+      <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Logging in..." : "Login"}
-      </button>
+      </Button>
     </form>
   );
 }

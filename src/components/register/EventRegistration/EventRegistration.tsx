@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
+import Button from "@/components/uiComponents/Button";
 
 export default function EventRegistration() {
   const [data, setData] = useState<RegisterResponse | null>(null);
@@ -101,7 +102,7 @@ export default function EventRegistration() {
             return (
               <div
                 key={event.eventId}
-                className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-black/[0.03]' : 'bg-transparent'}`}
+                className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
               >
                 <div className={s.eventInfo}>
                   <h3 className={s.eventName}>{event.name}</h3>
@@ -132,6 +133,10 @@ export default function EventRegistration() {
             );
           })}
         </div>
+
+        <Button type="submit" disabled={selectedEventIds.size === 0}>
+          Proceed to Cart
+      </Button>
       </div>
     </div>
   );
