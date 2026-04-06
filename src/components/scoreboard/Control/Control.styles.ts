@@ -1,0 +1,30 @@
+export const controlStyles = {
+  wrapper: "min-h-screen bg-gray-50 text-black p-4 sm:p-6 md:p-8 font-sans",
+  container: "max-w-4xl mx-auto space-y-6 md:space-y-8",
+  headerCard: "bg-white p-5 md:p-6 rounded-xl shadow-sm border border-gray-100",
+  title: "text-2xl font-semibold mb-6",
+  inputGroup: "flex flex-col gap-2 mb-4",
+  label: "text-sm font-medium text-gray-600 uppercase tracking-wider",
+  input: "w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-lg bg-gray-50 focus:bg-white",
+  grid2: "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6",
+  
+  setCard: "bg-white p-5 md:p-6 rounded-xl shadow-sm border border-gray-100",
+  setCardHeader: "text-xl font-medium mb-4 flex justify-between items-center",
+  scoreRow: "flex items-center justify-between py-4 border-b border-gray-50 last:border-0 gap-4",
+  scorePlayerName: "text-lg font-medium flex-1 truncate",
+  scoreControls: "flex items-center gap-3 md:gap-4",
+  scoreBtn: "w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-2xl font-medium bg-gray-100 hover:bg-gray-200 active:scale-95 transition-all select-none disabled:opacity-50 disabled:cursor-not-allowed",
+  scoreValue: "text-4xl font-bold w-12 md:w-16 text-center tabular-nums",
+  
+  winnerGroup: "mt-6 pt-6 border-t border-gray-100",
+  winnerTitle: "text-sm font-medium text-gray-500 mb-3 text-center uppercase tracking-wider",
+  winnerButtons: "flex gap-3",
+  winnerBtn: "flex-1 py-3 px-4 rounded-lg font-medium transition-all active:scale-95 text-center text-sm md:text-base",
+  winnerBtnActive: "bg-green-500 text-white shadow-md shadow-green-500/20",
+  winnerBtnInactive: "bg-gray-100 text-gray-600 hover:bg-gray-200",
+  winnerBtnClear: "bg-red-50 text-red-500 hover:bg-red-100",
+  
+  matchControlCard: "bg-white p-5 md:p-6 rounded-xl shadow-sm border border-gray-100",
+  matchWinnerButtons: "flex flex-col sm:flex-row gap-3 mt-4",
+  dangerBtn: "w-full mt-8 py-4 px-4 rounded-lg font-semibold text-red-600 bg-red-50 hover:bg-red-100 active:scale-95 transition-all text-lg border border-red-200",
+} as const;
