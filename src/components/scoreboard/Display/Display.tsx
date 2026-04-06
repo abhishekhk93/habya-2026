@@ -5,6 +5,7 @@ import { getMatchData } from "@/lib/scoreboard/storage";
 import { MatchData } from "@/lib/scoreboard/types";
 import { displayStyles } from "./Display.styles";
 import type { DisplayProps } from "./Display.types";
+import confetti from "canvas-confetti";
 
 export default function Display({ matchId }: DisplayProps) {
   const [data, setData] = useState<MatchData | null>(null);
@@ -23,6 +24,48 @@ export default function Display({ matchId }: DisplayProps) {
       window.removeEventListener("local-storage", handleStorage);
     };
   }, [matchId]);
+
+  // Confetti celebration when a match winner is set
+  useEffect(() => {
+    let animationFrameId: number;
+    let isActive = true;
+
+    if (data?.matchWinner !== null && data?.matchWinner !== undefined) {
+      const duration = 3 * 1000;
+      const end = Date.now() + duration;
+
+      const frame = () => {
+        if (!isActive) return;
+        
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#26ccff', '#a25afd', '#ff5e7e', '#88ff5a', '#fcff42', '#ffa62d', '#ff36ff']
+        });
+
+        if (Date.now() < end) {
+          animationFrameId = requestAnimationFrame(frame);
+        }
+      };
+      
+      frame();
+    }
+
+    return () => {
+      isActive = false;
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      confetti.reset();
+    };
+  }, [data?.matchWinner]);
 
   // Handle hydration mismatch
   const [mounted, setMounted] = useState(false);
@@ -52,7 +95,12 @@ export default function Display({ matchId }: DisplayProps) {
             <tbody>
               {/* Player 1 Row */}
               <tr className={displayStyles.trPlayer}>
-                <td className={displayStyles.tdName}>{data.players[0].name || "Player 1"}</td>
+                <td className={displayStyles.tdName}>
+                  <div className={`${displayStyles.playerNameBase} ${data.matchWinner === 1 ? displayStyles.playerNameWinner : displayStyles.playerNameDefault}`}>
+                    <span>{data.players[0].name || "Player 1"}</span>
+                    {data.matchWinner === 1 && <span>🎉</span>}
+                  </div>
+                </td>
                 {data.sets.map((set, i) => (
                   <td key={`p1-set-${i}`} className={displayStyles.tdScore}>
                     <div className={`${displayStyles.scoreWrapper} ${set.winner === 1 ? displayStyles.scoreWinner : set.p1 === null ? displayStyles.scoreEmpty : displayStyles.scoreLoser}`}>
@@ -66,7 +114,12 @@ export default function Display({ matchId }: DisplayProps) {
 
               {/* Player 2 Row */}
               <tr className={displayStyles.trPlayer}>
-                <td className={displayStyles.tdName}>{data.players[1].name || "Player 2"}</td>
+                <td className={displayStyles.tdName}>
+                  <div className={`${displayStyles.playerNameBase} ${data.matchWinner === 2 ? displayStyles.playerNameWinner : displayStyles.playerNameDefault}`}>
+                    <span>{data.players[1].name || "Player 2"}</span>
+                    {data.matchWinner === 2 && <span>🎉</span>}
+                  </div>
+                </td>
                 {data.sets.map((set, i) => (
                   <td key={`p2-set-${i}`} className={displayStyles.tdScore}>
                     <div className={`${displayStyles.scoreWrapper} ${set.winner === 2 ? displayStyles.scoreWinner : set.p2 === null ? displayStyles.scoreEmpty : displayStyles.scoreLoser}`}>
@@ -81,15 +134,6 @@ export default function Display({ matchId }: DisplayProps) {
           </table>
         </div>
       </main>
-
-      {/* Winner Banner Space */}
-      <div className={displayStyles.bannerContainer}>
-        {data.matchWinner !== null && (
-          <div className={displayStyles.bannerText}>
-            🏆 WINNER: {data.players[data.matchWinner - 1].name || `Player ${data.matchWinner}`}
-          </div>
-        )}
-      </div>
     </div>
   );
 }
