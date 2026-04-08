@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
 
@@ -78,12 +78,19 @@ export default function EventRegistration() {
     <div className={s.wrapper}>
       <div className={s.card}>
         <h1 className={s.header}>Eligible Events</h1>
-        <p className={s.limitInfo}>
-          {selectedEventIds.size >= 2 ? "Maximum events selected" : "Select up to 2 events"}
-        </p>
+        <div className={`${s.subtitle} ${selectedEventIds.size >= 2 ? s.maxSelectedEffect : "text-black/60"}`}>
+          <div className="grid items-center justify-items-center">
+            <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size >= 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+              Maximum events selected
+            </span>
+            <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size < 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+              Select up to 2 events
+            </span>
+          </div>
+        </div>
 
         <div className={s.listContainer}>
-          {data.eligibleEvents.map((event) => {
+          {data.eligibleEvents.map((event, index) => {
             const isPreRegistered = event.registration.isRegistered;
             const isSelected = selectedEventIds.has(event.eventId);
             const canInteract = !isPreRegistered && (isSelected || selectedEventIds.size < 2);
@@ -129,10 +136,11 @@ export default function EventRegistration() {
                   />
                 </button>
               </div>
-            );
+              </React.Fragment>
+        );
           })}
-        </div>
       </div>
     </div>
+    </div >
   );
 }
