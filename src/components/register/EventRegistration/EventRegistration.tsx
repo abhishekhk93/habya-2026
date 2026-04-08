@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
-import type { EventType, RegisterResponse } from "./EventRegistration.types";
+import type { RegisterResponse } from "./EventRegistration.types";
 
 export default function EventRegistration() {
   const [data, setData] = useState<RegisterResponse | null>(null);
@@ -136,11 +136,10 @@ export default function EventRegistration() {
                   />
                 </button>
               </div>
-              </React.Fragment>
-        );
+            );
           })}
+        </div>
       </div>
-    </div>
     </div >
   );
 }
