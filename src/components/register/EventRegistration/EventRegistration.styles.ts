@@ -37,10 +37,6 @@ export const eventRegistrationStyles = {
 
   limitInfo: "mb-6 text-center text-[11px] sm:text-xs font-medium text-black/40",
 
-  subtitle: "px-4 py-1.5 border border-transparent rounded-[14px] text-sm font-medium mb-14 text-center transition-all duration-[100ms] ease-in-out w-fit mx-auto",
-
-  maxSelectedEffect: "bg-black/[0.06] border-black/10 text-black shadow-sm",
-
   backdrop: "fixed inset-0 z-[70] bg-black/40 backdrop-blur-sm",
 
   modal: "fixed inset-0 z-[80] flex items-center justify-center p-4",

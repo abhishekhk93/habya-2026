@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
-import type { RegisterResponse } from "./EventRegistration.types";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
 import Button from "@/components/uiComponents/Button";
 import PartnerIdModal from "./PartnerIdModal";
@@ -102,7 +101,8 @@ export default function EventRegistration() {
   };
 
   return (
-    <div className={s.wrapper}>
+    <>
+      <div className={s.wrapper}>
       <div className={s.card}>
         <h1 className={s.header}>Eligible Events</h1>
         <div className={`${s.subtitle} ${selectedEventIds.size >= 2 ? s.maxSelectedEffect : "text-black/60"}`}>
@@ -173,23 +173,25 @@ export default function EventRegistration() {
 
         <Button type="submit" disabled={selectedEventIds.size === 0} onClick={handleProceedToCart}>
           Add to Cart
-      </Button>
+        </Button>
       </div>
     </div >
 
-      {doublesModalEvent && (
-        <PartnerIdModal
-          eventName={doublesModalEvent.name}
-          eventId={doublesModalEvent.eventId}
-          onClose={() => setDoublesModalEvent(null)}
-          onConfirm={(partnerId) => {
-            setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
-            const newSet = new Set(selectedEventIds);
-            newSet.add(doublesModalEvent.eventId);
-            setSelectedEventIds(newSet);
-          }}
-        />
-      )}
-    </div>
+      {
+    doublesModalEvent && (
+      <PartnerIdModal
+        eventName={doublesModalEvent.name}
+        eventId={doublesModalEvent.eventId}
+        onClose={() => setDoublesModalEvent(null)}
+        onConfirm={(partnerId) => {
+          setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
+          const newSet = new Set(selectedEventIds);
+          newSet.add(doublesModalEvent.eventId);
+          setSelectedEventIds(newSet);
+        }}
+      />
+    )
+  }
+    </>
   );
 }
