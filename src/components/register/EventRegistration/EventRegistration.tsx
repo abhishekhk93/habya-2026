@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
 import Button from "@/components/uiComponents/Button";
+import PartnerIdModal from "./PartnerIdModal";
+import { addEventsToCart } from "@/lib/atc/addEventsToCart";
 
 export default function EventRegistration() {
   const [data, setData] = useState<RegisterResponse | null>(null);
@@ -11,6 +13,8 @@ export default function EventRegistration() {
   const [error, setError] = useState<string | null>(null);
 
   const [selectedEventIds, setSelectedEventIds] = useState<Set<number>>(new Set());
+  const [doublesModalEvent, setDoublesModalEvent] = useState<EventType | null>(null);
+  const [doublesPartners, setDoublesPartners] = useState<Record<number, string>>({});
 
   useEffect(() => {
     async function fetchData() {
@@ -37,21 +41,32 @@ export default function EventRegistration() {
     fetchData();
   }, []);
 
-  const handleToggle = (eventId: number, isPreRegistered: boolean) => {
+  const handleToggle = (event: EventType, isPreRegistered: boolean) => {
     // Cannot toggle an event the user has already formally registered for
     if (isPreRegistered) return;
 
     const newSet = new Set(selectedEventIds);
 
-    // If it is already selected in local state, allow them to turn it off
-    if (newSet.has(eventId)) {
-      newSet.delete(eventId);
-    } else {
-      // Limit logic: totally only two events can be turned on
-      if (newSet.size >= 2) return;
-      newSet.add(eventId);
+    if (newSet.has(event.eventId)) {
+      newSet.delete(event.eventId);
+      setSelectedEventIds(newSet);
+      setDoublesPartners(prev => {
+        const next = { ...prev };
+        delete next[event.eventId];
+        return next;
+      });
+      return;
     }
 
+    if (newSet.size >= 2) return;
+
+    // For DOUBLES, open the partner modal instead of immediately selecting
+    if (event.type === "DOUBLES") {
+      setDoublesModalEvent(event);
+      return;
+    }
+
+    newSet.add(event.eventId);
     setSelectedEventIds(newSet);
   };
 
@@ -75,6 +90,16 @@ export default function EventRegistration() {
     );
   }
 
+  const handleProceedToCart = () => {
+    console.log(selectedEventIds);
+    selectedEventIds.forEach(eventId => {
+      addEventsToCart({
+        categoryCode: String(eventId),
+        partnerPlayerId: doublesPartners[eventId] || null,
+      });
+    });
+  };
+
   return (
     <div className={s.wrapper}>
       <div className={s.card}>
@@ -84,7 +109,7 @@ export default function EventRegistration() {
         </p>
 
         <div className={s.listContainer}>
-          {data.eligibleEvents.map((event) => {
+          {data.eligibleEvents.map((event, index) => {
             const isPreRegistered = event.registration.isRegistered;
             const isSelected = selectedEventIds.has(event.eventId);
             const canInteract = !isPreRegistered && (isSelected || selectedEventIds.size < 2);
@@ -96,7 +121,11 @@ export default function EventRegistration() {
                 subtitleDisplay += ` with partner: ${event.registration.partner.name}`;
               }
             } else if (isSelected) {
-              subtitleDisplay = `Selected for registration`;
+              if (event.type === "DOUBLES" && doublesPartners[event.eventId]) {
+                subtitleDisplay = `Partner ID: ${doublesPartners[event.eventId]}`;
+              } else {
+                subtitleDisplay = `Selected for registration`;
+              }
             }
 
             return (
@@ -113,7 +142,7 @@ export default function EventRegistration() {
 
                 <button
                   type="button"
-                  onClick={() => handleToggle(event.eventId, isPreRegistered)}
+                  onClick={() => handleToggle(event, isPreRegistered)}
                   disabled={!canInteract}
                   className={`
                     ${s.toggleWrapper} 
@@ -134,10 +163,24 @@ export default function EventRegistration() {
           })}
         </div>
 
-        <Button type="submit" disabled={selectedEventIds.size === 0}>
-          Proceed to Cart
+        <Button type="submit" disabled={selectedEventIds.size === 0} onClick={handleProceedToCart}>
+          Add to Cart
       </Button>
       </div>
+
+      {doublesModalEvent && (
+        <PartnerIdModal
+          eventName={doublesModalEvent.name}
+          eventId={doublesModalEvent.eventId}
+          onClose={() => setDoublesModalEvent(null)}
+          onConfirm={(partnerId) => {
+            setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
+            const newSet = new Set(selectedEventIds);
+            newSet.add(doublesModalEvent.eventId);
+            setSelectedEventIds(newSet);
+          }}
+        />
+      )}
     </div>
   );
 }
