@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
 import Button from "@/components/uiComponents/Button";
@@ -137,36 +137,40 @@ export default function EventRegistration() {
             }
 
             return (
-              <div
-                key={event.eventId}
-                className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
-              >
-                <div className={s.eventInfo}>
-                  <h3 className={s.eventName}>{event.name}</h3>
-                  <p className={`${s.eventSubtitle} ${subtitleDisplay ? 'opacity-100' : 'opacity-0'}`}>
-                    {subtitleDisplay || '\u00A0'}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => handleToggle(event, isPreRegistered)}
-                  disabled={!canInteract}
-                  className={`
-                    ${s.toggleWrapper} 
-                    ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
-                    ${!canInteract && !isPreRegistered ? "opacity-30 cursor-not-allowed" : ""} 
-                    ${isPreRegistered ? "opacity-60 cursor-not-allowed" : ""}
-                  `}
+              <Fragment key={event.eventId}>
+                <div
+                  className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
                 >
-                  <span
+                  <div className={s.eventInfo}>
+                    <h3 className={s.eventName}>{event.name}</h3>
+                    <p className={`${s.eventSubtitle} ${subtitleDisplay ? 'opacity-100' : 'opacity-0'}`}>
+                      {subtitleDisplay || '\u00A0'}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleToggle(event, isPreRegistered)}
+                    disabled={!canInteract}
                     className={`
-                      ${s.toggleThumb} 
-                      ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+                      ${s.toggleWrapper} 
+                      ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
+                      ${!canInteract && !isPreRegistered ? "opacity-30 cursor-not-allowed" : ""} 
+                      ${isPreRegistered ? "opacity-60 cursor-not-allowed" : ""}
                     `}
-                  />
-                </button>
-              </div>
+                  >
+                    <span
+                      className={`
+                        ${s.toggleThumb} 
+                        ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+                      `}
+                    />
+                  </button>
+                </div>
+                {index < data.eligibleEvents.length - 1 && (
+                  <div className="h-px bg-black/5 w-[calc(100%-2rem)] mx-auto" />
+                )}
+              </Fragment>
             );
           })}
         </div>
