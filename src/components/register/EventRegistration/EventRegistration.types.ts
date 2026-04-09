@@ -19,3 +19,10 @@ export interface RegisterResponse {
   userId: number;
   eligibleEvents: EventType[];
 }
+
+export interface PartnerIdModalProps {
+  eventName: string;
+  eventId: number;
+  onClose: () => void;
+  onConfirm: (partnerId: string) => void;
+}

@@ -1,18 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { logoutUser } from "@/store/features/authSlice";
 import { HamburgerMenu } from "@/components/common/HamburgerMenu";
 import { navbarStyles as s } from "./Navbar.styles";
+import { getCart } from "@/lib/atc/storage";
 
-const MENU_ITEMS = [
+const BASE_MENU_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Register", href: "/register" },
-  { label: "Buy Shirts", href: "#" },
+  { label: "Buy Shirts", href: "/shop" },
   { label: "Sponsor", href: "#" },
+  { label: "My Orders", href: "#" },
 ];
 
 export default function Navbar() {
@@ -20,6 +22,18 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const update = () => setCartCount(getCart().items.length);
+    update(); // read on mount
+    window.addEventListener("storage", update);         // cross-tab sync
+    window.addEventListener("cart-updated", update);    // same-tab sync
+    return () => {
+      window.removeEventListener("storage", update);
+      window.removeEventListener("cart-updated", update);
+    };
+  }, []);
 
   // Only show navbar when logged in
   if (isLoading || !isLoggedIn) return null;
@@ -29,6 +43,11 @@ export default function Navbar() {
     setMenuOpen(false);
     router.push("/");
   };
+
+  const menuItems = [
+    ...BASE_MENU_ITEMS,
+    { label: cartCount > 0 ? `Cart (${cartCount})` : "Cart", href: "#" },
+  ];
 
   return (
     <>
@@ -50,7 +69,7 @@ export default function Navbar() {
       <HamburgerMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}
-        items={MENU_ITEMS}
+        items={menuItems}
         onLogout={handleLogout}
       />
     </>
