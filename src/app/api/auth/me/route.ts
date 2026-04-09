@@ -15,8 +15,11 @@ export async function GET(request: NextRequest) {
     const payload = verifyToken(token);
 
     return NextResponse.json({
-      profileId: payload.profileId,
-      name: payload.name,
+      phone: payload.phone,
+      playerId: payload.playerId,
+      fullName: payload.fullName,
+      dob: payload.dob,
+      gender: payload.gender,
       role: payload.role,
     });
   } catch {

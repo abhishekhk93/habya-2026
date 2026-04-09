@@ -9,7 +9,7 @@ import Button from "@/components/uiComponents/Button";
 
 export function LoginForm({ onSuccess }: SignInFormProps) {
   const dispatch = useAppDispatch();
-  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,11 +20,11 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
     setIsSubmitting(true);
 
     try {
-      const resultAction = await dispatch(loginUser({ name, password }));
+      const resultAction = await dispatch(loginUser({ phone, password }));
       if (loginUser.fulfilled.match(resultAction)) {
         onSuccess?.();
       } else {
-        setError((resultAction.payload as string) || "Invalid name or password. Please try again.");
+        setError((resultAction.payload as string) || "Invalid phone number or password. Please try again.");
       }
     } catch {
       setError("An unexpected error occurred. Please try again.");
@@ -36,12 +36,12 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
   return (
     <form onSubmit={handleSubmit} className={s.form}>
       <div className={s.inputGroup}>
-        <label htmlFor="login-name" className={s.label}>Name</label>
+        <label htmlFor="login-phone" className={s.label}>Phone Number</label>
         <input
-          id="login-name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          id="login-phone"
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           className={s.input}
           autoComplete="off"
           required
@@ -63,8 +63,8 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
 
       <div className={s.infoBox}>
         <strong className="text-black font-medium block mb-1">Welcome back!</strong>
-        Password is a combination of your Profile ID and Date of Birth (DOB) in the format: DDMMYYYY.
-        Example: If your Profile ID is 1234 and your Date of Birth is 11/01/2000, your password is 123411012000.
+        Password is a combination of your your Player ID and Date of Birth (DOB) in the format: PlayerIDDDMMYYYY.
+        Example: If your Player ID is 3434 and your Date of Birth is 06/06/1993, your password is 343406061993.
       </div>
 
       {error && <p className={s.error}>{error}</p>}

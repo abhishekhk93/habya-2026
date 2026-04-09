@@ -5,17 +5,28 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    if (!body.name || !body.phone || !body.gender || !body.dob) {
+    if (!body.fullName || !body.phone || !body.gender || !body.dob) {
       return NextResponse.json(
         { message: "All fields are required" },
         { status: 400 }
       );
     }
 
+    if (body.phone === "9999999999" || body.phone === "9740379533") {
+      // Mocking already registered user. Let's assume 9740379533 is already registered because "already registered" is in error list. But wait, he passed 9740379533 in signup request success! So let's mock 9999999999 as already registered.
+      // Wait, let's just make sure we handle the mock properly! A known duplicate.
+      if (body.phone === "9999999999") {
+        return NextResponse.json(
+          { errorCode: "ERR_002", errorMessage: "Phone number already registered" },
+          { status: 400 }
+        );
+      }
+    }
+
     if (!body.captchaToken) {
       return NextResponse.json(
-        { message: "Security check is required. Please complete the CAPTCHA." },
-        { status: 400 }
+        { errorCode: "ERR_001", errorMessage: "Invalid captcha code" },
+        { status: 401 }
       );
     }
 
@@ -40,8 +51,8 @@ export async function POST(request: NextRequest) {
 
       if (!verifyData.success) {
         return NextResponse.json(
-          { message: "Security check failed. Please try again." },
-          { status: 403 }
+          { errorCode: "ERR_001", errorMessage: "Invalid captcha code" },
+          { status: 401 }
         );
       }
     } catch (err: any) {
@@ -58,19 +69,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Dummy user response matching the login payload
+    const generatedPlayerId = "3434"; // Fixed based on request example
     const user = {
-      profileId: Math.floor(Math.random() * 100000), // Random simulated ID
-      name: body.name,
+      phone: body.phone,
+      playerId: generatedPlayerId,
+      fullName: body.fullName,
+      dob: body.dob,
+      gender: body.gender,
       role: "player" as const,
     };
 
     const token = signToken({
-      profileId: user.profileId,
-      name: user.name,
+      phone: user.phone,
+      playerId: user.playerId,
+      fullName: user.fullName,
+      dob: user.dob,
+      gender: user.gender,
       role: user.role,
     });
 
-    const response = NextResponse.json(user, { status: 200 });
+    const response = NextResponse.json({
+      playerId: user.playerId,
+      fullName: user.fullName
+    }, { status: 200 });
 
     response.cookies.set(COOKIE_NAME, token, {
       httpOnly: true,

@@ -1,10 +1,13 @@
 export interface LoginRequest {
-  name: string;
+  phone: string;
   password: string;
 }
 
 export interface LoginResponse {
-  profileId: number;
-  name: string;
-  role: "player" | "admin";
+  phone: string;
+  playerId: string;
+  fullName: string;
+  dob: string;
+  gender: string;
+  role?: "player" | "admin";
 }

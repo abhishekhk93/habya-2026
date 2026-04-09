@@ -2,7 +2,7 @@
 
 import { useState, useRef, type FormEvent, useEffect } from "react";
 import { useAppDispatch } from "@/store/hooks";
-import { createUser } from "@/store/features/authSlice";
+import { signupUser } from "@/store/features/authSlice";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { signInFormStyles as s } from "./AuthForm.styles";
 import type { SignInFormProps } from "./AuthForm.types";
@@ -10,7 +10,7 @@ import Button from "@/components/uiComponents/Button";
 
 export function RegisterForm({ onSuccess }: SignInFormProps) {
   const dispatch = useAppDispatch();
-  const [name, setName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
@@ -56,8 +56,11 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
     setIsSubmitting(true);
 
     try {
-      const resultAction = await dispatch(createUser({ name, phone, gender, dob, captchaToken }));
-      if (createUser.fulfilled.match(resultAction)) {
+      const parts = dob.split('-');
+      const formattedDob = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dob;
+
+      const resultAction = await dispatch(signupUser({ fullName, phone, gender, dob: formattedDob, captchaToken }));
+      if (signupUser.fulfilled.match(resultAction)) {
         onSuccess?.();
       } else {
         setError((resultAction.payload as string) || "Registration failed. Please try again.");
@@ -80,8 +83,8 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
         <input
           id="reg-name"
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={fullName}
+          onChange={(e) => setFullName(e.target.value)}
           className={s.input}
           autoComplete="off"
           required

@@ -41,15 +41,23 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const createUser = createAsyncThunk(
-  'auth/createUser',
-  async (userData: { name: string; phone: string; gender: string; dob: string; captchaToken: string }, { rejectWithValue }) => {
+export const signupUser = createAsyncThunk(
+  'auth/signupUser',
+  async (userData: { fullName: string; phone: string; gender: string; dob: string; captchaToken: string }, { rejectWithValue }) => {
     try {
-      const data = await fetchApi<LoginResponse>("/api/auth/create", {
+      const data = await fetchApi<{ playerId: string; fullName: string }>("/api/auth/signup", {
         method: "POST",
         body: userData,
       });
-      return data;
+      const fullUser: LoginResponse = {
+        phone: userData.phone,
+        playerId: data.playerId,
+        fullName: data.fullName,
+        dob: userData.dob,
+        gender: userData.gender,
+        role: "player"
+      };
+      return fullUser;
     } catch (err: any) {
       return rejectWithValue(err.message || 'Registration failed');
     }
@@ -92,7 +100,7 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     });
 
-    builder.addCase(createUser.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
+    builder.addCase(signupUser.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
       state.user = action.payload;
       state.isLoggedIn = true;
     });
