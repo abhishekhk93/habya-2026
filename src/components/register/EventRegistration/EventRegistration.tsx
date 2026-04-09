@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
 import Button from "@/components/uiComponents/Button";
@@ -101,12 +101,20 @@ export default function EventRegistration() {
   };
 
   return (
-    <div className={s.wrapper}>
+    <>
+      <div className={s.wrapper}>
       <div className={s.card}>
         <h1 className={s.header}>Eligible Events</h1>
-        <p className={s.limitInfo}>
-          {selectedEventIds.size >= 2 ? "Maximum events selected" : "Select up to 2 events"}
-        </p>
+        <div className={`${s.subtitle} ${selectedEventIds.size >= 2 ? s.maxSelectedEffect : "text-black/60"}`}>
+          <div className="grid items-center justify-items-center">
+            <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size >= 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+              Maximum events selected
+            </span>
+            <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size < 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+              Select up to 2 events
+            </span>
+          </div>
+        </div>
 
         <div className={s.listContainer}>
           {data.eligibleEvents.map((event, index) => {
@@ -129,58 +137,65 @@ export default function EventRegistration() {
             }
 
             return (
-              <div
-                key={event.eventId}
-                className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
-              >
-                <div className={s.eventInfo}>
-                  <h3 className={s.eventName}>{event.name}</h3>
-                  <p className={`${s.eventSubtitle} ${subtitleDisplay ? 'opacity-100' : 'opacity-0'}`}>
-                    {subtitleDisplay || '\u00A0'}
-                  </p>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => handleToggle(event, isPreRegistered)}
-                  disabled={!canInteract}
-                  className={`
-                    ${s.toggleWrapper} 
-                    ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
-                    ${!canInteract && !isPreRegistered ? "opacity-30 cursor-not-allowed" : ""} 
-                    ${isPreRegistered ? "opacity-60 cursor-not-allowed" : ""}
-                  `}
+              <Fragment key={event.eventId}>
+                <div
+                  className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
                 >
-                  <span
+                  <div className={s.eventInfo}>
+                    <h3 className={s.eventName}>{event.name}</h3>
+                    <p className={`${s.eventSubtitle} ${subtitleDisplay ? 'opacity-100' : 'opacity-0'}`}>
+                      {subtitleDisplay || '\u00A0'}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleToggle(event, isPreRegistered)}
+                    disabled={!canInteract}
                     className={`
-                      ${s.toggleThumb} 
-                      ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+                      ${s.toggleWrapper} 
+                      ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
+                      ${!canInteract && !isPreRegistered ? "opacity-30 cursor-not-allowed" : ""} 
+                      ${isPreRegistered ? "opacity-60 cursor-not-allowed" : ""}
                     `}
-                  />
-                </button>
-              </div>
+                  >
+                    <span
+                      className={`
+                        ${s.toggleThumb} 
+                        ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+                      `}
+                    />
+                  </button>
+                </div>
+                {index < data.eligibleEvents.length - 1 && (
+                  <div className="h-px bg-black/5 w-[calc(100%-2rem)] mx-auto" />
+                )}
+              </Fragment>
             );
           })}
         </div>
 
         <Button type="submit" disabled={selectedEventIds.size === 0} onClick={handleProceedToCart}>
           Add to Cart
-      </Button>
+        </Button>
       </div>
+    </div >
 
-      {doublesModalEvent && (
-        <PartnerIdModal
-          eventName={doublesModalEvent.name}
-          eventId={doublesModalEvent.eventId}
-          onClose={() => setDoublesModalEvent(null)}
-          onConfirm={(partnerId) => {
-            setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
-            const newSet = new Set(selectedEventIds);
-            newSet.add(doublesModalEvent.eventId);
-            setSelectedEventIds(newSet);
-          }}
-        />
-      )}
-    </div>
+      {
+    doublesModalEvent && (
+      <PartnerIdModal
+        eventName={doublesModalEvent.name}
+        eventId={doublesModalEvent.eventId}
+        onClose={() => setDoublesModalEvent(null)}
+        onConfirm={(partnerId) => {
+          setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
+          const newSet = new Set(selectedEventIds);
+          newSet.add(doublesModalEvent.eventId);
+          setSelectedEventIds(newSet);
+        }}
+      />
+    )
+  }
+    </>
   );
 }
