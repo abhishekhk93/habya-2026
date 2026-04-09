@@ -1,13 +1,17 @@
-export interface BaseOrder {
+export interface TotalOrderAmount {
+  orderAmount: number;
+  platformFee: number;
+}
+
+export interface BaseItem {
   id: string;
   createdDate: string;
   amount: number;
   quantity: number;
-  paymentStatus: string;
   createdBy: string;
 }
 
-export interface RegistrationOrder extends BaseOrder {
+export interface RegistrationItem extends BaseItem {
   additionalAttributes: {
     categoryName: string;
     categoryCode: string;
@@ -18,7 +22,7 @@ export interface RegistrationOrder extends BaseOrder {
   };
 }
 
-export interface TshirtOrder extends BaseOrder {
+export interface ShirtItem extends BaseItem {
   additionalAttributes: {
     type: string;
     displayName: string;
@@ -27,12 +31,16 @@ export interface TshirtOrder extends BaseOrder {
   };
 }
 
-export interface SponsorshipOrder extends BaseOrder {
+export interface SponsorshipItem extends BaseItem {
   additionalAttributes: Record<string, unknown>;
 }
 
-export interface OrdersResponse {
-  registrations?: RegistrationOrder[];
-  tshirts?: TshirtOrder[];
-  sponsorships?: SponsorshipOrder[];
+export interface Order {
+  orderId: string;
+  transactionId: string;
+  paymentStatus: string;
+  totalOrderAmount: TotalOrderAmount;
+  registrations?: RegistrationItem[];
+  shirts?: ShirtItem[];
+  sponsorships?: SponsorshipItem[];
 }
