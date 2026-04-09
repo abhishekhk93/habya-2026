@@ -7,9 +7,9 @@ export async function POST(request: NextRequest) {
   try {
     const body: LoginRequest = await request.json();
 
-    if (!body.name || !body.password) {
+    if (!body.phone || !body.password) {
       return NextResponse.json(
-        { message: "Name and password are required" },
+        { message: "Phone and password are required" },
         { status: 400 }
       );
     }
@@ -17,9 +17,12 @@ export async function POST(request: NextRequest) {
     const user = authenticate(body);
 
     const token = signToken({
-      profileId: user.profileId,
-      name: user.name,
-      role: user.role,
+      phone: user.phone,
+      playerId: user.playerId,
+      fullName: user.fullName,
+      dob: user.dob,
+      gender: user.gender,
+      role: user.role || "player",
     });
 
     const response = NextResponse.json(user, { status: 200 });
@@ -34,7 +37,10 @@ export async function POST(request: NextRequest) {
     return response;
   } catch {
     return NextResponse.json(
-      { message: "Invalid credentials" },
+      { 
+        errorCode: "ERR_003",
+        errorMessage: "Incorrect password" 
+      },
       { status: 401 }
     );
   }

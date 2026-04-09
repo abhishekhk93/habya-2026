@@ -15,11 +15,11 @@ export default function AuthActions({ isVisible }: AuthActionsProps) {
       <div className={`${s.wrapper} ${isVisible ? s.visible : s.hidden}`}>
         <div className={s.loggedInContainer}>
           <div className={s.loggedInText}>
-            <div>Hi <span className="capitalize">{user.name}</span>! Welcome.</div>
-            <div className="mt-1">Your Profile ID is <span className="font-medium text-black">{user.profileId}</span>.</div>
+            <div>Hi <span className="capitalize">{user.fullName}</span>! Welcome.</div>
+            <div className="mt-1">Your Profile ID is <span className="font-medium text-black">{user.playerId}</span>.</div>
           </div>
           <div className={s.loggedInSubText}>
-            Please note this as the profile ID is required to login when you revisit the site.
+            Please note this as the Profile ID is required to login when you revisit the site.
           </div>
         </div>
       </div>

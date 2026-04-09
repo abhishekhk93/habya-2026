@@ -17,15 +17,15 @@ export async function GET(request: NextRequest) {
     const payload = verifyToken(token);
 
     // Safely enforce string typing globally against the payload
-    const profileIdStr = String(payload.profileId || "1001");
+    const playerIdStr = String(payload.playerId || "1001");
 
     // Find mock data for the specifically authenticated user
-    let userData = mockRegistrations.find(u => String(u.userId) === profileIdStr);
+    let userData = mockRegistrations.find(u => String(u.userId) === playerIdStr);
 
     if (!userData) {
-      // Fallback fallback: if they login with a brand new profileId not in our mock array, render them a default blank registration state.
+      // Fallback fallback: if they login with a brand new playerId not in our mock array, render them a default blank registration state.
       userData = {
-        userId: profileIdStr,
+        userId: playerIdStr,
         eligibleEvents: mockRegistrations[0].eligibleEvents.map(event => ({
           ...event,
           registration: {

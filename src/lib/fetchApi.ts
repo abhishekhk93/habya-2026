@@ -20,8 +20,8 @@ export async function fetchApi<T>(
 
   if (!response.ok) {
     const errorBody = await response.json().catch(() => null);
-    const message = errorBody?.message || response.statusText;
-    throw new Error(`[${response.status}] ${message}`);
+    const message = errorBody?.errorMessage || errorBody?.message || response.statusText;
+    throw new Error(message);
   }
 
   return response.json() as Promise<T>;

@@ -10,8 +10,11 @@ export const COOKIE_MAX_AGE = 60 * 60 * 24; // 24 hours in seconds
 // ── Types ────────────────────────────────────────────────────────────────────
 
 export interface TokenPayload {
-  profileId: number;
-  name: string;
+  phone: string;
+  playerId: string;
+  fullName: string;
+  dob: string;
+  gender: string;
   role: "player" | "admin";
 }
 
