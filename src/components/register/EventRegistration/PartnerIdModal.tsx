@@ -60,16 +60,16 @@ export default function PartnerIdModal({ eventName, eventId, onClose, onConfirm 
     setIsSubmitting(true);
     setError(null);
     try {
-      const res = await fetch("/api/register/validate-partner", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ partnerId, eventId }),
+      const categoryCode = String(eventId).padStart(3, '0');
+      const res = await fetch(`/api/player/search?playerId=${partnerId}&categoryCode=${categoryCode}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
       });
 
       const data = await res.json();
 
-      if (!res.ok || !data.eligible) {
-        setError(data.reason || "Invalid partner ID.");
+      if (!res.ok || !data.isEligible) {
+        setError(data.message || "Invalid partner ID.");
         return;
       }
 
