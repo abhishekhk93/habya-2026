@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
-import { mockOrdersDb } from "./mockData";
+import { mockOrdersDb, mockPartnerRegistrationsDb } from "./mockData";
+import { Order } from "./types";
 
 export async function GET(request: NextRequest) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
@@ -16,30 +17,16 @@ export async function GET(request: NextRequest) {
     const payload = verifyToken(token);
     const playerIdStr = String(payload.playerId || "1001");
 
-    let userOrders = mockOrdersDb[playerIdStr];
-
-    if (!userOrders) {
-      userOrders = {
-        registrations: [],
-        tshirts: [],
-        sponsorships: [],
-      };
-    }
-
     const { searchParams } = new URL(request.url);
     const typeQuery = searchParams.get("type");
+    const includePartnerRegistrations = searchParams.get("includePartnerRegistrations");
 
-    if (typeQuery) {
-      if (typeQuery === "registrations") {
-        return NextResponse.json({ registrations: userOrders.registrations || [] });
-      }
-      if (typeQuery === "tshirts") {
-        return NextResponse.json({ tshirts: userOrders.tshirts || [] });
-      }
-      if (typeQuery === "sponsorships") {
-        return NextResponse.json({ sponsorships: userOrders.sponsorships || [] });
-      }
+    if (typeQuery === "registrations" && includePartnerRegistrations === "true") {
+       let partnerOrders = mockPartnerRegistrationsDb[playerIdStr] || [];
+       return NextResponse.json(partnerOrders);
     }
+
+    let userOrders = mockOrdersDb[playerIdStr] || [];
 
     return NextResponse.json(userOrders);
   } catch (error) {
