@@ -133,28 +133,6 @@ export const mockOrdersDb: Record<string, Order[]> = {
 export const mockPartnerRegistrationsDb: Record<string, Order[]> = {
   "3434": [
     {
-      orderId: "ORD-1",
-      transactionId: "TXN-1",
-      paymentStatus: "SUCCESS",
-      totalOrderAmount: {
-        orderAmount: 1000,
-        platformFee: 20,
-      },
-      registrations: [
-        {
-          id: "REG-1",
-          createdDate: "10/05/2026 09:00AM",
-          amount: 1000,
-          quantity: 1,
-          createdBy: "Abhishek",
-          additionalAttributes: {
-            categoryName: "Singles",
-            categoryCode: "001",
-          },
-        },
-      ],
-    },
-    {
       orderId: "ORD-99",
       transactionId: "TXN-99",
       paymentStatus: "SUCCESS",
@@ -168,7 +146,7 @@ export const mockPartnerRegistrationsDb: Record<string, Order[]> = {
           createdDate: "10/05/2026 11:00AM",
           amount: 1000,
           quantity: 1,
-          createdBy: "Rahul",
+          createdBy: "Kiran Bhat",
           additionalAttributes: {
             categoryName: "Doubles",
             categoryCode: "002",

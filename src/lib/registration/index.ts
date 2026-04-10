@@ -7,6 +7,15 @@ export interface RegistrationLookupValue {
   partnerName: string | null;
 }
 
+/** Stable string for cart/API (e.g. "003"); preserves leading zeros when id is numeric. */
+export const normalizeCategoryCode = (categoryId: string | number): string => {
+  const s = String(categoryId).trim();
+  if (/^\d+$/.test(s)) {
+    return s.padStart(3, "0");
+  }
+  return s;
+};
+
 export interface MergedEligibleRegistration {
   categoryId: string;
   categoryName: string;
@@ -67,8 +76,11 @@ export const mergeEligibleWithRegistrations = (
 export const transformToEventUIModel = (
   mergedData: MergedEligibleRegistration[]
 ): EventType[] => {
-  return mergedData.map((item) => ({
-    eventId: Number(item.categoryId),
+  return mergedData.map((item) => {
+    const categoryCode = normalizeCategoryCode(item.categoryId);
+    return {
+    eventId: Number(categoryCode),
+    categoryCode,
     name: item.categoryName,
     type: item.categoryType,
     categoryDescription: item.categoryDescription,
@@ -77,5 +89,6 @@ export const transformToEventUIModel = (
       isRegistered: item.isRegistered,
       partner: item.partnerName ? { name: item.partnerName } : null,
     },
-  }));
+  };
+  });
 };

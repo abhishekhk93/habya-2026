@@ -13,7 +13,7 @@ export const eventRegistrationStyles = {
 
   eventName: "text-base sm:text-lg font-medium text-black",
 
-  eventSubtitle: "text-[11px] sm:text-xs font-light text-black/60 transition-opacity duration-200 block h-4",
+  eventSubtitle: "text-[11px] sm:text-xs font-light text-black/60 transition-opacity duration-200 block mt-1 px-2 py-1 rounded-md bg-black/[0.04] w-fit min-h-6",
 
   // Custom Toggle Switch Styling
   toggleWrapper: "relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 ease-in-out focus:outline-none",
@@ -49,7 +49,8 @@ export const eventRegistrationStyles = {
 
   digitInputEmpty: "border-black/10 focus:ring-black/10 text-black/60",
 
-  error: "text-xs text-red-500 text-center -mt-2",
+  errorPlaceholder: "text-xs text-center -mt-2 min-h-4",
+  error: "text-red-500",
 
   cancelButton: "flex-1 py-2.5 rounded-xl border border-black/10 text-sm font-medium text-black/60 hover:bg-black/5 transition-colors",
 
