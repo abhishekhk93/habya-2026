@@ -12,11 +12,11 @@ interface UserRecord {
 }
 
 const USERS: Record<string, UserRecord> = {
-  "9740379533": {
-    password: "343406061993",
+  "9741094297": {
+    password: "111122223333",
     playerId: "3434",
-    fullName: "Nahusha",
-    dob: "06/06/1993",
+    fullName: "Abhishek H K",
+    dob: "16/11/1993",
     gender: "M",
     role: "player",
   },
