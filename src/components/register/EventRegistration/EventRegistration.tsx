@@ -6,8 +6,20 @@ import type { EventType, RegisterResponse } from "./EventRegistration.types";
 import Button from "@/components/uiComponents/Button";
 import PartnerIdModal from "./PartnerIdModal";
 import { addEventsToCart } from "@/lib/atc/addEventsToCart";
+import { useAppSelector } from "@/store/hooks";
+import type { EligibleEventsResponse } from "@/app/api/eligible-events/types";
+import type { Order } from "@/app/api/orders/types";
+import {
+  flattenRegistrations,
+  buildRegistrationLookup,
+  mergeEligibleWithRegistrations,
+  transformToEventUIModel,
+} from "@/lib/registration";
 
 export default function EventRegistration() {
+  const userFullName = useAppSelector((state) => state.auth.user?.fullName) ?? "";
+  const userPlayerId = useAppSelector((state) => state.auth.user?.playerId) ?? "0";
+
   const [data, setData] = useState<RegisterResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,16 +31,37 @@ export default function EventRegistration() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/api/register");
-        if (!response.ok) {
+        const [eligibleEventsResponse, ordersResponse] = await Promise.all([
+          fetch("/api/eligible-events"),
+          fetch("/api/orders?type=registrations&includePartnerRegistrations=true"),
+        ]);
+
+        if (!eligibleEventsResponse.ok || !ordersResponse.ok) {
           throw new Error("Failed to fetch event data.");
         }
 
-        const jsonData: RegisterResponse = await response.json();
-        setData(jsonData);
+        const [eligibleEventsJson, ordersJson]: [EligibleEventsResponse, Order[]] = await Promise.all([
+          eligibleEventsResponse.json(),
+          ordersResponse.json(),
+        ]);
+
+        const registrations = flattenRegistrations(ordersJson);
+        const registrationMap = buildRegistrationLookup(registrations, userFullName);
+        const mergedEvents = mergeEligibleWithRegistrations(
+          eligibleEventsJson.eligibleCategories,
+          registrationMap
+        );
+        const eligibleEvents = transformToEventUIModel(mergedEvents);
+        const transformedData: RegisterResponse = {
+          userId: Number(userPlayerId),
+          eligibleEvents,
+        };
+        setData(transformedData);
 
         // Initialize the selected set ONLY with events they are already registered for
-        const preRegistered = jsonData.eligibleEvents.filter(e => e.registration.isRegistered).map(e => e.eventId);
+        const preRegistered = eligibleEvents
+          .filter(e => e.registration.isRegistered)
+          .map(e => e.eventId);
         setSelectedEventIds(new Set(preRegistered));
 
       } catch (err) {
@@ -39,7 +72,7 @@ export default function EventRegistration() {
     }
 
     fetchData();
-  }, []);
+  }, [userFullName, userPlayerId]);
 
   const handleToggle = (event: EventType, isPreRegistered: boolean) => {
     // Cannot toggle an event the user has already formally registered for
