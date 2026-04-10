@@ -4,7 +4,7 @@ import type { PartnerIdModalProps } from "./EventRegistration.types";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 
 
-export default function PartnerIdModal({ eventName, eventId, onClose, onConfirm }: PartnerIdModalProps) {
+export default function PartnerIdModal({ eventName, eventId, categoryCode, onClose, onConfirm }: PartnerIdModalProps) {
   const [digits, setDigits] = useState<string[]>(["", "", "", ""]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,24 +59,40 @@ export default function PartnerIdModal({ eventName, eventId, onClose, onConfirm 
     if (!isComplete) return;
     setIsSubmitting(true);
     setError(null);
+
     try {
-      const categoryCode = String(eventId).padStart(3, '0');
-      const res = await fetch(`/api/player/search?playerId=${partnerId}&categoryCode=${categoryCode}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
+      const searchParams = new URLSearchParams({
+        playerId: partnerId,
+        categoryCode,
       });
 
-      const data = await res.json();
+      const res = await Promise.race([
+        fetch(`/api/player/search?${searchParams.toString()}`, {
+          method: "GET",
+        }),
+        new Promise<Response>((_, reject) =>
+          setTimeout(() => reject(new Error("REQUEST_TIMEOUT")), 10000)
+        ),
+      ]);
+
+      const data = await res.json().catch(() => ({ message: "Invalid server response." }));
 
       if (!res.ok || !data.isEligible) {
         setError(data.message || "Invalid partner ID.");
         return;
       }
 
-      onConfirm(partnerId);
+      onConfirm({
+        partnerId,
+        partnerName: data.playerDetails?.fullName || partnerId,
+      });
       onClose();
-    } catch {
-      setError("Something went wrong. Please try again.");
+    } catch (err) {
+      if (err instanceof Error && err.message === "REQUEST_TIMEOUT") {
+        setError("Partner validation timed out. Please try again.");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -124,10 +140,10 @@ export default function PartnerIdModal({ eventName, eventId, onClose, onConfirm 
             ))}
           </div>
 
-          {/* Error */}
-          {error && (
-            <p className={s.error}>{error}</p>
-          )}
+          {/* Message placeholder */}
+          <p className={`${s.errorPlaceholder} ${error ? s.error : "text-transparent"}`}>
+            {error || "\u00A0"}
+          </p>
 
           {/* Buttons */}
           <div className="flex gap-3">

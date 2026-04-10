@@ -3,9 +3,10 @@
 import { useEffect, useState, Fragment } from "react";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType, RegisterResponse } from "./EventRegistration.types";
-import Button from "@/components/uiComponents/Button";
 import PartnerIdModal from "./PartnerIdModal";
 import { addEventsToCart } from "@/lib/atc/addEventsToCart";
+import { getCart, saveCart } from "@/lib/atc/storage";
+import type { RegistrationAttributes } from "@/lib/atc/types";
 import { useAppSelector } from "@/store/hooks";
 import type { EligibleEventsResponse } from "@/app/api/eligible-events/types";
 import type { Order } from "@/app/api/orders/types";
@@ -26,7 +27,27 @@ export default function EventRegistration() {
 
   const [selectedEventIds, setSelectedEventIds] = useState<Set<number>>(new Set());
   const [doublesModalEvent, setDoublesModalEvent] = useState<EventType | null>(null);
-  const [doublesPartners, setDoublesPartners] = useState<Record<number, string>>({});
+  const [doublesPartners, setDoublesPartners] = useState<Record<number, { id: string; name: string }>>({});
+
+  const removeRegistrationFromCart = (categoryCode: string) => {
+    const currentCart = getCart();
+    const codeNum = Number(categoryCode);
+    const updatedCart = {
+      ...currentCart,
+      items: currentCart.items.filter((item) => {
+        if (item.itemType !== "REGISTRATION") return true;
+        const c = item.itemAttributes.categoryCode;
+        return c !== categoryCode && Number(c) !== codeNum;
+      }),
+    };
+    saveCart(updatedCart);
+    window.dispatchEvent(new Event("cart-updated"));
+  };
+
+  const addOrReplaceRegistrationInCart = (attributes: RegistrationAttributes) => {
+    removeRegistrationFromCart(attributes.categoryCode);
+    addEventsToCart(attributes);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -58,11 +79,42 @@ export default function EventRegistration() {
         };
         setData(transformedData);
 
-        // Initialize the selected set ONLY with events they are already registered for
-        const preRegistered = eligibleEvents
+        // Preselect events they are already registered for
+        const preRegisteredIds = eligibleEvents
           .filter(e => e.registration.isRegistered)
           .map(e => e.eventId);
-        setSelectedEventIds(new Set(preRegistered));
+
+        // Also preselect events already present in cart (and hydrate doubles partner names)
+        const cart = getCart();
+        const cartRegistrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
+
+        const cartSelectedIds: number[] = [];
+        const cartDoublesPartners: Record<number, { id: string; name: string }> = {};
+
+        cartRegistrations.forEach((item) => {
+          const code = item.itemAttributes.categoryCode;
+          const eventId = Number(code);
+          if (!Number.isFinite(eventId)) return;
+
+          cartSelectedIds.push(eventId);
+
+          const inEligibleList = eligibleEvents.find(
+            (e) => e.categoryCode === code || e.eventId === eventId
+          );
+          if (inEligibleList?.type !== "DOUBLES") return;
+
+          const partnerId = item.itemAttributes.partnerPlayerId ?? "";
+          const partnerName = item.itemAttributes.partnerName ?? "";
+          if (partnerId || partnerName) {
+            cartDoublesPartners[eventId] = {
+              id: partnerId,
+              name: partnerName || partnerId,
+            };
+          }
+        });
+
+        setDoublesPartners((prev) => ({ ...cartDoublesPartners, ...prev }));
+        setSelectedEventIds(new Set([...preRegisteredIds, ...cartSelectedIds]));
 
       } catch (err) {
         setError(err instanceof Error ? err.message : "Network error");
@@ -83,6 +135,7 @@ export default function EventRegistration() {
     if (newSet.has(event.eventId)) {
       newSet.delete(event.eventId);
       setSelectedEventIds(newSet);
+      removeRegistrationFromCart(event.categoryCode);
       setDoublesPartners(prev => {
         const next = { ...prev };
         delete next[event.eventId];
@@ -101,6 +154,11 @@ export default function EventRegistration() {
 
     newSet.add(event.eventId);
     setSelectedEventIds(newSet);
+    addOrReplaceRegistrationInCart({
+      categoryCode: event.categoryCode,
+      partnerPlayerId: null,
+      partnerName: null,
+    });
   };
 
   if (loading) {
@@ -122,16 +180,6 @@ export default function EventRegistration() {
       </div>
     );
   }
-
-  const handleProceedToCart = () => {
-    console.log(selectedEventIds);
-    selectedEventIds.forEach(eventId => {
-      addEventsToCart({
-        categoryCode: String(eventId),
-        partnerPlayerId: doublesPartners[eventId] || null,
-      });
-    });
-  };
 
   return (
     <>
@@ -163,16 +211,16 @@ export default function EventRegistration() {
               }
             } else if (isSelected) {
               if (event.type === "DOUBLES" && doublesPartners[event.eventId]) {
-                subtitleDisplay = `Partner ID: ${doublesPartners[event.eventId]}`;
+                subtitleDisplay = `Event added to cart with partner: ${doublesPartners[event.eventId].name}`;
               } else {
-                subtitleDisplay = `Selected for registration`;
+                subtitleDisplay = `Event added to cart`;
               }
             }
 
             return (
               <Fragment key={event.eventId}>
                 <div
-                  className={`${s.eventItem} ${isPreRegistered ? 'border border-black/10' : ''} ${isSelected && !isPreRegistered ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
+                  className={`${s.eventItem} ${(isSelected || isPreRegistered) ? 'border border-black/10' : ''} ${(isSelected || isPreRegistered) ? 'bg-gradient-to-r from-black/5 to-white' : 'bg-transparent'}`}
                 >
                   <div className={s.eventInfo}>
                     <h3 className={s.eventName}>{event.name}</h3>
@@ -208,9 +256,6 @@ export default function EventRegistration() {
           })}
         </div>
 
-        <Button type="submit" disabled={selectedEventIds.size === 0} onClick={handleProceedToCart}>
-          Add to Cart
-        </Button>
       </div>
     </div >
 
@@ -219,9 +264,18 @@ export default function EventRegistration() {
       <PartnerIdModal
         eventName={doublesModalEvent.name}
         eventId={doublesModalEvent.eventId}
+        categoryCode={doublesModalEvent.categoryCode}
         onClose={() => setDoublesModalEvent(null)}
-        onConfirm={(partnerId) => {
-          setDoublesPartners(prev => ({ ...prev, [doublesModalEvent.eventId]: partnerId }));
+        onConfirm={({ partnerId, partnerName }) => {
+          addOrReplaceRegistrationInCart({
+            categoryCode: doublesModalEvent.categoryCode,
+            partnerPlayerId: partnerId,
+            partnerName,
+          });
+          setDoublesPartners(prev => ({
+            ...prev,
+            [doublesModalEvent.eventId]: { id: partnerId, name: partnerName },
+          }));
           const newSet = new Set(selectedEventIds);
           newSet.add(doublesModalEvent.eventId);
           setSelectedEventIds(newSet);

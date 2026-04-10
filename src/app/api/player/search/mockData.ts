@@ -28,7 +28,7 @@ export function getMockSearchResponse(playerId: string, categoryCode: string): S
   return {
     isEligible: true,
     playerDetails: {
-      fullName: "HHH HHH",
+      fullName: "Abhi",
       playerId: Number(playerId) || 3344
     }
   };
