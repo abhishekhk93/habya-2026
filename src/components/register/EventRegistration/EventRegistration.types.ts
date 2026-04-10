@@ -1,5 +1,4 @@
 export interface Partner {
-  userId: number;
   name: string;
 }
 
@@ -12,6 +11,8 @@ export interface EventType {
   eventId: number;
   name: string;
   type: "SINGLES" | "DOUBLES";
+  categoryDescription?: string;
+  isEnabled?: boolean;
   registration: EventRegistrationDetails;
 }
 
