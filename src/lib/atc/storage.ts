@@ -14,10 +14,6 @@ function parseCart(serialized: string): Cart | null {
   }
 }
 
-/**
- * Reads the cart for this player. Each `playerId` has its own `{ items }` payload in localStorage.
- * Without a `playerId`, returns an empty cart (nothing is read or written).
- */
 export const getCart = (playerId: string | null | undefined): Cart => {
   if (typeof window === "undefined" || !playerId) {
     return { items: [] };
