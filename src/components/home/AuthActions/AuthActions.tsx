@@ -8,18 +8,19 @@ import type { AuthActionsProps } from "./AuthActions.types";
 export default function AuthActions({ isVisible }: AuthActionsProps) {
   const { isLoggedIn, isLoading, user } = useAppSelector((state) => state.auth);
 
-  if (isLoading) return null;
+  if (isLoading) return <div className={`${s.wrapper} ${s.hidden}`} aria-hidden />;
+
 
   if (isLoggedIn && user) {
     return (
       <div className={`${s.wrapper} ${isVisible ? s.visible : s.hidden}`}>
         <div className={s.loggedInContainer}>
           <div className={s.loggedInText}>
-            <div>Hi <span className="capitalize">{user.fullName}</span>! Welcome.</div>
+            <div>Welcome <span className="capitalize">{user.fullName}</span>!</div>
             <div className="mt-1">Your Profile ID is <span className="font-medium text-black">{user.playerId}</span>.</div>
           </div>
           <div className={s.loggedInSubText}>
-            Please note this as the Profile ID is required to login when you revisit the site.
+            Save this Profile ID - you’ll need it to log in later.
           </div>
         </div>
       </div>
