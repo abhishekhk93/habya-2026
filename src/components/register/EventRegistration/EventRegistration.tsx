@@ -19,7 +19,7 @@ import {
 
 export default function EventRegistration() {
   const userFullName = useAppSelector((state) => state.auth.user?.fullName) ?? "";
-  const userPlayerId = useAppSelector((state) => state.auth.user?.playerId) ?? "0";
+  const userPlayerId = useAppSelector((state) => state.auth.user?.playerId);
 
   const [data, setData] = useState<RegisterResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ export default function EventRegistration() {
   const [doublesPartners, setDoublesPartners] = useState<Record<number, { id: string; name: string }>>({});
 
   const removeRegistrationFromCart = (categoryCode: string) => {
-    const currentCart = getCart();
+    const currentCart = getCart(userPlayerId);
     const codeNum = Number(categoryCode);
     const updatedCart = {
       ...currentCart,
@@ -40,13 +40,13 @@ export default function EventRegistration() {
         return c !== categoryCode && Number(c) !== codeNum;
       }),
     };
-    saveCart(updatedCart);
+    saveCart(updatedCart, userPlayerId);
     window.dispatchEvent(new Event("cart-updated"));
   };
 
   const addOrReplaceRegistrationInCart = (attributes: RegistrationAttributes) => {
     removeRegistrationFromCart(attributes.categoryCode);
-    addEventsToCart(attributes);
+    addEventsToCart(attributes, userPlayerId);
   };
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function EventRegistration() {
         );
         const eligibleEvents = transformToEventUIModel(mergedEvents);
         const transformedData: RegisterResponse = {
-          userId: Number(userPlayerId),
+          userId: userPlayerId != null && userPlayerId !== "" ? Number(userPlayerId) : 0,
           eligibleEvents,
         };
         setData(transformedData);
@@ -85,7 +85,7 @@ export default function EventRegistration() {
           .map(e => e.eventId);
 
         // Also preselect events already present in cart (and hydrate doubles partner names)
-        const cart = getCart();
+        const cart = getCart(userPlayerId);
         const cartRegistrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
 
         const cartSelectedIds: number[] = [];

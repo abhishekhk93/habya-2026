@@ -7,6 +7,7 @@ import type { ShirtDesign, ShirtSize } from "./Shop.types";
 import { availableSizes, availableKidsSizes, sizeChart } from "./Shop.data";
 import Button from "../uiComponents/Button";
 import { addShirtsToCart } from "@/lib/atc/addShirtsToCart";
+import { useAppSelector } from "@/store/hooks";
 
 interface ShopModalProps {
     isOpen: boolean;
@@ -17,6 +18,7 @@ interface ShopModalProps {
 }
 
 export default function ShopModal({ isOpen, design, onClose, setShowBadge }: ShopModalProps) {
+    const playerId = useAppSelector((state) => state.auth.user?.playerId);
     const [selectedSize, setSelectedSize] = useState<ShirtSize | null>(null);
     const [nameToPrint, setNameToPrint] = useState("");
     const [isKidsDropdownOpen, setIsKidsDropdownOpen] = useState(false);
@@ -45,11 +47,14 @@ export default function ShopModal({ isOpen, design, onClose, setShowBadge }: Sho
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!design || !selectedSize) return;
-        addShirtsToCart({
-            type: design.name,
-            displayName: nameToPrint,
-            size: selectedSize ?? "",
-        });
+        addShirtsToCart(
+            {
+                type: design.name,
+                displayName: nameToPrint,
+                size: selectedSize ?? "",
+            },
+            playerId
+        );
         setShowBadge(true);
         handleClose();
     };
