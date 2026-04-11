@@ -18,14 +18,15 @@ const BASE_MENU_ITEMS = [
 ];
 
 export default function Navbar() {
-  const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
+  const { isLoggedIn, isLoading, user } = useAppSelector((state) => state.auth);
+  const playerId = user?.playerId;
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const update = () => setCartCount(getCart().items.length);
+    const update = () => setCartCount(getCart(playerId).items.length);
     update(); // read on mount
     window.addEventListener("storage", update);         // cross-tab sync
     window.addEventListener("cart-updated", update);    // same-tab sync
@@ -33,7 +34,7 @@ export default function Navbar() {
       window.removeEventListener("storage", update);
       window.removeEventListener("cart-updated", update);
     };
-  }, []);
+  }, [playerId]);
 
   // Only show navbar when logged in
   if (isLoading || !isLoggedIn) return null;
