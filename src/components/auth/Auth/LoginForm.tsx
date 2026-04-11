@@ -63,8 +63,7 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
 
       <div className={s.infoBox}>
         <strong className="text-black font-medium block mb-1">Welcome back!</strong>
-        Password is a combination of your your Player ID and Date of Birth (DOB) in the format: PlayerIDDDMMYYYY.
-        Example: If your Player ID is 3434 and your Date of Birth is 06/06/1993, your password is 343406061993.
+        Password = PlayerID + Date of birth. Ex: 1000 + 22012001 → 100022012001
       </div>
 
       {error && <p className={s.error}>{error}</p>}
