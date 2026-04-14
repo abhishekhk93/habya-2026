@@ -1,7 +1,7 @@
 export const cartStyles = {
   wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] py-10 px-4 h-[100vh]",
 
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-4 pb-8 sm:px-12 sm:pt-6 sm:pb-8 mt-8 h-[100vh]",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-4 pb-8 sm:px-12 sm:pt-6 sm:pb-8 mt-8 ",
 
   pageTitle: "text-2xl font-light tracking-tight mb-2 text-center",
 
@@ -43,4 +43,17 @@ export const cartStyles = {
 
   checkoutButton: "rounded-md bg-black px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 transition-all",
 
+  modalOverlay: "fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 backdrop-blur-sm",
+
+  modalContent: "bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl space-y-4",
+
+  modalTitle: "text-xl font-bold text-slate-900",
+
+  modalText: "text-slate-600 font-medium",
+
+  modalButtonGroup: "flex flex-col space-y-3 mt-6",
+
+  modalKeepButton: "w-full px-4 py-3 bg-black text-white rounded-xl font-medium hover:bg-black/80 transition-colors shadow-sm",
+
+  modalRemoveButton: "w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-red-500 hover:text-white transition-colors"
 };
