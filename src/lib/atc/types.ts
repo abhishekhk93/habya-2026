@@ -3,6 +3,7 @@ export type ItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP";
 export interface RegistrationAttributes {
   categoryCode: string;
   partnerPlayerId?: string | null;
+  categoryName: string;
   partnerName?: string | null;
 }
 

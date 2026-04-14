@@ -47,7 +47,7 @@ export default function Navbar() {
 
   const menuItems = [
     ...BASE_MENU_ITEMS,
-    { label: cartCount > 0 ? `Cart (${cartCount})` : "Cart", href: "#" },
+    { label: cartCount > 0 ? `Cart (${cartCount})` : "Cart", href: "/cart" },
   ];
 
   return (
