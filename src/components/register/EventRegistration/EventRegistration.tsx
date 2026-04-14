@@ -79,6 +79,7 @@ export default function EventRegistration() {
     setSelectedEventIds(newSet);
     addOrReplaceRegistrationInCart({
       categoryCode: event.categoryCode,
+      categoryName: event.name,
       partnerPlayerId: null,
       partnerName: null,
     });
@@ -138,6 +139,7 @@ export default function EventRegistration() {
           onConfirm={({ partnerId, partnerName }) => {
             addOrReplaceRegistrationInCart({
               categoryCode: doublesModalEvent.categoryCode,
+              categoryName: doublesModalEvent.name,
               partnerPlayerId: partnerId,
               partnerName,
             });
