@@ -20,11 +20,11 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     const attrs = item.itemAttributes as any;
     title = attrs.categoryName;
     if (attrs.partnerPlayerId) details.push(<p key="pid">Partner ID: <strong>{attrs.partnerPlayerId}</strong></p>);
-    if (attrs.partnerName) details.push(<p key="pname">Partner Name: <strong>{attrs.partnerName}</strong></p>);
-    if (attrs.category === "SINGLES") {
-      price = Number(getConfigValue(config, "price_event_singles", "NEXT_PUBLIC_PRICE_EVENT_SINGLES")) || 0;
-    } else if (attrs.category === "DOUBLES") {
-      price = Number(getConfigValue(config, "price_event_doubles", "NEXT_PUBLIC_PRICE_EVENT_DOUBLES")) || 0;
+    if (attrs.partnerName) {
+      details.push(<p key="pname">Partner Name: <strong>{attrs.partnerName}</strong></p>);
+      price = Number(getConfigValue(config, "price_event_doubles", process.env.NEXT_PUBLIC_PRICE_EVENT_DOUBLES)) || 0;
+    } else {
+      price = Number(getConfigValue(config, "price_event_singles", process.env.NEXT_PUBLIC_PRICE_EVENT_SINGLES)) || 0;
     }
     details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
   } else if (item.itemType === "TSHIRT") {
@@ -33,11 +33,11 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     if (attrs.size) details.push(<p key="size">Size: <strong>{attrs.size}</strong></p>);
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
     if (attrs.type === "ROUND_NECK_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", "NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES")) || 0;
+      price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES)) || 0;
     } else if (attrs.type === "ROUND_NECK_SLEEVELESS") {
-      price = Number(getConfigValue(config, "price_shirt_round_neck_sleeveless", "NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS")) || 0;
+      price = Number(getConfigValue(config, "price_shirt_round_neck_sleeveless", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS)) || 0;
     } else if (attrs.type === "COLLARED_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", "NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES")) || 0;
+      price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES)) || 0;
     }
     details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
   } else if (item.itemType === "SPONSORSHIP") {
@@ -60,8 +60,8 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
           )}
         </div>
       </div>
-      <button 
-        onClick={() => onRemove(item)} 
+      <button
+        onClick={() => onRemove(item)}
         className="ml-4 sm:ml-8 p-2 text-gray-400 hover:text-red-500 transition-colors rounded-full hover:bg-red-50"
         aria-label="Remove item"
       >

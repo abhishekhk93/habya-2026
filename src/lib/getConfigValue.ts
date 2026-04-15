@@ -3,9 +3,9 @@ import { ConfigData } from '@/app/api/config/types';
 export function getConfigValue(
   configData: ConfigData | null | undefined,
   key: keyof ConfigData,
-  fallbackEnvKey: string
+  fallbackValue: string | undefined
 ): string | undefined {
-  const value = configData?.[key] ?? process.env[fallbackEnvKey];
+  const value = configData?.[key] ?? fallbackValue;
   
   if (value === undefined) {
     return undefined;
