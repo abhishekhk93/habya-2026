@@ -1,6 +1,12 @@
 export type ConfigData = {
-  shirtPrice: string;
-  registrationFee: string;
-  doublesFee: string;
-  isShirtEnabled: string;
+  price_event_singles: string;
+  price_event_doubles: string;
+
+  price_shirt_round_neck_half_sleeves: string;
+  price_shirt_round_neck_sleeveless: string;
+  price_shirt_collared_half_sleeves: string;
+
+  is_registration_open: boolean;
+  is_shirt_orders_open: boolean;
+  is_sponsorships_open: boolean;
 };
