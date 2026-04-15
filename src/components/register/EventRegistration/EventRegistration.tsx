@@ -111,11 +111,9 @@ export default function EventRegistration() {
         <div className={s.card}>
           <h1 className={s.header}>Eligible Events</h1>
           <div className={s.dividerContainer}>
-            <div className={s.dividerLine} />
             <div className={s.dividerText}>
               Selected: {selectedEventIds.size} out of 2 events
             </div>
-            <div className={s.dividerLine} />
           </div>
 
           <EventList

@@ -11,17 +11,16 @@ export const eventRegistrationStyles = {
 
   errorState: "text-base text-red-500 text-center py-10 font-light",
   subtitle: "text-sm font-medium mb-14 text-center transition-all duration-[100ms] ease-in-out w-fit mx-auto",
-  dividerContainer: "flex items-center w-full gap-4 mb-14",
-  dividerLine: "h-px bg-black flex-1",
-  dividerText: "text-sm font-light tracking-tight text-black whitespace-nowrap",
+  dividerContainer: "flex flex-col items-center w-full mb-14 mt-4",
+  dividerText: "text-sm font-light tracking-tight text-black text-center",
 
   limitInfo: "mb-6 text-center text-[11px] sm:text-xs font-medium text-black/40",
 
   backdrop: "fixed inset-0 z-[70] bg-black/40 backdrop-blur-sm",
 
-  modal: "fixed inset-0 z-[80] flex items-center justify-center p-4",
+  modal: "fixed inset-0 z-[80] flex items-start sm:items-center justify-center p-4",
 
-  modalContent: "w-full max-w-sm bg-white rounded-[20px] px-8 py-8 flex flex-col gap-6 shadow-xl",
+  modalContent: "mt-20 sm:mt-0 w-full max-w-sm bg-white rounded-[20px] px-8 py-8 flex flex-col gap-6 shadow-xl",
 
   digitInput: "w-14 h-14 text-center text-xl font-semibold rounded-xl border focus:outline-none focus:ring-2 transition-all duration-150",
 
