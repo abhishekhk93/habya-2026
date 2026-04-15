@@ -10,8 +10,10 @@ export const eventRegistrationStyles = {
   loadingState: "text-base text-black/40 text-center py-10 animate-pulse font-light",
 
   errorState: "text-base text-red-500 text-center py-10 font-light",
-  subtitle: "px-4 py-1.5 border border-transparent rounded-[14px] text-sm font-medium mb-14 text-center transition-all duration-[100ms] ease-in-out w-fit mx-auto",
-  maxSelectedEffect: "bg-black/[0.06] border-black/10 text-black shadow-sm",
+  subtitle: "text-sm font-medium mb-14 text-center transition-all duration-[100ms] ease-in-out w-fit mx-auto",
+  dividerContainer: "flex items-center w-full gap-4 mb-14",
+  dividerLine: "h-px bg-black flex-1",
+  dividerText: "text-sm font-light tracking-tight text-black whitespace-nowrap",
 
   limitInfo: "mb-6 text-center text-[11px] sm:text-xs font-medium text-black/40",
 

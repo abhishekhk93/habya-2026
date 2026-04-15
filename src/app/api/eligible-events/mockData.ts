@@ -7,7 +7,7 @@ export const dummyEligibleCategories: EligibleEventsResponse = {
       categoryName: "Open Men's singles",
       categoryType: "SINGLES",
       isEnabled: true,
-      categoryDescription: "Player should be below 35yrs as on 06/06/2026"
+      categoryDescription: ""
     },
     {
       categoryId: "002",
@@ -29,6 +29,6 @@ export const dummyEligibleCategories: EligibleEventsResponse = {
       categoryType: "DOUBLES",
       isEnabled: true,
       categoryDescription: "One male and one female, at least one player should be above 40yrs as on 06/06/2026"
-    } 
+    }
   ]
 };
