@@ -162,11 +162,15 @@ export default function Shop({ className }: ShopProps) {
                             <div className={s.cardContent}>
                                 <h3 className={s.shirtName}>{design.name} <span className={s.shirtPrice}>&nbsp;&nbsp;-&nbsp;&nbsp;₹{design.price}</span></h3>
                                 {cartCounts[design.type] ? (
-                                    <p className="text-[11px] text-center text-green-600 my-1 font-medium tracking-tight">
-                                        {cartCounts[design.type]} item{cartCounts[design.type] > 1 ? 's' : ''} of this type {cartCounts[design.type] > 1 ? 'are' : 'is'} in the cart.
+                                    <p className="text-[13px] text-center text-green-600 my-1.5 font-medium tracking-tight flex items-center justify-center">
+                                        You added {cartCounts[design.type]} item{cartCounts[design.type] > 1 ? 's' : ''} to the cart
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] ml-1">
+                                          <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                                          <path d="m9 12 2 2 4-4" />
+                                        </svg>
                                     </p>
                                 ) : (
-                                    <p className="text-[11px] text-center text-black/40 my-1 font-light tracking-tight">
+                                    <p className="text-[13px] text-center text-black/40 my-1.5 font-light tracking-tight">
                                         Customize your fit today!
                                     </p>
                                 )}
