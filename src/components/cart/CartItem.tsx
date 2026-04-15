@@ -1,5 +1,7 @@
 import type { CartItem as CartItemType } from "@/lib/atc/types";
 import { cartStyles as s } from "./Cart.styles";
+import { useAppSelector } from "@/store/hooks";
+import { getConfigValue } from "@/lib/getConfigValue";
 
 interface CartItemProps {
   item: CartItemType;
@@ -8,19 +10,36 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item, onRemove, icon }: CartItemProps) {
+  const config = useAppSelector((state) => state.config.data);
+
   let title = "";
   let details: React.ReactNode[] = [];
+  let price: number | null = null;
 
   if (item.itemType === "REGISTRATION") {
     const attrs = item.itemAttributes as any;
     title = attrs.categoryName;
     if (attrs.partnerPlayerId) details.push(<p key="pid">Partner ID: <strong>{attrs.partnerPlayerId}</strong></p>);
     if (attrs.partnerName) details.push(<p key="pname">Partner Name: <strong>{attrs.partnerName}</strong></p>);
+    if (attrs.category === "SINGLES") {
+      price = Number(getConfigValue(config, "price_event_singles", "NEXT_PUBLIC_PRICE_EVENT_SINGLES")) || 0;
+    } else if (attrs.category === "DOUBLES") {
+      price = Number(getConfigValue(config, "price_event_doubles", "NEXT_PUBLIC_PRICE_EVENT_DOUBLES")) || 0;
+    }
+    details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
   } else if (item.itemType === "TSHIRT") {
     const attrs = item.itemAttributes as any;
     title = attrs.type || "Event T-Shirt";
     if (attrs.size) details.push(<p key="size">Size: <strong>{attrs.size}</strong></p>);
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
+    if (attrs.type === "ROUND_NECK_HALF") {
+      price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", "NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES")) || 0;
+    } else if (attrs.type === "ROUND_NECK_SLEEVELESS") {
+      price = Number(getConfigValue(config, "price_shirt_round_neck_sleeveless", "NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS")) || 0;
+    } else if (attrs.type === "COLLARED_HALF") {
+      price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", "NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES")) || 0;
+    }
+    details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
   } else if (item.itemType === "SPONSORSHIP") {
     title = "Event Sponsorship";
     if (item.itemAmount) details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{item.itemAmount}</p>);

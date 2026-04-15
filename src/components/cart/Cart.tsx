@@ -5,7 +5,6 @@ import { getCart, saveCart } from "@/lib/atc/storage";
 import type { Cart as CartType } from "@/lib/atc/types";
 import { cartStyles as s } from "./Cart.styles";
 import Button from "../uiComponents/Button";
-import CartItem from "./CartItem";
 import { useAppSelector } from "@/store/hooks";
 import CartList from "./CartList";
 
@@ -61,7 +60,7 @@ export default function Cart() {
   const isEmpty = cart.items.length === 0;
 
   return (
-    <div className={s.wrapper} style={{ justifyContent: isEmpty ? `center` : 'justify-start'}}>
+    <div className={s.wrapper} style={{ justifyContent: isEmpty ? `center` : 'justify-start' }}>
       <div className={s.card}>
         {isEmpty ? (
           <div className={s.emptyState}>
@@ -73,35 +72,35 @@ export default function Cart() {
             <h2 className={s.emptyStateTitle}>Your cart is empty</h2>
             <p className={s.emptyStateText}>You haven't added any items to your cart yet.</p>
             <Link href="/" className={s.emptyStateLink}>
-              Go Home!
+              Home
             </Link>
           </div>
         ) : (
           <>
-          <div className="flex flex-col">
-            <h1 className={s.pageTitle}>Your Cart</h1>
-            { registrations.length > 0 && <CartList items={registrations} onRemove={handleRemove} title="Event Registrations" icon={registrationIcon} /> }
-            { shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="T-Shirts" icon={shirtIcon} /> }
-            { sponsorships.length > 0 && <CartList items={sponsorships} onRemove={handleRemove} title="Sponsorships" icon={sponsorshipIcon} /> }
-          </div>
-          {
-            !isEmpty && (
-              <div className={s.checkoutBox}>
-                <div className={s.checkoutSummary}>
+            <div className="flex flex-col">
+              <h1 className={s.pageTitle}>Your Cart</h1>
+              {registrations.length > 0 && <CartList items={registrations} onRemove={handleRemove} title="Event Registrations" icon={registrationIcon} />}
+              {shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="T-Shirts" icon={shirtIcon} />}
+              {sponsorships.length > 0 && <CartList items={sponsorships} onRemove={handleRemove} title="Sponsorships" icon={sponsorshipIcon} />}
+            </div>
+            {
+              !isEmpty && (
+                <div className={s.checkoutBox}>
+                  <div className={s.checkoutSummary}>
                     <p>Total Items: <strong>{cart.items.length}</strong></p>
                     {/* <p>Cart Total: <strong>₹{cart.items.reduce((acc, item) => acc + item.itemAmount, 0)}</strong></p> */}
-                </div>
-                <Button style={{marginTop: "0px"}}>
+                  </div>
+                  <Button style={{ marginTop: "0px" }}>
                     Proceed to Checkout
-                </Button>
-              </div>
-            )
-          }
+                  </Button>
+                </div>
+              )
+            }
           </>
         )}
 
       </div>
-      
+
       {sponsorshipToRemove && (
         <div className={s.modalOverlay}>
           <div className={s.modalContent}>
@@ -113,16 +112,16 @@ export default function Cart() {
               Your support is a game-changer and helps us keep the event running!
             </p>
             <div className={s.modalButtonGroup}>
-              <button 
-                type="button" 
-                onClick={() => setSponsorshipToRemove(null)} 
+              <button
+                type="button"
+                onClick={() => setSponsorshipToRemove(null)}
                 className={s.modalKeepButton}
               >
                 Keep my support in the game! 😇
               </button>
-              <button 
-                type="button" 
-                onClick={() => { executeRemove(sponsorshipToRemove); setSponsorshipToRemove(null); }} 
+              <button
+                type="button"
+                onClick={() => { executeRemove(sponsorshipToRemove); setSponsorshipToRemove(null); }}
                 className={s.modalRemoveButton}
               >
                 Remove 🙁
