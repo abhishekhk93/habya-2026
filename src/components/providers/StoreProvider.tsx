@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import { ReactNode, useRef, useEffect } from "react";
 import { fetchSession, setSession } from "@/store/features/authSlice";
+import { fetchConfig } from "@/store/features/configSlice";
+import { useAppDispatch } from "@/store/hooks";
 import type { LoginResponse } from "@/app/api/auth/login/types";
 
 interface StoreProviderProps {
@@ -11,24 +13,31 @@ interface StoreProviderProps {
   initialUser?: LoginResponse | null;
 }
 
-export function StoreProvider({ children, initialUser }: StoreProviderProps) {
+function AppInitializer({ children, initialUser }: StoreProviderProps) {
+  const dispatch = useAppDispatch();
   const initialized = useRef(false);
 
-  // Dispatch synchronously during render (before children mount) so the store
-  // starts in the correct state on the very first paint — no isLoading flash.
   if (!initialized.current) {
     initialized.current = true;
     if (initialUser) {
-      store.dispatch(setSession(initialUser));
+      dispatch(setSession(initialUser));
     }
   }
 
   useEffect(() => {
-    // Only hit the session API if we had no server-side cookie to seed from.
     if (!initialUser) {
-      store.dispatch(fetchSession());
+      dispatch(fetchSession());
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(fetchConfig());
+  }, [dispatch, initialUser]);
 
-  return <Provider store={store}>{children}</Provider>;
+  return <>{children}</>;
+}
+
+export function StoreProvider({ children, initialUser }: StoreProviderProps) {
+  return (
+    <Provider store={store}>
+      <AppInitializer initialUser={initialUser}>{children}</AppInitializer>
+    </Provider>
+  );
 }
