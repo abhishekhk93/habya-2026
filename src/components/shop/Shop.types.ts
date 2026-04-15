@@ -4,6 +4,7 @@ export type ShirtStyle = 'Roundneck Sleeveless' | 'Roundneck Half Sleeves' | 'Co
 export interface ShirtDesign {
     id: string;
     name: string;
+    type: 'ROUND_NECK_HALF' | 'ROUND_NECK_SLEEVELESS' | 'COLLARED_HALF';
     frontImage: string;
     backImage: string;
     price: number;

@@ -26,7 +26,7 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     } else {
       price = Number(getConfigValue(config, "price_event_singles", process.env.NEXT_PUBLIC_PRICE_EVENT_SINGLES)) || 0;
     }
-    details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
+    details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
   } else if (item.itemType === "TSHIRT") {
     const attrs = item.itemAttributes as any;
     title = attrs.type || "Event T-Shirt";
@@ -39,10 +39,10 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     } else if (attrs.type === "COLLARED_HALF") {
       price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES)) || 0;
     }
-    details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{price}</p>);
+    details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
   } else if (item.itemType === "SPONSORSHIP") {
     title = "Event Sponsorship";
-    if (item.itemAmount) details.push(<p key="amt" className={s.itemSubtitle}>Amount: ₹{item.itemAmount}</p>);
+    if (item.itemAmount) details.push(<p key="amt">Amount: <strong>₹{item.itemAmount}</strong></p>);
   }
 
   return (

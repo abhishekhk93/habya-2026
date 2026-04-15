@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { shopStyles as s } from "./Shop.styles";
-import type { ShirtDesign, ShirtSize, ShopProps } from "./Shop.types";
+import type { ShirtDesign, ShopProps } from "./Shop.types";
 import Button from "../uiComponents/Button";
 import { shirtDesigns } from "./Shop.data";
 import ShopModal from "./ShopModal";
@@ -14,7 +14,7 @@ export default function Shop({ className }: ShopProps) {
     const [showBadge, setShowBadge] = useState(false);
     // Per-card carousel index: 0 = front, 1 = back
     const [carouselIndex, setCarouselIndex] = useState<Record<string, number>>({});
-    
+
     const touchStartX = React.useRef<number>(0);
 
     // Lock background scroll when modal is open
@@ -142,7 +142,7 @@ export default function Shop({ className }: ShopProps) {
                                 <Button btnType="small" onClick={() => handleOpenModal(design)}>
                                     Customize & Add
                                 </Button>
-                                
+
                             </div>
                         </div>
                     ))}
@@ -160,7 +160,7 @@ export default function Shop({ className }: ShopProps) {
 
             {showBadge && (
                 <div className={`${s.badge} ${showBadge ? s.badgeOpen : ''}`}>
-                {/* Tick icon */}
+                    {/* Tick icon */}
                     <div className={s.tickIcon}>
                         ✓
                     </div>
