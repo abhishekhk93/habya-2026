@@ -57,7 +57,7 @@ export default function EventItem({
     }
   } else {
     subtitleDisplay = (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between w-full">
         <strong>Amount: ₹ {price}</strong>
         {event.categoryDescription && (
           <div className="relative inline-block" ref={popoverRef}>
