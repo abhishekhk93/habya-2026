@@ -1,8 +1,14 @@
-import { ConfigData } from './types';
+import { ConfigData } from "./types";
 
 export const mockConfig: ConfigData = {
-  shirtPrice: "500",
-  registrationFee: "1000",
-  doublesFee: "800",
-  isShirtEnabled: "true"
+  price_event_singles: "500",
+  price_event_doubles: "800",
+
+  price_shirt_round_neck_half_sleeves: "300",
+  price_shirt_round_neck_sleeveless: "280",
+  price_shirt_collared_half_sleeves: "350",
+
+  is_registration_open: true,
+  is_shirt_orders_open: true,
+  is_sponsorships_open: false,
 };

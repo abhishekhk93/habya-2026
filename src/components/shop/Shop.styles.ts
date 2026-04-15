@@ -1,7 +1,7 @@
 export const shopStyles = {
   wrapper: "relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-10 px-4",
   
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-8 pt-6 pb-10 sm:px-12 sm:pt-6 sm:pb-12 my-8",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-5xl lg:max-w-[1200px] mx-auto flex flex-col bg-white rounded-[20px] px-8 pt-6 pb-10 sm:px-12 sm:pt-6 sm:pb-12 my-8",
 
   // Page headings
   header: "text-2xl font-light tracking-tight mb-2 text-center",

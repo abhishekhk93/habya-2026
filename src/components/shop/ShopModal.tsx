@@ -49,7 +49,7 @@ export default function ShopModal({ isOpen, design, onClose, setShowBadge }: Sho
         if (!design || !selectedSize) return;
         addShirtsToCart(
             {
-                type: design.name,
+                type: design.type,
                 displayName: nameToPrint,
                 size: selectedSize ?? "",
             },

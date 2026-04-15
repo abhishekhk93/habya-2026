@@ -4,6 +4,7 @@ export const shirtDesigns: ShirtDesign[] = [
     {
         id: "d1",
         name: "Collared Half sleeves",
+        type: "COLLARED_HALF",
         frontImage: "/shirts/one-front.png",
         backImage: "/shirts/one-back.png",
         price: 599,
@@ -11,6 +12,7 @@ export const shirtDesigns: ShirtDesign[] = [
     {
         id: "d2",
         name: "Roundneck Half Sleeves",
+        type: "ROUND_NECK_HALF",
         frontImage: "/shirts/two-front.png",
         backImage: "/shirts/two-back.png",
         price: 549,
@@ -18,6 +20,7 @@ export const shirtDesigns: ShirtDesign[] = [
     {
         id: "d3",
         name: "Roundneck Sleeveless",
+        type: "ROUND_NECK_SLEEVELESS",
         frontImage: "/shirts/three-front.png",
         backImage: "/shirts/three-back.png",
         price: 499,
