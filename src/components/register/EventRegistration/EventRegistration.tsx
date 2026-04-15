@@ -110,15 +110,12 @@ export default function EventRegistration() {
       <div className={s.wrapper}>
         <div className={s.card}>
           <h1 className={s.header}>Eligible Events</h1>
-          <div className={`${s.subtitle} ${selectedEventIds.size >= 2 ? s.maxSelectedEffect : "text-black/60"}`}>
-            <div className="grid items-center justify-items-center">
-              <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size >= 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                Maximum events selected
-              </span>
-              <span className={`col-start-1 row-start-1 transition-opacity duration-500 ease-in-out ${selectedEventIds.size < 2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                Select up to 2 events
-              </span>
+          <div className={s.dividerContainer}>
+            <div className={s.dividerLine} />
+            <div className={s.dividerText}>
+              Selected: {selectedEventIds.size} out of 2 events
             </div>
+            <div className={s.dividerLine} />
           </div>
 
           <EventList
