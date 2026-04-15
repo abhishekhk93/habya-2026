@@ -8,10 +8,10 @@ export interface RegistrationAttributes {
 }
 
 export interface TShirtAttributes {
-  type: string;
+  name: string;
   displayName: string;
   size: string;
-  color?: string;
+  type: string;
 }
 
 export type SponsorshipAttributes = Record<string, never>;

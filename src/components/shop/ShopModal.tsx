@@ -13,11 +13,10 @@ interface ShopModalProps {
     isOpen: boolean;
     design: ShirtDesign | null;
     onClose: () => void;
-    setShowBadge: (value: boolean) => void;
     // onAddToCart: (e: React.FormEvent) => void;
 }
 
-export default function ShopModal({ isOpen, design, onClose, setShowBadge }: ShopModalProps) {
+export default function ShopModal({ isOpen, design, onClose }: ShopModalProps) {
     const playerId = useAppSelector((state) => state.auth.user?.playerId);
     const [selectedSize, setSelectedSize] = useState<ShirtSize | null>(null);
     const [nameToPrint, setNameToPrint] = useState("");
@@ -49,13 +48,13 @@ export default function ShopModal({ isOpen, design, onClose, setShowBadge }: Sho
         if (!design || !selectedSize) return;
         addShirtsToCart(
             {
-                type: design.type,
+                name: design.name,
                 displayName: nameToPrint,
                 size: selectedSize ?? "",
+                type: design.type,
             },
             playerId
         );
-        setShowBadge(true);
         handleClose();
     };
 

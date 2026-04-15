@@ -2,6 +2,7 @@ import type { CartItem as CartItemType } from "@/lib/atc/types";
 import { cartStyles as s } from "./Cart.styles";
 import { useAppSelector } from "@/store/hooks";
 import { getConfigValue } from "@/lib/getConfigValue";
+import { sizeChart } from "@/components/shop/Shop.data";
 
 interface CartItemProps {
   item: CartItemType;
@@ -19,7 +20,6 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
   if (item.itemType === "REGISTRATION") {
     const attrs = item.itemAttributes as any;
     title = attrs.categoryName;
-    if (attrs.partnerPlayerId) details.push(<p key="pid">Partner ID: <strong>{attrs.partnerPlayerId}</strong></p>);
     if (attrs.partnerName) {
       details.push(<p key="pname">Partner Name: <strong>{attrs.partnerName}</strong></p>);
       price = Number(getConfigValue(config, "price_event_doubles", process.env.NEXT_PUBLIC_PRICE_EVENT_DOUBLES)) || 0;
@@ -29,8 +29,20 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
   } else if (item.itemType === "TSHIRT") {
     const attrs = item.itemAttributes as any;
-    title = attrs.type || "Event T-Shirt";
-    if (attrs.size) details.push(<p key="size">Size: <strong>{attrs.size}</strong></p>);
+    title = attrs.name || "Event T-Shirt";
+    if (attrs.size) {
+      const sizeInfo = sizeChart.find(row => row.size === attrs.size);
+      details.push(
+        <p key="size">
+          Size: <strong>{attrs.size}</strong>
+          {sizeInfo && (
+            <span className="text-xs italic text-black/50 ml-1 font-normal">
+              (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
+            </span>
+          )}
+        </p>
+      );
+    }
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
     if (attrs.type === "ROUND_NECK_HALF") {
       price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES)) || 0;
