@@ -13,7 +13,7 @@ const BASE_MENU_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Register", href: "/register" },
   { label: "Buy Shirts", href: "/shop" },
-  { label: "Sponsor", href: "#" },
+  { label: "Sponsor", href: "/sponsorship" },
   { label: "My Orders", href: "#" },
 ];
 
