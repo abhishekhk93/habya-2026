@@ -28,11 +28,11 @@ export default function SponsorshipPage() {
     if (!isInitialized && userPlayerId) {
       const cart = getCart(userPlayerId);
       const sponsorshipItem = cart.items.find(item => item.itemType === "SPONSORSHIP");
-      
+
       if (sponsorshipItem) {
         const amount = sponsorshipItem.itemAmount;
         const level = SPONSORSHIP_LEVELS.find(l => l.amount === amount);
-        
+
         if (level) {
           setSelectedLevelId(level.id);
         } else {
@@ -66,14 +66,14 @@ export default function SponsorshipPage() {
       if (!level) return;
 
       setSelectedLevelId(levelId);
-      
+
       if (level.amount !== "custom") {
         setCustomAmount(0); // Clear custom amount when fixed level is selected
         addSponsorshipToCart({ amount: level.amount, playerId: userPlayerId });
       } else {
         // For custom, if we already have a valid amount, add it.
         if (customAmount > 0) {
-           addSponsorshipToCart({ amount: customAmount, playerId: userPlayerId });
+          addSponsorshipToCart({ amount: customAmount, playerId: userPlayerId });
         } else {
           // If custom is selected but amount is invalid yet, remove any existing sponsorship
           removeSponsorshipFromCart();
@@ -95,15 +95,10 @@ export default function SponsorshipPage() {
     <div className={s.wrapper}>
       <div className={s.card}>
         <h1 className={s.header}>Sponsorship</h1>
-        
-        <div className={s.dividerContainer}>
-          <div className={s.dividerText}>Choose your contribution</div>
-        </div>
 
-        <p className={s.subtitle}>
-          Your support helps us make this event a grand success. 
-          Select a sponsorship level that suits you best.
-        </p>
+        <div className={s.dividerContainer}>
+          <div className={s.dividerText}>We’re building Habya 2026. You in?</div>
+        </div>
 
         <div className={s.levelsContainer}>
           <SponsorshipList
