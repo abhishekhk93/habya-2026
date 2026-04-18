@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ordersStyles as s } from './Orders.styles';
 import OrderCard from './OrderCard';
 import type { Order } from '@/app/api/orders/types';
+import Button from '../uiComponents/Button';
 
 interface MyOrdersProps {
   orders: Order[];
@@ -41,6 +42,11 @@ export default function MyOrders({ orders }: MyOrdersProps) {
             }} />
           </>
         )}
+      <Button style={{marginTop: "5px"}} btnType='small'>
+        <Link href="/">
+          Back to Home
+        </Link>
+      </Button>
       </div>
     </div>
   );
