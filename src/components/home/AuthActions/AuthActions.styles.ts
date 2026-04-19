@@ -40,11 +40,12 @@ export const authActionsStyles = {
     "sm:h-12",
     "rounded-full",
     "border",
-    "border-black/30",
-    "group-hover:border-black/60",
-    "group-hover:bg-black/5",
+    "border-[#5b3fb5]/30",
+    "group-hover:border-[#5b3fb5]/60",
+    "group-hover:bg-[#5b3fb5]/5",
     "transition-all",
     "duration-300",
+    "cursor-pointer",
   ].join(" "),
 
   signInArrow: [
@@ -52,6 +53,7 @@ export const authActionsStyles = {
     "h-4",
     "sm:w-5",
     "sm:h-5",
+    "text-[#5b3fb5]",
     "transition-transform",
     "duration-300",
     "group-hover:translate-x-0.5",

@@ -1,53 +1,57 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { heroStyles } from "./Hero.styles";
+import { useAppSelector } from "@/store/hooks";
+import { heroStyles as s } from "./Hero.styles";
 import type { HeroProps } from "./Hero.types";
-import { WaveParticles } from "@/components/home/WaveParticles";
+import { HeroIllustration } from "@/components/home/HeroIllustration";
+import { TitleBlock } from "@/components/home/TitleBlock";
+import { SectionLabel } from "@/components/home/SectionLabel";
+import { ActionCards } from "@/components/home/ActionCards";
+import { ProfileCard } from "@/components/home/ProfileCard";
 import { AuthActions } from "@/components/home/AuthActions";
+import { ScatteredDots } from "@/components/home/ScatteredDots";
 
 export default function Hero({ headline, description }: HeroProps) {
-    const [displayedText, setDisplayedText] = useState("");
-    const [isTypingCompleted, setIsTypingCompleted] = useState(false);
+  const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
 
-    useEffect(() => {
-        let i = 0;
-        setDisplayedText(""); // Reset when headline changes
-        setIsTypingCompleted(false);
-        const typingInterval = setInterval(() => {
-            if (i < headline.length) {
-                setDisplayedText(headline.slice(0, i + 1));
-                i++;
-            } else {
-                setIsTypingCompleted(true);
-                clearInterval(typingInterval);
-            }
-        }, 90); // ~1.3x speed increase
+  if (isLoading) return null;
 
-        return () => clearInterval(typingInterval);
-    }, [headline]);
+  return (
+    <section className={s.wrapper}>
+      <div className={s.container}>
+        {/* 1. Title Block at the top */}
+        <TitleBlock 
+          title={headline} 
+          subtitle={description || ""} 
+        />
 
-    return (
-        <section className={heroStyles.wrapper}>
-            <WaveParticles isVisible={isTypingCompleted} />
+        {isLoggedIn ? (
+          <>
+            {/* 2. Scattered Dots below Title */}
+            <ScatteredDots />
 
-            <div className={`relative z-10 ${heroStyles.content}`}>
-                <img 
-                    src="/illustration-1.png" 
-                    alt="Habya Illustration"
-                    className={`${heroStyles.illustrationTop} ${isTypingCompleted ? heroStyles.illustrationVisible : heroStyles.illustrationHidden}`}
-                />
-                <h1 className={heroStyles.headline}>
-                    {displayedText}
-                    {!isTypingCompleted && <span className={heroStyles.cursor} />}
-                </h1>
-                {description && (
-                    <p className={`${heroStyles.description} ${isTypingCompleted ? heroStyles.descriptionVisible : heroStyles.descriptionHidden}`}>
-                        {description}
-                    </p>
-                )}
-                <AuthActions isVisible={isTypingCompleted} />
+            {/* 3. Your Profile section */}
+            <div className={s.section}>
+              <SectionLabel>YOUR PROFILE</SectionLabel>
+              <ProfileCard />
             </div>
-        </section>
-    );
+
+            {/* 4. Get Started section */}
+            <div className={s.section}>
+              <SectionLabel>GET STARTED</SectionLabel>
+              <ActionCards />
+            </div>
+          </>
+        ) : (
+          /* Logged Out Content */
+          <>
+            <HeroIllustration />
+            <div className="flex flex-col items-center flex-1 justify-center">
+              <AuthActions isVisible={true} />
+            </div>
+          </>
+        )}
+      </div>
+    </section>
+  );
 }
