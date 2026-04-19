@@ -12,7 +12,7 @@ export const profileCardStyles = {
   
   topRow: "flex items-center justify-between",
   
-  name: "text-[14px] font-medium text-[#1a1a1a]",
+  name: "text-[16px] font-medium text-[#1a1a1a]",
   
   badge: [
     "bg-[#f5f0fe]",
@@ -22,7 +22,7 @@ export const profileCardStyles = {
     "px-[10px]",
     "py-[5px]",
     "text-[#5b3fb5]",
-    "text-[13px]",
+    "text-[14px]",
     "font-medium",
     "leading-none",
   ].join(" "),
@@ -33,5 +33,5 @@ export const profileCardStyles = {
   
   infoIcon: "text-[#ccc] w-[11px] h-[11px] flex-shrink-0",
   
-  noteText: "text-[11px] text-[#bbb] leading-none text-left",
+  noteText: "text-[12px] text-[#bbb] leading-none text-left",
 } as const;
