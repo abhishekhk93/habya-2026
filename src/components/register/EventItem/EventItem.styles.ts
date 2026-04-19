@@ -1,6 +1,6 @@
 export const eventItemStyles = {
-  // Container: Remove padding so children can be full-width
-  eventItem: "flex flex-col rounded-[14px] border border-indigo-200 transition-all duration-300 overflow-hidden",
+  // Container: Removed overflow-hidden to prevent cutting off the popover
+  eventItem: "flex flex-col rounded-[14px] border border-indigo-200 transition-all duration-300 relative",
   
   // Header Row: Add the padding back here
   eventHeaderRow: "flex items-center justify-between w-full p-4 sm:p-5",
@@ -23,6 +23,8 @@ export const eventItemStyles = {
     "border-indigo-200",
     "flex",
     "items-center",
+    "rounded-b-[13px]", // Match parent rounding but inner
+    "relative",
   ].join(" "),
   
   eventSubtitleActive: "bg-indigo-100/50",

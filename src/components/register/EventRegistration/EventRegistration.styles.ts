@@ -20,18 +20,18 @@ export const eventRegistrationStyles = {
 
   modal: "fixed inset-0 z-[80] flex items-start sm:items-center justify-center p-4",
 
-  modalContent: "mt-20 sm:mt-0 w-full max-w-sm bg-white rounded-[20px] px-8 py-8 flex flex-col gap-6 shadow-xl",
+  modalContent: "mt-20 sm:mt-0 w-full max-w-sm bg-white rounded-[20px] px-8 py-8 flex flex-col gap-6 shadow-xl border border-indigo-100",
 
   digitInput: "w-14 h-14 text-center text-xl font-semibold rounded-xl border focus:outline-none focus:ring-2 transition-all duration-150",
 
-  digitInputFilled: "border-black/30 focus:ring-black/20 text-black",
+  digitInputFilled: "border-indigo-300 focus:ring-indigo-200 text-black bg-indigo-50/30",
 
-  digitInputEmpty: "border-black/10 focus:ring-black/10 text-black/60",
+  digitInputEmpty: "border-indigo-100 focus:ring-indigo-100 text-black/60 bg-transparent",
 
   errorPlaceholder: "text-xs text-center -mt-2 min-h-4",
   error: "text-red-500",
 
-  cancelButton: "flex-1 py-2.5 rounded-xl border border-black/10 text-sm font-medium text-black/60 hover:bg-black/5 transition-colors",
+  cancelButton: "flex-1 py-2.5 rounded-xl border border-indigo-100 text-sm font-medium text-black hover:bg-indigo-50/50 transition-colors",
 
-  submitButton: "flex-1 py-2.5 rounded-xl bg-black text-white text-sm font-medium transition-opacity disabled:opacity-30",
+  submitButton: "flex-1 py-2.5 rounded-xl bg-white border-2 border-indigo-600 text-black text-sm font-medium transition-all disabled:opacity-30 hover:bg-indigo-50",
 } as const;
