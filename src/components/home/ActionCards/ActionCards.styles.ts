@@ -28,9 +28,9 @@ export const actionCardsStyles = {
   
   middle: "flex flex-col flex-1 min-w-0",
   
-  title: "text-[13px] font-medium text-[#1a1a1a]",
+  title: "text-[15px] font-medium text-[#1a1a1a]",
   
-  subtitle: "text-[11px] text-[#bbb]",
+  subtitle: "text-[13px] text-[#bbb]",
   
   chevron: [
     "w-[7px]",

@@ -9,7 +9,7 @@ export const titleBlockStyles = {
   ].join(" "),
   
   subtitle: [
-    "text-[13px]",
+    "text-[15px]",
     "text-[#999]",
     "mt-1",
   ].join(" "),

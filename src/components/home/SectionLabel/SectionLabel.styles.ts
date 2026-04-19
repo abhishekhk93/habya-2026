@@ -1,6 +1,6 @@
 export const sectionLabelStyles = {
   label: [
-    "text-[10px]",
+    "text-[12px]",
     "font-medium",
     "text-[#bbb]",
     "tracking-[0.07em]",
