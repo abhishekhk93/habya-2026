@@ -14,7 +14,7 @@ const BASE_MENU_ITEMS = [
   { label: "Register", href: "/register" },
   { label: "Buy Shirts", href: "/shop" },
   { label: "Sponsor", href: "/sponsorship" },
-  { label: "My Orders", href: "#" },
+  { label: "My Orders", href: "/orders" },
 ];
 
 export default function Navbar() {
