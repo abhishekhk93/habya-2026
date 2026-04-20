@@ -15,7 +15,8 @@ export const heroStyles = {
 
   wrapperLoggedIn: [
     "relative",
-    "min-h-[100dvh]",
+    "min-h-[calc(100dvh-72px)]",
+    "sm:min-h-[calc(100dvh-88px)]",
     "bg-white",
     "flex",
     "flex-col",
@@ -40,7 +41,7 @@ export const heroStyles = {
     "w-[calc(100%-1rem)]",
     "sm:w-full",
     "max-w-[500px]",
-    "mx-auto",
+    "my-auto",
     "flex",
     "flex-col",
     "gap-4",
