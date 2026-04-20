@@ -16,6 +16,11 @@ export default function AuthForm(props: SignInFormProps) {
         <h1 className={s.header}>
           {activeTab === 'login' ? 'Login' : 'Register'}
         </h1>
+          <div className={s.subtitle}>
+            {activeTab === "register"
+              ? "Create account for Habya 2026."
+              : "Access your Habya 2026 account."}
+          </div>
 
         {activeTab === 'login' ? <LoginForm {...props} /> : <RegisterForm {...props} />}
 

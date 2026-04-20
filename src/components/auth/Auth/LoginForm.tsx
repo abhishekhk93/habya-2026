@@ -17,10 +17,24 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
+
+    const normalizedPhone = phone.replace(/\D/g, "");
+    const normalizedPassword = password.replace(/\D/g, "");
+    if (!/^\d{10}$/.test(normalizedPhone)) {
+      setError("Phone number must be exactly 10 digits.");
+      return;
+    }
+    if (!/^\d{12}$/.test(normalizedPassword)) {
+      setError("Password must be exactly 12 digits.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const resultAction = await dispatch(loginUser({ phone, password }));
+      const resultAction = await dispatch(
+        loginUser({ phone: normalizedPhone, password: normalizedPassword })
+      );
       if (loginUser.fulfilled.match(resultAction)) {
         onSuccess?.();
       } else {
@@ -41,9 +55,12 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
           id="login-phone"
           type="tel"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
           className={s.input}
           autoComplete="off"
+          inputMode="numeric"
+          maxLength={10}
+          pattern="\d{10}"
           required
         />
       </div>
@@ -54,20 +71,23 @@ export function LoginForm({ onSuccess }: SignInFormProps) {
           id="login-password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value.replace(/\D/g, "").slice(0, 12))}
           className={s.input}
           autoComplete="off"
+          inputMode="numeric"
+          maxLength={12}
+          pattern="\d{12}"
           required
         />
       </div>
 
       <div className={s.infoBox}>
         <strong className="text-black font-medium block mb-1">Welcome back!</strong>
-        Password = PlayerID + Date of birth. Ex: 1000 + 22012001 → 100022012001
+        Password = PlayerID + Date of birth. Ex: 2255 + 11081998 → 225511081998
       </div>
 
-      {error && <p className={s.error}>{error}</p>}
-      <Button type="submit" disabled={isSubmitting}>
+      <p className={s.error}>{error || "\u00A0"}</p>
+      <Button btnType="small" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Logging in..." : "Login"}
       </Button>
     </form>
