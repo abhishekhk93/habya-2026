@@ -23,7 +23,6 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
   // Custom Dropdown State
   const [isGenderOpen, setIsGenderOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const dobInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // Close dropdown on outside click
@@ -40,8 +39,24 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
     e.preventDefault();
     setError("");
 
+    const trimmedName = fullName.trim();
+    const normalizedPhone = phone.replace(/\D/g, "");
+    const normalizedGender = gender.toLowerCase();
+
+    if (!trimmedName) {
+      setError("Please enter your full name.");
+      return;
+    }
+    if (!/^\d{10}$/.test(normalizedPhone)) {
+      setError("Phone number must be exactly 10 digits.");
+      return;
+    }
     if (!gender) {
       setError("Please select your gender.");
+      return;
+    }
+    if (!["male", "female"].includes(normalizedGender)) {
+      setError("Gender must be Male or Female.");
       return;
     }
     if (!dob) {
@@ -59,7 +74,15 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
       const parts = dob.split('-');
       const formattedDob = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dob;
 
-      const resultAction = await dispatch(signupUser({ fullName, phone, gender, dob: formattedDob, captchaToken }));
+      const resultAction = await dispatch(
+        signupUser({
+          fullName: trimmedName,
+          phone: normalizedPhone,
+          gender: normalizedGender,
+          dob: formattedDob,
+          captchaToken,
+        })
+      );
       if (signupUser.fulfilled.match(resultAction)) {
         onSuccess?.();
       } else {
@@ -97,9 +120,12 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
           id="reg-phone"
           type="tel"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
           className={s.input}
           autoComplete="off"
+          inputMode="numeric"
+          maxLength={10}
+          pattern="\d{10}"
           required
         />
       </div>
@@ -111,7 +137,7 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
             onClick={() => setIsGenderOpen(!isGenderOpen)}
             className={`${s.input} flex items-center justify-between cursor-pointer`}
           >
-            <span className={gender ? "text-black capitalize" : "text-black/40"}>
+            <span className={`text-sm ${gender ? "text-black capitalize" : "text-black/40"}`}>
               {gender}
             </span>
             <span className="text-black/40 text-sm">▼</span>
@@ -119,11 +145,11 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
 
           {isGenderOpen && (
             <ul className="absolute top-[110%] left-0 w-full bg-white border border-black/10 rounded-xl shadow-lg z-50 overflow-hidden">
-              {['Male', 'Female', 'Other'].map(opt => (
+              {['Male', 'Female'].map(opt => (
                 <li
                   key={opt}
                   onClick={() => { setGender(opt.toLowerCase()); setIsGenderOpen(false); }}
-                  className="px-5 py-3 hover:bg-black/5 cursor-pointer text-base font-light text-black transition-colors"
+                  className="px-5 py-3 hover:bg-black/5 cursor-pointer text-sm font-light text-black transition-colors"
                 >
                   {opt}
                 </li>
@@ -134,54 +160,40 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
       </div>
 
       <div className={s.inputGroup}>
-        <label className={s.label}>Date of Birth</label>
-        <div
-          onClick={() => {
-            try {
-              dobInputRef.current?.showPicker();
-            } catch (e) {
-              dobInputRef.current?.focus();
-            }
-          }}
-          className={`${s.input} flex items-center justify-between cursor-pointer relative overflow-hidden`}
-        >
-          <span className={dob ? "text-black" : "text-black/40"}>
-            {dob ? new Date(dob).toLocaleDateString('en-GB') : ""}
-          </span>
-          <span className="text-black/40 opacity-70">📅</span>
+        <label htmlFor="reg-dob" className={s.label}>Date of Birth</label>
+        <input
+          id="reg-dob"
+          type="date"
+          value={dob}
+          max={new Date().toISOString().split('T')[0]}
+          onChange={(e) => setDob(e.target.value)}
+          className={s.dateInput}
+          required
+        />
+      </div>
 
-          <input
-            ref={dobInputRef}
-            type="date"
-            value={dob}
-            max={new Date().toISOString().split('T')[0]}
-            onChange={(e) => setDob(e.target.value)}
-            className="absolute inset-0 w-0 h-0 opacity-0 pointer-events-none"
-            tabIndex={-1}
+      <div className={s.inputGroup}>
+        <p className="text-[10px] text-black/40 mb-2 uppercase tracking-widest font-semibold flex items-center gap-1">
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+          Security Check
+        </p>
+        <div className={s.turnstileBox}>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+            onSuccess={(token) => {
+              setCaptchaToken(token);
+              setError("");
+            }}
+            onError={() => setError("Captcha verification failed. Please try again.")}
+            onExpire={() => setCaptchaToken("")}
           />
         </div>
       </div>
 
-      <div className={s.inputGroup}>
-        <p className="text-[11px] text-black/40 mb-2 uppercase tracking-widest font-semibold flex items-center gap-1">
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-          Security Check
-        </p>
-        <Turnstile
-          ref={turnstileRef}
-          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
-          onSuccess={(token) => {
-            setCaptchaToken(token);
-            setError("");
-          }}
-          onError={() => setError("CAPTCHA verification failed. Please try again.")}
-          onExpire={() => setCaptchaToken("")}
-        />
-      </div>
+      <p className={s.error}>{error || "\u00A0"}</p>
 
-      {error && <p className={s.error}>{error}</p>}
-
-      <Button type="submit" disabled={isSubmitting}>
+      <Button btnType="small" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Registering..." : "Register"}
       </Button>
     </form>
