@@ -30,7 +30,7 @@ export const actionCardsStyles = {
   
   title: "text-[15px] font-medium text-[#1a1a1a]",
   
-  subtitle: "text-[13px] text-[#bbb]",
+  subtitle: "text-[13px] text-[#8f8f8f]",
   
   chevron: [
     "w-[7px]",

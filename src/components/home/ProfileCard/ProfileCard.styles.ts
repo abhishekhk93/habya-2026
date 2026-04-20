@@ -35,6 +35,6 @@ export const profileCardStyles = {
   
   infoIcon: "text-[#ccc] w-[11px] h-[11px] flex-shrink-0",
   
-  noteList: "list-disc pl-4 text-[12px] text-[#bbb] leading-[1.25] text-left",
-  noteItem: "marker:text-[#c7c7c7]",
+  noteList: "list-disc pl-4 text-[12px] text-[#8f8f8f] leading-[1.3] text-left",
+  noteItem: "marker:text-[#9a9a9a]",
 } as const;
