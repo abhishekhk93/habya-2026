@@ -19,27 +19,32 @@ export default function Hero({ headline, description }: HeroProps) {
   return (
     <section className={s.wrapper}>
       <div className={s.container}>
-        {/* 1. Title Block at the top */}
-        <TitleBlock 
-          title={headline} 
-          subtitle={description || ""} 
-        />
+        {/* 1. Title Block or Small Logo at the top */}
+        {isLoggedIn ? (
+          <HeroIllustration size="small" />
+        ) : (
+          <TitleBlock 
+            title={headline} 
+            subtitle={description || ""} 
+          />
+        )}
 
         {isLoggedIn ? (
           <>
             {/* 2. Scattered Dots below Title */}
             <ScatteredDots />
 
-            {/* 3. Your Profile section */}
-            <div className={s.section}>
-              <SectionLabel>YOUR PROFILE</SectionLabel>
-              <ProfileCard />
-            </div>
+            {/* 3. Profile & Get Started combined card */}
+            <div className={s.contentCard}>
+              <div className={s.section}>
+                <SectionLabel>YOUR PROFILE</SectionLabel>
+                <ProfileCard />
+              </div>
 
-            {/* 4. Get Started section */}
-            <div className={s.section}>
-              <SectionLabel>GET STARTED</SectionLabel>
-              <ActionCards />
+              <div className={s.section}>
+                <SectionLabel>GET STARTED</SectionLabel>
+                <ActionCards />
+              </div>
             </div>
           </>
         ) : (

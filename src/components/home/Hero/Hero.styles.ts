@@ -22,4 +22,17 @@ export const heroStyles = {
   ].join(" "),
 
   section: "w-full",
+
+  contentCard: [
+    "bg-white",
+    "rounded-[20px]",
+    "shadow-sm",
+    "border",
+    "border-black/5",
+    "px-6",
+    "py-8",
+    "flex",
+    "flex-col",
+    "gap-8",
+  ].join(" "),
 } as const;
