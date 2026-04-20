@@ -7,6 +7,7 @@ import { cartStyles as s } from "./Cart.styles";
 import Button from "../uiComponents/Button";
 import { useAppSelector } from "@/store/hooks";
 import CartList from "./CartList";
+import CartSummary from "./CartSummary";
 
 export default function Cart() {
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
@@ -60,8 +61,11 @@ export default function Cart() {
   const isEmpty = cart.items.length === 0;
 
   return (
-    <div className={s.wrapper} style={{ justifyContent: isEmpty ? `center` : 'justify-start' }}>
-      <div className={s.card}>
+    <div
+      className={`${s.wrapper} ${isEmpty ? s.wrapperEmpty : ""}`}
+      style={{ justifyContent: isEmpty ? "center" : "justify-start" }}
+    >
+      <div className={`${s.card} ${isEmpty ? s.cardEmpty : ""}`}>
         {isEmpty ? (
           <div className={s.emptyState}>
             <div className={s.emptyStateIcon}>
@@ -81,19 +85,21 @@ export default function Cart() {
               <h1 className={s.pageTitle}>Your Cart</h1>
               <div className={s.pageSubtitle}>All your picks, ready when you are.</div>
               {registrations.length > 0 && <CartList items={registrations} onRemove={handleRemove} title="Event Registrations" icon={registrationIcon} />}
-              {shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="T-Shirts" icon={shirtIcon} />}
+              {shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="Shirts" icon={shirtIcon} />}
               {sponsorships.length > 0 && <CartList items={sponsorships} onRemove={handleRemove} title="Sponsorships" icon={sponsorshipIcon} />}
             </div>
             {
               !isEmpty && (
                 <div className={s.checkoutBox}>
-                  <div className={s.checkoutSummary}>
-                    <p>Total Items: <strong>{cart.items.length}</strong></p>
-                    {/* <p>Cart Total: <strong>₹{cart.items.reduce((acc, item) => acc + item.itemAmount, 0)}</strong></p> */}
+                  <CartSummary items={cart.items} />
+                  <div className={s.checkoutButtonWrap}>
+                    <Button
+                      btnType="small"
+                      style={{ marginTop: "0px", width: "auto", whiteSpace: "nowrap" }}
+                    >
+                      Proceed to Checkout
+                    </Button>
                   </div>
-                  <Button style={{ marginTop: "0px" }}>
-                    Proceed to Checkout
-                  </Button>
                 </div>
               )
             }

@@ -1,7 +1,9 @@
 export const cartStyles = {
   wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
+  wrapperEmpty: "-mt-4 pt-0 pb-6",
 
   card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
+  cardEmpty: "py-8 sm:py-10 -translate-y-4",
 
   pageTitle: "text-2xl font-light tracking-tight mb-2 text-center",
   pageSubtitle: "text-sm font-light mb-4 text-center text-black/60",
@@ -28,7 +30,7 @@ export const cartStyles = {
 
   iconWrapper: "flex-shrink-0 mt-0.5 flex align-center justify-center",
 
-  emptyState: "text-center py-20 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl",
+  emptyState: "text-center py-8 bg-transparent",
 
   emptyStateIcon: "mx-auto h-12 w-12 text-gray-400 mb-4",
 
@@ -38,9 +40,18 @@ export const cartStyles = {
 
   emptyStateLink: "mt-6 inline-flex items-center rounded-md bg-black px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 transition-colors",
 
-  checkoutBox: "flex flex-col justify-between items-center",
+  checkoutBox: "flex w-full flex-col items-center gap-4 pt-2",
 
-  checkoutSummary: "text-lg font-semibold text-gray-600 mb-4 flex justify-start",
+  checkoutSummary: "w-full text-sm text-gray-700",
+  totalsCard: "w-full mt-2 p-4 rounded-2xl border border-[#d9d9d9] bg-white",
+  totalsRow: "flex items-center justify-between py-1.5",
+  totalsLabel: "text-sm text-black/60",
+  totalsValue: "text-sm font-medium text-black/80 tabular-nums",
+  totalsDivider: "my-3 h-px w-full bg-[#ececec]",
+  totalsFinalLabel: "text-sm font-medium text-black",
+  totalsFinalValue: "text-sm font-semibold text-black tabular-nums",
+  totalsNote: "mt-2 text-[12px] text-black/50 leading-snug",
+  checkoutButtonWrap: "pt-2",
 
   checkoutButton: "rounded-md bg-black px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 transition-all",
 

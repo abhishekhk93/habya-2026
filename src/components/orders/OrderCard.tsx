@@ -40,7 +40,6 @@ export default function OrderCard({ order }: OrderCardProps) {
           <div className={s.itemTitleContainer}>
             <p className={s.itemTitle}>{item.additionalAttributes.categoryName}</p>
             <div className={s.itemDetailsList}>
-              <p>Player: {item.createdBy}</p>
               {isDoubles && (
                  <p>Partner: {item.additionalAttributes.partnerDetails?.fullName}</p>
               )}
@@ -61,14 +60,13 @@ export default function OrderCard({ order }: OrderCardProps) {
         <div className={s.itemContent}>
           <div className={s.iconWrapperShirt}>{shirtIcon}</div>
           <div className={s.itemTitleContainer}>
-            <p className={s.itemTitle}>Event T-Shirt</p>
+            <p className={s.itemTitle}>Shirt</p>
             <div className={s.itemDetailsList}>
               <p><b>Type:</b> {item.additionalAttributes.type}</p>
               <p>
                 <b>Size:</b> {item.additionalAttributes.size}
                 {sizeInfo && <span style={{fontStyle: "italic"}}> ({sizeInfo.width}in x {sizeInfo.length}in)</span>}
               </p>
-              <p><b>Color:</b> {item.additionalAttributes.color}</p>
               {item.additionalAttributes.displayName && (
                 <p><b>Name:</b> {item.additionalAttributes.displayName}</p>
               )}
@@ -109,7 +107,7 @@ export default function OrderCard({ order }: OrderCardProps) {
 
         {order.shirts && order.shirts.length > 0 && (
           <div className={s.section}>
-            <h4 className={s.sectionTitle}>T-Shirts</h4>
+            <h4 className={s.sectionTitle}>Merchandise</h4>
             <ul className={s.itemListShirt}>
               {order.shirts.map(renderShirt)}
             </ul>
