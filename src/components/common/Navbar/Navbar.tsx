@@ -24,6 +24,7 @@ export default function Navbar() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const update = () => setCartCount(getCart(playerId).items.length);
@@ -35,6 +36,13 @@ export default function Navbar() {
       window.removeEventListener("cart-updated", update);
     };
   }, [playerId]);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Only show navbar when logged in
   if (isLoading || !isLoggedIn) return null;
@@ -53,19 +61,29 @@ export default function Navbar() {
   return (
     <>
       <nav className={s.nav}>
-        {/* Hamburger button */}
-        <button
-          className={s.hamburgerButton}
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          <span className="flex flex-col gap-[5px]">
-            <span className={s.hamburgerLine} />
-            <span className={s.hamburgerLine} />
-            <span className={s.hamburgerLine} />
-          </span>
-        </button>
+        <Link href="/" className={s.logo} aria-label="Go to home">
+          HABYA 2026
+        </Link>
+
+        <div className={s.right}>
+          {/* Hamburger button */}
+          <button
+            className={s.hamburgerButton}
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="flex flex-col gap-[5px]">
+              <span className={s.hamburgerLine} />
+              <span className={s.hamburgerLine} />
+              <span className={s.hamburgerLine} />
+            </span>
+          </button>
+        </div>
+
+        <div className={`${s.divider} ${isScrolled ? s.dividerScrolled : s.dividerTop}`} />
       </nav>
+
+      <div className={s.spacer} aria-hidden="true" />
 
       <HamburgerMenu
         isOpen={menuOpen}

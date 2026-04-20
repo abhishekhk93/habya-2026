@@ -1,12 +1,12 @@
 export const actionCardsStyles = {
-  container: "flex flex-col gap-3 px-[1.1rem]",
+  container: "flex flex-col gap-3 w-full max-w-[420px] mx-auto",
   
   card: [
     "flex",
     "items-center",
     "bg-white",
-    "border-[0.5px]",
-    "border-[#ececec]",
+    "border",
+    "border-[#d9d9d9]",
     "rounded-[14px]",
     "p-[0.75rem_0.9rem]",
     "gap-[12px]",

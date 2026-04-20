@@ -79,6 +79,7 @@ export default function Cart() {
           <>
             <div className="flex flex-col">
               <h1 className={s.pageTitle}>Your Cart</h1>
+              <div className={s.pageSubtitle}>All your picks, ready when you are.</div>
               {registrations.length > 0 && <CartList items={registrations} onRemove={handleRemove} title="Event Registrations" icon={registrationIcon} />}
               {shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="T-Shirts" icon={shirtIcon} />}
               {sponsorships.length > 0 && <CartList items={sponsorships} onRemove={handleRemove} title="Sponsorships" icon={sponsorshipIcon} />}

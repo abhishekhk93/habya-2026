@@ -7,24 +7,45 @@ export const navbarStyles = {
     "z-40",
     "flex",
     "items-center",
-    "justify-end",
+    "justify-between",
     "px-6",
     "sm:px-10",
     "lg:px-16",
     "py-4",
     "sm:py-6",
+    "bg-white",
   ].join(" "),
 
   logo: [
-    "text-lg",
-    "sm:text-xl",
-    "font-light",
-    "text-black/80",
+    "text-[18px]",
+    "sm:text-[20px]",
+    "font-medium",
+    "text-[#1a1a1a]",
+    "leading-tight",
     "hover:text-black",
     "transition-colors",
-    "duration-300",
-    "tracking-tight",
+    "duration-200",
   ].join(" "),
+
+  right: "flex items-center justify-end",
+
+  spacer: "h-[72px] sm:h-[88px] w-full",
+
+  divider: [
+    "absolute",
+    "left-0",
+    "right-0",
+    "bottom-0",
+    "h-px",
+    "bg-[#d9d9d9]",
+    "origin-left",
+    "transition-[opacity,filter]",
+    "duration-300",
+    "ease-out",
+  ].join(" "),
+
+  dividerTop: ["opacity-60", "blur-[0.3px]"].join(" "),
+  dividerScrolled: ["opacity-100", "blur-0"].join(" "),
 
   hamburgerButton: [
     "flex",

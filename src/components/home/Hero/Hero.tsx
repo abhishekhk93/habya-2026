@@ -9,7 +9,6 @@ import { SectionLabel } from "@/components/home/SectionLabel";
 import { ActionCards } from "@/components/home/ActionCards";
 import { ProfileCard } from "@/components/home/ProfileCard";
 import { AuthActions } from "@/components/home/AuthActions";
-import { ScatteredDots } from "@/components/home/ScatteredDots";
 
 export default function Hero({ headline, description }: HeroProps) {
   const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
@@ -17,12 +16,10 @@ export default function Hero({ headline, description }: HeroProps) {
   if (isLoading) return null;
 
   return (
-    <section className={s.wrapper}>
-      <div className={s.container}>
+    <section className={isLoggedIn ? s.wrapperLoggedIn : s.wrapper}>
+      <div className={isLoggedIn ? s.containerLoggedIn : s.container}>
         {/* 1. Title Block or Small Logo at the top */}
-        {isLoggedIn ? (
-          <HeroIllustration size="small" />
-        ) : (
+        {isLoggedIn ? null : (
           <TitleBlock 
             title={headline} 
             subtitle={description || ""} 
@@ -31,11 +28,13 @@ export default function Hero({ headline, description }: HeroProps) {
 
         {isLoggedIn ? (
           <>
-            {/* 2. Scattered Dots below Title */}
-            <ScatteredDots />
-
-            {/* 3. Profile & Get Started combined card */}
+            {/* Profile & Get Started combined card */}
             <div className={s.contentCard}>
+              <div className={s.contentInner}>
+                <h1 className={s.pageTitle}>Welcome!</h1>
+                <div className={s.pageSubtitle}>Your hub for registrations, gear, and support.</div>
+              </div>
+
               <div className={s.section}>
                 <SectionLabel>YOUR PROFILE</SectionLabel>
                 <ProfileCard />

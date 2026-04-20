@@ -1,6 +1,6 @@
 export const heroIllustrationStyles = {
   wrapper: "relative flex flex-col items-center justify-center py-8",
-  wrapperSmall: "relative flex flex-col items-center justify-center py-2",
+  wrapperSmall: "relative flex flex-col items-center justify-center py-1",
   
   ring: [
     "relative",
@@ -17,16 +17,16 @@ export const heroIllustrationStyles = {
 
   ringSmall: [
     "relative",
-    "w-[90px]",
-    "h-[90px]",
+    "w-[116px]",
+    "h-[116px]",
     "rounded-full",
     "border",
-    "border-[rgba(100,180,255,0.15)]",
+    "border-[rgba(100,180,255,0.22)]",
     "flex",
     "items-center",
     "justify-center",
   ].join(" "),
   
   illustration: "w-[120px] h-auto relative z-10",
-  illustrationSmall: "w-[55px] h-auto relative z-10",
+  illustrationSmall: "w-[74px] h-auto relative z-10",
 } as const;

@@ -1,9 +1,10 @@
 export const cartStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] py-10 px-4 h-[100vh]",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
 
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-4 pb-8 sm:px-12 sm:pt-6 sm:pb-8 mt-8 ",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
 
   pageTitle: "text-2xl font-light tracking-tight mb-2 text-center",
+  pageSubtitle: "text-sm font-light mb-4 text-center text-black/60",
 
   section: "flex flex-col bg-white rounded-2xl border border-black/5 shadow-lg shadow-black/5 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 hover:border-black/10 groupl w-full mb-4",
 

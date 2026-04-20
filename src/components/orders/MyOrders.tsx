@@ -16,6 +16,7 @@ export default function MyOrders({ orders }: MyOrdersProps) {
     <div className={s.wrapper}>
       <div className={s.container}>
         <h1 className={s.pageTitle}>My Orders</h1>
+        <div className={s.pageSubtitle}>A quick snapshot of everything you’ve booked.</div>
         {isEmpty ? (
           <div className={s.emptyState}>
             <div className={s.emptyStateIcon}>

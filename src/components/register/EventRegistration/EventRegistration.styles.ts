@@ -1,7 +1,7 @@
 export const eventRegistrationStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-10 px-4",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
 
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-8 pt-2 pb-10 sm:px-12 sm:pt-2 sm:pb-12 my-8",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-10 sm:px-10 sm:pt-6 sm:pb-12 mt-0 shadow-sm border border-[#d9d9d9]",
 
   header: "text-2xl font-light tracking-tight mb-2 text-center",
 
@@ -11,8 +11,8 @@ export const eventRegistrationStyles = {
 
   errorState: "text-base text-red-500 text-center py-10 font-light",
   subtitle: "text-sm font-medium mb-14 text-center transition-all duration-[100ms] ease-in-out w-fit mx-auto",
-  dividerContainer: "flex flex-col items-center w-full mb-14 mt-4",
-  dividerText: "text-sm font-light tracking-tight text-black text-center",
+  dividerContainer: "flex flex-col items-center w-full mb-4 mt-0",
+  dividerText: "text-sm font-light text-center text-black/60",
 
   limitInfo: "mb-6 text-center text-[11px] sm:text-xs font-medium text-black/40",
 

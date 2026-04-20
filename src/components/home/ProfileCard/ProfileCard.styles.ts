@@ -1,11 +1,13 @@
 export const profileCardStyles = {
   card: [
     "bg-[#fafafa]",
-    "border-[0.5px]",
-    "border-[#ececec]",
+    "border",
+    "border-[#d9d9d9]",
     "rounded-[14px]",
     "p-[0.9rem_1rem]",
-    "mx-[1.1rem]",
+    "w-full",
+    "max-w-[420px]",
+    "mx-auto",
     "flex",
     "flex-col",
   ].join(" "),
@@ -29,9 +31,10 @@ export const profileCardStyles = {
   
   divider: "h-[0.5px] bg-[#ececec] my-[0.75rem] w-full",
   
-  noteRow: "flex items-center justify-start gap-[6px]",
+  noteRow: "flex items-start justify-start gap-[6px]",
   
   infoIcon: "text-[#ccc] w-[11px] h-[11px] flex-shrink-0",
   
-  noteText: "text-[12px] text-[#bbb] leading-none text-left",
+  noteList: "list-disc pl-4 text-[12px] text-[#bbb] leading-[1.25] text-left",
+  noteItem: "marker:text-[#c7c7c7]",
 } as const;
