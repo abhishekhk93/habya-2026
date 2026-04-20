@@ -5,7 +5,6 @@ export const sectionLabelStyles = {
     "text-[#bbb]",
     "tracking-[0.07em]",
     "uppercase",
-    "px-[1.1rem]",
     "mb-2",
     "w-full",
     "text-left",

@@ -9,7 +9,6 @@ import { SectionLabel } from "@/components/home/SectionLabel";
 import { ActionCards } from "@/components/home/ActionCards";
 import { ProfileCard } from "@/components/home/ProfileCard";
 import { AuthActions } from "@/components/home/AuthActions";
-import { ScatteredDots } from "@/components/home/ScatteredDots";
 
 export default function Hero({ headline, description }: HeroProps) {
   const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
@@ -17,29 +16,34 @@ export default function Hero({ headline, description }: HeroProps) {
   if (isLoading) return null;
 
   return (
-    <section className={s.wrapper}>
-      <div className={s.container}>
-        {/* 1. Title Block at the top */}
-        <TitleBlock 
-          title={headline} 
-          subtitle={description || ""} 
-        />
+    <section className={isLoggedIn ? s.wrapperLoggedIn : s.wrapper}>
+      <div className={isLoggedIn ? s.containerLoggedIn : s.container}>
+        {/* 1. Title Block or Small Logo at the top */}
+        {isLoggedIn ? null : (
+          <TitleBlock 
+            title={headline} 
+            subtitle={description || ""} 
+          />
+        )}
 
         {isLoggedIn ? (
           <>
-            {/* 2. Scattered Dots below Title */}
-            <ScatteredDots />
+            {/* Profile & Get Started combined card */}
+            <div className={s.contentCard}>
+              <div className={s.contentInner}>
+                <h1 className={s.pageTitle}>Welcome!</h1>
+                <div className={s.pageSubtitle}>Your hub for registrations, gear, and support.</div>
+              </div>
 
-            {/* 3. Your Profile section */}
-            <div className={s.section}>
-              <SectionLabel>YOUR PROFILE</SectionLabel>
-              <ProfileCard />
-            </div>
+              <div className={s.section}>
+                <SectionLabel>YOUR PROFILE</SectionLabel>
+                <ProfileCard />
+              </div>
 
-            {/* 4. Get Started section */}
-            <div className={s.section}>
-              <SectionLabel>GET STARTED</SectionLabel>
-              <ActionCards />
+              <div className={s.section}>
+                <SectionLabel>GET STARTED</SectionLabel>
+                <ActionCards />
+              </div>
             </div>
           </>
         ) : (

@@ -49,34 +49,57 @@ export function SponsorshipItem({
     <div
       className={`${s.item} ${isSelected ? "bg-black/[0.02]" : "bg-transparent"}`}
     >
-      <div className={s.headerRow}>
-        {!isCustom && (
-          <span className={`${s.amountBadge} ${badgeColor}`}>₹ {level.amount.toLocaleString()}</span>
-        )}
-        <h3 className={s.name}>{level.name}</h3>
-        <button
-          type="button"
-          onClick={handleToggleClick}
-          className={`
-            ${s.toggleWrapper} 
-            ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
-            ${isToggleDisabled ? "opacity-40 cursor-not-allowed" : ""}
-          `}
-        >
-          <span
+      <div className={s.main}>
+        <div className={s.headerRow}>
+          {!isCustom && (
+            <span className={`${s.amountBadge} ${badgeColor}`}>₹ {level.amount.toLocaleString()}</span>
+          )}
+          <h3 className={s.name}>{level.name}</h3>
+          <button
+            type="button"
+            onClick={handleToggleClick}
             className={`
-              ${s.toggleThumb} 
-              ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+              ${s.toggleWrapper} 
+              ${isSelected ? s.toggleEnabled : s.toggleDisabled} 
+              ${isToggleDisabled ? "opacity-40 cursor-not-allowed" : ""}
             `}
-          />
-        </button>
+          >
+            <span
+              className={`
+                ${s.toggleThumb} 
+                ${isSelected ? s.toggleThumbActive : s.toggleThumbInactive}
+              `}
+            />
+          </button>
+        </div>
+
+        {isCustom && (
+          <div className={s.customInputContainer}>
+            <label className={s.customInputLabel}>Enter Custom Amount (₹)</label>
+            <input
+              type="number"
+              min="0"
+              step="500"
+              value={customAmount || ""}
+              onChange={(e) => handleCustomChange(Number(e.target.value))}
+              onClick={(e) => e.stopPropagation()}
+              placeholder="Ex: 1001"
+              className={s.customInput}
+            />
+            {(showWarning || (isSelected && (!customAmount || customAmount <= 0))) && (
+              <div className={s.warningMessage}>
+                Enter an amount to enable sponsorship
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className={`
         ${s.subtitle} 
         ${isSelected ? s.subtitleActive : s.subtitleInactive}
       `}>
-        <span className="flex items-center text-[13px] font-medium text-green-700">
+        <span className="flex items-center text-[13px] font-medium text-emerald-600">
           Sponsorship added to cart
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -93,27 +116,6 @@ export function SponsorshipItem({
           </svg>
         </span>
       </div>
-
-      {isCustom && (
-        <div className={s.customInputContainer}>
-          <label className={s.customInputLabel}>Enter Custom Amount (₹)</label>
-          <input
-            type="number"
-            min="0"
-            step="500"
-            value={customAmount || ""}
-            onChange={(e) => handleCustomChange(Number(e.target.value))}
-            onClick={(e) => e.stopPropagation()}
-            placeholder="Ex: 1001"
-            className={s.customInput}
-          />
-          {(showWarning || (isSelected && (!customAmount || customAmount <= 0))) && (
-            <div className={s.warningMessage}>
-              Enter an amount to enable sponsorship
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

@@ -1,8 +1,9 @@
 export const ordersStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] py-10 px-4 h-[100vh]",
-  container: "w-[calc(100%-1rem)] sm:w-full max-w-[700px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-4 pb-8 sm:px-12 sm:pt-6 sm:pb-8 mt-8 shadow-sm border border-black/5",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
+  container: "w-[calc(100%-1rem)] sm:w-full max-w-[700px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
   
-  pageTitle: "text-2xl font-light tracking-tight mb-6 text-center text-gray-900",
+  pageTitle: "text-2xl font-light tracking-tight mb-2 text-center text-gray-900",
+  pageSubtitle: "text-sm font-light mb-4 text-center text-black/60",
   
   emptyState: "text-center py-20 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl",
   emptyStateIcon: "mx-auto h-12 w-12 text-gray-400 mb-4",
