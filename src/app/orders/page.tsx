@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import MyOrders from '@/components/orders/MyOrders';
+import MyOrders from '@/components/orders/OrdersPage/OrdersPage';
 import { mockOrdersDb } from '@/app/api/orders/mockData';
 import { useAppSelector } from '@/store/hooks';
 import type { Order } from '@/app/api/orders/types';
