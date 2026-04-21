@@ -17,16 +17,16 @@ export default function MyOrders({ orders }: ordersProps) {
   const displayOrders = filter === 'ALL' ? orders : orders.filter(or => or.paymentStatus === filter);
   
   const successfulOrders = displayOrders.filter(or => or.paymentStatus === CONSTANTS.success);
-  const otherOrders = displayOrders.filter(or => or.paymentStatus !== CONSTANTS.success);
+  const pendingOrders = displayOrders.filter(or => or.paymentStatus === CONSTANTS.pending);
 
-  const filterOptions = ['ALL', ...orders.map(or => or.paymentStatus).filter((value, index, self) => self.indexOf(value) === index)];
+  const filterOptions = ['ALL', CONSTANTS.success, CONSTANTS.pending];
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
         <h1 className={s.pageTitle}>My Orders</h1>
         <div className={s.pageSubtitle}>A quick snapshot of everything you’ve booked.</div>
         
-        {!isEmpty && (!(filterOptions.length === 2 && filterOptions[1] === CONSTANTS.success)) && (
+        {!isEmpty && ( pendingOrders?.length > 0 ) && (
           <div className={s.filterContainer}>
             {filterOptions.map(option => (
               <button
@@ -55,12 +55,12 @@ export default function MyOrders({ orders }: ordersProps) {
           </div>
         ) : (
           <>
-            {otherOrders.map(order => (
+            {pendingOrders.map(order => (
               <UnsuccessfulOrder key={order.orderId} order={order} />
             ))}
-            {otherOrders.length > 0 && (filter === CONSTANTS.success || filter === 'ALL') && (<>
+            {pendingOrders.length > 0 && (filter === CONSTANTS.success || filter === 'ALL') && (<>
               <hr className={s.divider} />
-              <h2 className={s.pageTitle}>Completed Orders</h2>
+              {/* <h2 className={s.pageTitle}>Completed Orders</h2> */}
             </>)
             }
             {successfulOrders.length > 0 && (

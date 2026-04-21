@@ -1,6 +1,6 @@
 export const unsuccessfulOrderStyles = {
   container: "bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-6 flex flex-col md:flex-row",
-  leftColumn: "md:w-1/4 p-5 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200 flex justify-between",
+  leftColumn: "md:w-1/4 p-3 bg-yellow-100 border-b md:border-b-0 md:border-r border-yellow-100 flex justify-between",
   orderIdLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block",
   orderIdValue: "text-gray-900 font-semibold",
   statusLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block flex justify-center mb-2",
@@ -9,7 +9,7 @@ export const unsuccessfulOrderStyles = {
   statusCancelled: "bg-orange-100 text-orange-800",
   statusFailed: "bg-red-100 text-red-800",
   statusDefault: "bg-gray-100 text-gray-800",
-  rightColumn: "md:w-3/4 px-5 py-4",
+  rightColumn: "md:w-3/4 px-5 py-3 bg-yellow-100/10 border-b md:border-b-0 md:border-r border-yellow-100/10",
   itemsSection: "mb-4",
   itemsLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block mb-2",
   itemsList: "space-y-2",

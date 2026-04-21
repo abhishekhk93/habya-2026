@@ -36,12 +36,12 @@ export default function UnsuccessfulOrder({ order }: UnsuccessfulOrderProps) {
       <div className={s.leftColumn}>
         {/* <span className="text-xs text-gray-500 font-medium uppercase tracking-wider mb-2">Status</span> */}
         <div>
-          <span className={s.orderIdLabel}>Order ID</span>
+          {/* <span className={s.orderIdLabel}>Order ID</span> */}
           <span className={s.orderIdValue}>#{order.orderId.substring(0, 8).toUpperCase()}</span>
         </div>
         
         <div>
-          <span className={s.statusLabel}>Status</span>
+          {/* <span className={s.statusLabel}>Status</span> */}
           <span className={`${s.statusBadge} ${
             order.paymentStatus === 'PENDING' ? s.statusPending :
             order.paymentStatus === 'CANCELLED' ? s.statusCancelled :
@@ -55,9 +55,8 @@ export default function UnsuccessfulOrder({ order }: UnsuccessfulOrderProps) {
 
       {/* Right Side: Order ID, Items, Total */}
       <div className={s.rightColumn}>
-
         <div className={s.itemsSection}>
-          <span className={s.itemsLabel}>Order Items</span>
+          {/* <span className={s.itemsLabel}>Order Items</span> */}
           <ul className={s.itemsList}>
             {items.map((item, i) => (
               <li key={`${item.id}-${i}`} className={s.itemRow}>
