@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { StoreProvider } from "@/components/providers/StoreProvider";
 import { Navbar } from "@/components/common/Navbar";
+import { Footer } from "@/components/common/Footer";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
 import "./globals.css";
 
@@ -32,8 +33,13 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider initialUser={initialUser}>
-          <Navbar />
-          {children}
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </StoreProvider>
       </body>
     </html>
