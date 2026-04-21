@@ -2,7 +2,7 @@ export const heroStyles = {
   wrapper: [
     "relative",
     "h-dvh",
-    "bg-white",
+    "bg-transparent",
     "flex",
     "flex-col",
     "items-center",
@@ -32,6 +32,7 @@ export const heroStyles = {
   container: [
     "w-full",
     "max-w-[340px]",
+    "sm:max-w-none",
     "flex",
     "flex-col",
     "gap-8", // Cohesive gap between components

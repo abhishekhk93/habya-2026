@@ -8,17 +8,15 @@ interface HeroIllustrationProps {
 
 export default function HeroIllustration({ size = "large" }: HeroIllustrationProps) {
   const isSmall = size === "small";
-  
+
   return (
     <div className={isSmall ? s.wrapperSmall : s.wrapper}>
-      <div className={isSmall ? s.ringSmall : s.ring}>
-        <img
-          src="/illustration-1.png"
-          alt="Badminton Player"
-          className={isSmall ? s.illustrationSmall : s.illustration}
-        />
-      </div>
-      
+      <img
+        src="/images/home-logo-1.png"
+        alt="Habya Logo"
+        className={isSmall ? s.illustrationSmall : s.illustration}
+      />
+
       {!isSmall && <ScatteredDots />}
     </div>
   );
