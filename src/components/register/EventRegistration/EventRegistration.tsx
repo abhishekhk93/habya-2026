@@ -10,9 +10,12 @@ import { addEventsToCart } from "@/lib/atc/addEventsToCart";
 import { getCart, saveCart } from "@/lib/atc/storage";
 import type { RegistrationAttributes } from "@/lib/atc/types";
 import { useAppSelector } from "@/store/hooks";
+import { ClosedState } from "../../common/ClosedState";
 
 export default function EventRegistration() {
+  const isRegistrationOpen = useAppSelector((state) => state.config.data?.is_registration_open);
   const userFullName = useAppSelector((state) => state.auth.user?.fullName) ?? "";
+
   const userPlayerId = useAppSelector((state) => state.auth.user?.playerId);
 
   const { data, loading, error, initialSelectedIds, initialDoublesPartners } = useEventData(userFullName, userPlayerId);
@@ -95,7 +98,20 @@ export default function EventRegistration() {
     );
   }
 
+  if (isRegistrationOpen === false) {
+    return (
+      <div className={s.wrapper}>
+        <ClosedState 
+          title="Registration is Closed" 
+          description="Event registrations for Habya 2026 are currently closed. Please check back later for updates." 
+          theme="indigo"
+        />
+      </div>
+    );
+  }
+
   if (error || !data) {
+
     return (
       <div className={s.wrapper}>
         <div className={s.card}>
