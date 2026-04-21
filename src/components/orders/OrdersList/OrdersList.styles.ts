@@ -14,9 +14,4 @@ export const ordersListStyles = {
   itemTitle: "font-medium text-gray-900",
   itemDetailsList: "mt-2 flex flex-col space-y-1 text-sm text-gray-600",
   itemPrice: "font-medium text-gray-900 shrink-0 ml-4 text-sm",
-  sponserSection: "mb-6 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 p-5 text-center shadow-sm",
-  sponsorshipTitle: "text-lg font-medium text-emerald-900 mb-2",
-  sponsorshipIconWrapper: "mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600",
-  sponsorshipText: "text-sm text-emerald-800 leading-relaxed",
-  sponsorshipAmount: "font-semibold text-emerald-900",
 };
