@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ordersStyles as s } from './Orders.styles';
 import OrderList from '../OrdersList/OrdersList';
@@ -7,6 +7,7 @@ import Button from '../../uiComponents/Button';
 import type { ordersProps } from './OrdersPage.types';
 import UnsuccessfulOrder from '../UnsuccessfulOrder/UnsuccessfulOrder';
 import * as CONSTANTS from '@/components/constants';
+import type { Order } from '@/app/api/orders/types';
 
 
 export default function MyOrders({ orders }: ordersProps) {
@@ -14,10 +15,10 @@ export default function MyOrders({ orders }: ordersProps) {
   
   const isEmpty = orders.length === 0;
 
-  const displayOrders = filter === 'ALL' ? orders : orders.filter(or => or.paymentStatus === filter);
+  // const displayOrders = filter === 'ALL' ? orders : orders.filter(or => or.paymentStatus === filter);
   
-  const successfulOrders = displayOrders.filter(or => or.paymentStatus === CONSTANTS.success);
-  const pendingOrders = displayOrders.filter(or => or.paymentStatus === CONSTANTS.pending);
+  const successfulOrders = orders.filter(or => or.paymentStatus === CONSTANTS.success);
+  const pendingOrders = orders.filter(or => or.paymentStatus === CONSTANTS.pending);
 
   const filterOptions = ['ALL', CONSTANTS.success, CONSTANTS.pending];
   return (
@@ -55,15 +56,14 @@ export default function MyOrders({ orders }: ordersProps) {
           </div>
         ) : (
           <>
-            {pendingOrders.map(order => (
-              <UnsuccessfulOrder key={order.orderId} order={order} />
-            ))}
-            {pendingOrders.length > 0 && (filter === CONSTANTS.success || filter === 'ALL') && (<>
-              <hr className={s.divider} />
-              {/* <h2 className={s.pageTitle}>Completed Orders</h2> */}
-            </>)
+            {filter !== CONSTANTS.success && 
+              <>
+                {pendingOrders.map(order => <UnsuccessfulOrder key={order.orderId} order={order} />)}
+                {pendingOrders.length > 0 && (filter === CONSTANTS.success || filter === 'ALL') && <hr className={s.divider} />}
+              </>
             }
-            {successfulOrders.length > 0 && (
+            
+            {filter !== CONSTANTS.pending && successfulOrders.length > 0 && (
               <OrderList key="combined-orders" order={{
                 orderId: 'combined',
                 transactionId: '',
