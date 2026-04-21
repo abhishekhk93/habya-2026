@@ -69,8 +69,8 @@ export default function Control({ matchId }: ControlProps) {
             </div>
           </div>
           
-          <div className="mt-6 md:mt-8">
-            <h3 className="text-lg md:text-xl font-medium mb-4">Players</h3>
+          <div className="mt-4 md:mt-5">
+            <h3 className="text-base md:text-lg font-medium mb-3">Players</h3>
             <div className={controlStyles.grid2}>
               <div className={controlStyles.inputGroup}>
                 <label className={controlStyles.label}>Player 1 Name</label>
@@ -227,7 +227,7 @@ export default function Control({ matchId }: ControlProps) {
             <div className={controlStyles.winnerTitle}>Set Match Winner</div>
             <div className={controlStyles.matchWinnerButtons}>
               <button
-                className={`${controlStyles.winnerBtn} py-4 text-lg ${data.matchWinner === 1 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
+                className={`${controlStyles.winnerBtn} py-3 text-base ${data.matchWinner === 1 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
                 onClick={() => {
                   updateData({ 
                     ...data, 
@@ -239,7 +239,7 @@ export default function Control({ matchId }: ControlProps) {
                 {data.players[0].name || "Player 1"}
               </button>
               <button
-                className={`${controlStyles.winnerBtn} py-4 text-lg ${data.matchWinner === 2 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
+                className={`${controlStyles.winnerBtn} py-3 text-base ${data.matchWinner === 2 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
                 onClick={() => {
                   updateData({ 
                     ...data, 
@@ -251,7 +251,7 @@ export default function Control({ matchId }: ControlProps) {
                 {data.players[1].name || "Player 2"}
               </button>
               <button
-                className={`${controlStyles.winnerBtn} py-4 text-lg ${controlStyles.winnerBtnClear}`}
+                className={`${controlStyles.winnerBtn} py-3 text-base ${controlStyles.winnerBtnClear}`}
                 onClick={() => {
                   updateData({ 
                     ...data, 
