@@ -1,7 +1,7 @@
 export const heroStyles = {
   wrapper: [
     "relative",
-    "h-dvh",
+    "h-svh",
     "bg-transparent",
     "flex",
     "flex-col",
@@ -15,8 +15,8 @@ export const heroStyles = {
 
   wrapperLoggedIn: [
     "relative",
-    "min-h-[calc(100dvh-72px)]",
-    "sm:min-h-[calc(100dvh-88px)]",
+    "min-h-[calc(100svh-72px)]",
+    "sm:min-h-[calc(100svh-88px)]",
     "bg-white",
     "flex",
     "flex-col",

@@ -8,7 +8,7 @@ export const mockConfig: ConfigData = {
   price_shirt_round_neck_sleeveless: "280",
   price_shirt_collared_half_sleeves: "350",
 
-  is_registration_open: false,
-  is_shirt_orders_open: false,
-  is_sponsorships_open: false,
+  is_registration_open: true,
+  is_shirt_orders_open: true,
+  is_sponsorships_open: true,
 };

@@ -1,5 +1,5 @@
 export const signInFormStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-6 px-4",
+  wrapper: "relative z-10 flex flex-col items-center justify-center min-h-[100svh] py-6 px-4",
 
   card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-10 shadow-sm border border-[#d9d9d9]",
 
