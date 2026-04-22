@@ -1,0 +1,45 @@
+export const orderDetailsCardStyles = {
+  container: "bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-6 flex flex-col md:flex-row",
+  leftColumnBase: "md:w-1/4 px-4 py-2 border-b md:border-b-0 md:border-r flex flex-row items-center justify-between gap-4 md:flex-col md:items-start",
+  leftColumnPending: "bg-yellow-100 border-yellow-200",
+  leftColumnSuccess: "bg-green-100 border-green-100",
+  leftColumnFailed: "bg-red-50 border-red-100",
+  leftColumnCancelled: "bg-orange-50 border-orange-100",
+  leftColumnDefault: "bg-gray-50 border-gray-200",
+  
+  orderIdLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block",
+  orderIdValue: "text-gray-900 font-semibold text-sm",
+  
+  statusLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block mb-1",
+  statusBadge: "px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase inline-block text-center w-full shadow-sm border",
+  statusSuccess: "bg-green-50 text-green-700 border-green-200",
+  statusPending: "bg-yellow-50 text-yellow-700 border-yellow-200",
+  statusCancelled: "bg-orange-100 text-orange-700 border-orange-200",
+  statusFailed: "bg-red-100 text-red-700 border-red-200",
+  statusDefault: "bg-gray-100 text-gray-700 border-gray-200",
+  
+  rightColumnBase: "md:w-3/4 px-5 py-2 flex flex-col justify-between",
+  rightColumnPending: "bg-yellow-50/50",
+  rightColumnSuccess: "bg-green-100/20",
+  rightColumnFailed: "bg-red-50/20",
+  rightColumnCancelled: "bg-orange-50/20",
+  rightColumnDefault: "bg-white",
+  
+  itemsSection: "mb-2",
+  itemsLabel: "text-xs text-gray-400 font-semibold uppercase tracking-widest block mb-3",
+  itemsList: "space-y-3",
+  itemRow: "flex justify-between items-start text-sm py-1 border-b border-gray-100 last:border-0",
+  itemTitleContainer: "flex flex-col pr-4",
+  itemTitle: "text-gray-800 font-medium",
+  itemMeta: "text-[12px] text-gray-500 mt-1 leading-relaxed",
+  itemPrice: "font-medium text-gray-900 shrink-0 ml-auto tabular-nums",
+  
+  totalSection: "border-t pt-3 border-gray-200 flex justify-between items-center",
+  totalLabel: "font-semibold text-gray-500 tracking-wide uppercase text-xs",
+  totalValue: "font-bold text-gray-900 tracking-tight text-lg tabular-nums",
+
+  sponserSection: "rounded-xl bg-gradient-to-r from-blue-50 to-pink-50 border border-blue-100 p-5 text-center shadow-sm  mt-3 ",
+  sponsorshipTitle: "text-lg font-medium text-blue-900",
+  sponsorshipIconWrapper: "mx-auto flex h-7 w-7 items-center justify-center text-red-600",
+  sponsorshipText: "text-sm text-blue-900 leading-relaxed",
+};

@@ -1,13 +1,12 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ordersStyles as s } from './Orders.styles';
-import OrderList from '../OrdersList/OrdersList';
+import OrderDetailsCard from '../OrderDetailsCard/OrderDetailsCard';
+import SponsorshipItem from '../OrderDetailsCard/SponsorshipItem';
 import Button from '../../uiComponents/Button';
-import type { ordersProps } from './OrdersPage.types';
-import UnsuccessfulOrder from '../UnsuccessfulOrder/UnsuccessfulOrder';
 import * as CONSTANTS from '@/components/constants';
-import type { Order } from '@/app/api/orders/types';
+import { ordersProps } from './OrdersPage.types';
 
 
 export default function MyOrders({ orders }: ordersProps) {
@@ -16,30 +15,15 @@ export default function MyOrders({ orders }: ordersProps) {
   const isEmpty = orders.length === 0;
 
   // const displayOrders = filter === 'ALL' ? orders : orders.filter(or => or.paymentStatus === filter);
-  
   const successfulOrders = orders.filter(or => or.paymentStatus === CONSTANTS.success);
   const pendingOrders = orders.filter(or => or.paymentStatus === CONSTANTS.pending);
+  const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || []);
 
   const filterOptions = ['ALL', CONSTANTS.success, CONSTANTS.pending];
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
         <h1 className={s.pageTitle}>My Orders</h1>
-        <div className={s.pageSubtitle}>A quick snapshot of everything you’ve booked.</div>
-        
-        {!isEmpty && ( pendingOrders?.length > 0 ) && (
-          <div className={s.filterContainer}>
-            {filterOptions.map(option => (
-              <button
-                key={option}
-                onClick={() => setFilter(option)}
-                className={`${s.filterButtonBase} ${ filter === option ? s.filterButtonActive : s.filterButtonInactive}`}
-              >
-                {option === CONSTANTS.success ? 'SUCCESSFUL' : option}
-              </button>
-            ))}
-          </div>
-        )}
 
         {isEmpty ? (
           <div className={s.emptyState}>
@@ -56,23 +40,39 @@ export default function MyOrders({ orders }: ordersProps) {
           </div>
         ) : (
           <>
+            {combinedSponsorships.length > 0 && (
+              <SponsorshipItem />
+            )}
+
+            <div className={s.pageSubtitle}>Here's a snapshot of your bookings.</div>
+        
+            {!isEmpty && ( pendingOrders?.length > 0 ) && (
+              <div className={s.filterContainer}>
+                {filterOptions.map(option => (
+                  <button
+                    key={option}
+                    onClick={() => setFilter(option)}
+                    className={`${s.filterButtonBase} ${ filter === option ? s.filterButtonActive : s.filterButtonInactive}`}
+                  >
+                    {option === CONSTANTS.success ? 'SUCCESSFUL' : option}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {filter !== CONSTANTS.success && 
               <>
-                {pendingOrders.map(order => <UnsuccessfulOrder key={order.orderId} order={order} />)}
-                {pendingOrders.length > 0 && (filter === CONSTANTS.success || filter === 'ALL') && <hr className={s.divider} />}
+                {pendingOrders.map(order => <OrderDetailsCard key={order.orderId} order={order} />)}
               </>
             }
             
             {filter !== CONSTANTS.pending && successfulOrders.length > 0 && (
-              <OrderList key="combined-orders" order={{
-                orderId: 'combined',
-                transactionId: '',
-                paymentStatus: CONSTANTS.success,
-                totalOrderAmount: { orderAmount: 0, platformFee: 0 },
-                registrations: successfulOrders.flatMap(o => o.registrations || []),
-                shirts: successfulOrders.flatMap(o => o.shirts || []),
-                sponsorships: successfulOrders.flatMap(o => o.sponsorships || []),
-              }} />
+              <>
+                {successfulOrders.map(order => {
+                  const cardOrder = { ...order };
+                  return <OrderDetailsCard key={order.orderId} order={cardOrder} />;
+                })}
+              </>
             )}
           </>
         )}
