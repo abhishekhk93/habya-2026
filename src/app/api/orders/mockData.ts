@@ -100,7 +100,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
     {
       orderId: "ORD-5",
       transactionId: "TXN-5",
-      paymentStatus: "CANCELLED",
+      paymentStatus: "FAILED",
       totalOrderAmount: {
         orderAmount: 3000,
         platformFee: 60,

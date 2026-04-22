@@ -3,8 +3,8 @@ export const orderDetailsCardStyles = {
   leftColumnBase: "md:w-1/4 px-4 py-2 border-b md:border-b-0 md:border-r flex flex-row items-center justify-between gap-4 md:flex-col md:items-start",
   leftColumnPending: "bg-yellow-100 border-yellow-200",
   leftColumnSuccess: "bg-green-100 border-green-100",
-  leftColumnFailed: "bg-red-50 border-red-100",
-  leftColumnCancelled: "bg-orange-50 border-orange-100",
+  leftColumnFailed: "bg-red-100 border-red-100",
+  leftColumnCancelled: "bg-orange-100 border-orange-100",
   leftColumnDefault: "bg-gray-50 border-gray-200",
   
   orderIdLabel: "text-xs text-gray-500 font-medium uppercase tracking-wider block",
@@ -14,15 +14,15 @@ export const orderDetailsCardStyles = {
   statusBadge: "px-3 py-1.5 rounded-full text-[11px] font-bold tracking-wide uppercase inline-block text-center w-full shadow-sm border",
   statusSuccess: "bg-green-50 text-green-700 border-green-200",
   statusPending: "bg-yellow-50 text-yellow-700 border-yellow-200",
-  statusCancelled: "bg-orange-100 text-orange-700 border-orange-200",
-  statusFailed: "bg-red-100 text-red-700 border-red-200",
+  statusCancelled: "bg-orange-50 text-orange-700 border-orange-200",
+  statusFailed: "bg-red-50 text-red-700 border-red-200",
   statusDefault: "bg-gray-100 text-gray-700 border-gray-200",
   
   rightColumnBase: "md:w-3/4 px-5 py-2 flex flex-col justify-between",
   rightColumnPending: "bg-yellow-50/50",
   rightColumnSuccess: "bg-green-100/20",
-  rightColumnFailed: "bg-red-50/20",
-  rightColumnCancelled: "bg-orange-50/20",
+  rightColumnFailed: "bg-red-100/20",
+  rightColumnCancelled: "bg-orange-100/20",
   rightColumnDefault: "bg-white",
   
   itemsSection: "mb-2",
@@ -38,8 +38,8 @@ export const orderDetailsCardStyles = {
   totalLabel: "font-semibold text-gray-500 tracking-wide uppercase text-xs",
   totalValue: "font-bold text-gray-900 tracking-tight text-lg tabular-nums",
 
-  sponserSection: "rounded-xl bg-gradient-to-r from-blue-50 to-pink-50 border border-blue-100 p-5 text-center shadow-sm  mt-3 ",
+  sponserSection: "rounded-xl bg-gradient-to-r from-blue-50 to-pink-50 border border-blue-100 py-5 px-1 text-center shadow-sm  mt-3 ",
   sponsorshipTitle: "text-lg font-medium text-blue-900",
   sponsorshipIconWrapper: "mx-auto flex h-7 w-7 items-center justify-center text-red-600",
-  sponsorshipText: "text-sm text-blue-900 leading-relaxed",
+  sponsorshipText: "text-xs text-blue-900 leading-relaxed",
 };

@@ -12,7 +12,7 @@ export default function SponsorshipItem() {
         </span>
         
         <p className={s.sponsorshipText}>
-          We deeply appreciate your generousity. Your support makes a huge difference!
+          We appreciate your generous sponsorship. <br />Your support makes a huge difference!
         </p>
     </div>
   );

@@ -10,14 +10,25 @@ import { ordersProps } from './OrdersPage.types';
 
 
 export default function MyOrders({ orders }: ordersProps) {
-  const [filter, setFilter] = useState<string>('ALL');
-  
+  const [filter, setFilter] = useState<string>('ALL'); 
   const isEmpty = orders.length === 0;
 
-  // const displayOrders = filter === 'ALL' ? orders : orders.filter(or => or.paymentStatus === filter);
   const successfulOrders = orders.filter(or => or.paymentStatus === CONSTANTS.success);
   const pendingOrders = orders.filter(or => or.paymentStatus === CONSTANTS.pending);
   const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || []);
+
+  const filteredOrders = (() => {
+  switch (filter) {
+    case CONSTANTS.success:
+      return orders.filter(o => o.paymentStatus === CONSTANTS.success);
+
+    case CONSTANTS.pending:
+      return orders.filter(o => o.paymentStatus === CONSTANTS.pending);
+
+    default:
+      return orders;
+  }
+})();
 
   const filterOptions = ['ALL', CONSTANTS.success, CONSTANTS.pending];
   return (
@@ -40,9 +51,7 @@ export default function MyOrders({ orders }: ordersProps) {
           </div>
         ) : (
           <>
-            {combinedSponsorships.length > 0 && (
-              <SponsorshipItem />
-            )}
+            {combinedSponsorships.length > 0 && <SponsorshipItem />}
 
             <div className={s.pageSubtitle}>Here's a snapshot of your bookings.</div>
         
@@ -60,21 +69,11 @@ export default function MyOrders({ orders }: ordersProps) {
               </div>
             )}
 
-            {filter !== CONSTANTS.success && 
-              <>
-                {pendingOrders.map(order => <OrderDetailsCard key={order.orderId} order={order} />)}
-              </>
-            }
-            
-            {filter !== CONSTANTS.pending && successfulOrders.length > 0 && (
-              <>
-                {successfulOrders.map(order => {
-                  const cardOrder = { ...order };
-                  return <OrderDetailsCard key={order.orderId} order={cardOrder} />;
-                })}
-              </>
-            )}
-          </>
+            {filteredOrders.map(order => (
+              <OrderDetailsCard key={order.orderId} order={order} />
+            ))}
+
+          </> 
         )}
         <Button style={{marginTop: "5px"}} btnType='small'>
           <Link href="/">
