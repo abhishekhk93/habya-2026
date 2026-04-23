@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getCart, saveCart } from "@/lib/atc/storage";
 import type { Cart as CartType } from "@/lib/atc/types";
 import { cartStyles as s } from "./Cart.styles";
@@ -11,6 +12,7 @@ import CartSummary from "./CartSummary";
 
 export default function Cart() {
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [cart, setCart] = useState<CartType>({ items: [] });
   const [sponsorshipToRemove, setSponsorshipToRemove] = useState<any>(null);
@@ -74,7 +76,21 @@ export default function Cart() {
               </svg>
             </div>
             <h2 className={s.emptyStateTitle}>Your cart is empty</h2>
-            <p className={s.emptyStateText}>You haven't added any items to your cart yet.</p>
+            <ul
+              className={s.emptyStateText}
+              style={{
+                paddingLeft: "18px",
+                textAlign: "left",
+                maxWidth: "360px",
+                margin: "12px auto 0",
+                lineHeight: "1.6"
+              }}
+            >
+              <li style={{ marginBottom: "10px" }}>
+                It may have been cleared after checkout or cancellation.
+                Please add items to continue shopping.
+              </li>
+            </ul>
             <Link href="/" className={s.emptyStateLink}>
               Home
             </Link>
@@ -96,6 +112,7 @@ export default function Cart() {
                     <Button
                       btnType="small"
                       style={{ marginTop: "0px", width: "auto", whiteSpace: "nowrap" }}
+                      onClick={() => router.push('/checkout')}
                     >
                       Proceed to Checkout
                     </Button>

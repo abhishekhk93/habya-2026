@@ -8,6 +8,7 @@ import {
   mergeEligibleWithRegistrations,
   transformToEventUIModel,
 } from "@/lib/registration";
+import { fetchApi } from "@/lib/fetchApi";
 import type { RegisterResponse } from "./EventRegistration.types";
 
 export interface EventDataHookResult {
@@ -29,18 +30,9 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
   useEffect(() => {
     async function fetchData() {
       try {
-        const [eligibleEventsResponse, ordersResponse] = await Promise.all([
-          fetch("/api/eligible-events"),
-          fetch("/api/orders?type=registrations&includePartnerRegistrations=true"),
-        ]);
-
-        if (!eligibleEventsResponse.ok || !ordersResponse.ok) {
-          throw new Error("Failed to fetch event data.");
-        }
-
-        const [eligibleEventsJson, ordersJson]: [EligibleEventsResponse, Order[]] = await Promise.all([
-          eligibleEventsResponse.json(),
-          ordersResponse.json(),
+        const [eligibleEventsJson, ordersJson] = await Promise.all([
+          fetchApi<EligibleEventsResponse>("/api/eligible-events"),
+          fetchApi<Order[]>("/api/orders?type=registrations&includePartnerRegistrations=true"),
         ]);
 
         const registrations = flattenRegistrations(ordersJson);
@@ -56,12 +48,10 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
         };
         setData(transformedData);
 
-        // Preselect events they are already registered for
         const preRegisteredIds = eligibleEvents
           .filter(e => e.registration.isRegistered)
           .map(e => e.eventId);
 
-        // Also preselect events already present in cart (and hydrate doubles partner names)
         const cart = getCart(userPlayerId);
         const cartRegistrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
 
