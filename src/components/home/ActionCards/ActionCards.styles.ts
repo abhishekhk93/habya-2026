@@ -1,5 +1,5 @@
 export const actionCardsStyles = {
-  container: "flex flex-col gap-3 w-full max-w-[420px] mx-auto",
+  container: "flex flex-col gap-3 w-full max-w-[420px] md:max-w-[560px] lg:max-w-[640px] mx-auto",
   
   card: [
     "flex",
@@ -9,7 +9,9 @@ export const actionCardsStyles = {
     "border-[#d9d9d9]",
     "rounded-[14px]",
     "p-[0.75rem_0.9rem]",
+    "md:p-[1.2rem_1.5rem]",
     "gap-[12px]",
+    "md:gap-4",
     "transition-all",
     "duration-200",
     "hover:bg-[#fafafa]",
@@ -19,6 +21,8 @@ export const actionCardsStyles = {
   iconContainer: [
     "w-[36px]",
     "h-[36px]",
+    "md:w-[50px]",
+    "md:h-[50px]",
     "rounded-[10px]",
     "flex",
     "items-center",
@@ -28,9 +32,9 @@ export const actionCardsStyles = {
   
   middle: "flex flex-col flex-1 min-w-0",
   
-  title: "text-[15px] font-medium text-[#1a1a1a]",
+  title: "text-[15px] md:text-[20px] font-medium text-[#1a1a1a]",
   
-  subtitle: "text-[13px] text-[#8f8f8f]",
+  subtitle: "text-[13px] md:text-[16px] text-[#8f8f8f]",
   
   chevron: [
     "w-[7px]",

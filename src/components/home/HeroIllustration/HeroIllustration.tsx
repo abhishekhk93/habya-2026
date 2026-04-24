@@ -12,7 +12,7 @@ export default function HeroIllustration({ size = "large" }: HeroIllustrationPro
   return (
     <div className={isSmall ? s.wrapperSmall : s.wrapper}>
       <img
-        src="/images/home-logo-1.png"
+        src="/images/edition-10-logo-habya.png"
         alt="Habya Logo"
         className={isSmall ? s.illustrationSmall : s.illustration}
       />

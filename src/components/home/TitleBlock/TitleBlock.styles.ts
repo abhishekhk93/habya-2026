@@ -4,6 +4,8 @@ export const titleBlockStyles = {
   title: [
     "text-[42px]",
     "sm:text-[68px]",
+    "md:text-[76px]",
+    "lg:text-[84px]",
     "font-bold",
     "text-[#1a1a1a]",
     "leading-tight",
@@ -13,6 +15,8 @@ export const titleBlockStyles = {
   subtitle: [
     "text-[18px]",
     "sm:text-[22px]",
+    "md:text-[24px]",
+    "lg:text-[28px]",
     "text-[#666]",
     "mt-2",
     "font-light",
