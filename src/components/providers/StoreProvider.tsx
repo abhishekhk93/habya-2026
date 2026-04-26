@@ -6,7 +6,7 @@ import { ReactNode, useRef, useEffect } from "react";
 import { fetchSession, setSession } from "@/store/features/authSlice";
 import { fetchConfig } from "@/store/features/configSlice";
 import { useAppDispatch } from "@/store/hooks";
-import type { LoginResponse } from "@/app/api/auth/login/types";
+import type { LoginResponse } from "@/app/_disabled_api/auth/login/types";
 
 interface StoreProviderProps {
   children: ReactNode;
@@ -32,7 +32,7 @@ function AppInitializer({ children, initialUser }: StoreProviderProps) {
 
 export function StoreProvider({ children, initialUser }: StoreProviderProps) {
   const storeRef = useRef<AppStore | null>(null);
-  
+
   if (!storeRef.current) {
     storeRef.current = makeStore();
     if (initialUser) {

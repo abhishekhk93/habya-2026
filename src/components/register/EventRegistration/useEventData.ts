@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getCart } from "@/lib/atc/storage";
-import type { EligibleEventsResponse } from "@/app/api/eligible-events/types";
-import type { Order } from "@/app/api/orders/types";
+import type { EligibleEventsResponse } from "@/app/_disabled_api/eligible-events/types";
+import type { Order } from "@/app/_disabled_api/orders/types";
 import {
   flattenRegistrations,
   buildRegistrationLookup,

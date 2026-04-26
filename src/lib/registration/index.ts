@@ -1,5 +1,5 @@
-import type { EligibleCategory } from "@/app/api/eligible-events/types";
-import type { Order, RegistrationItem } from "@/app/api/orders/types";
+import type { EligibleCategory } from "@/app/_disabled_api/eligible-events/types";
+import type { Order, RegistrationItem } from "@/app/_disabled_api/orders/types";
 import type { EventType } from "@/components/register/EventRegistration/EventRegistration.types";
 
 export interface RegistrationLookupValue {
@@ -79,16 +79,16 @@ export const transformToEventUIModel = (
   return mergedData.map((item) => {
     const categoryCode = normalizeCategoryCode(item.categoryId);
     return {
-    eventId: Number(categoryCode),
-    categoryCode,
-    name: item.categoryName,
-    type: item.categoryType,
-    categoryDescription: item.categoryDescription,
-    isEnabled: item.isEnabled,
-    registration: {
-      isRegistered: item.isRegistered,
-      partner: item.partnerName ? { name: item.partnerName } : null,
-    },
-  };
+      eventId: Number(categoryCode),
+      categoryCode,
+      name: item.categoryName,
+      type: item.categoryType,
+      categoryDescription: item.categoryDescription,
+      isEnabled: item.isEnabled,
+      registration: {
+        isRegistered: item.isRegistered,
+        partner: item.partnerName ? { name: item.partnerName } : null,
+      },
+    };
   });
 };

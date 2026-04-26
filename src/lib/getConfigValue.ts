@@ -1,4 +1,4 @@
-import { ConfigData } from '@/app/api/config/types';
+import { ConfigData } from '@/app/_disabled_api/config/types';
 
 export function getConfigValue(
   configData: ConfigData | null | undefined,
@@ -6,10 +6,10 @@ export function getConfigValue(
   fallbackValue: string | undefined
 ): string | undefined {
   const value = configData?.[key] ?? fallbackValue;
-  
+
   if (value === undefined) {
     return undefined;
   }
-  
+
   return String(value);
 }

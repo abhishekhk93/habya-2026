@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchApi } from '@/lib/fetchApi';
-import type { ConfigData } from '@/app/api/config/types';
+import type { ConfigData } from '@/app/_disabled_api/config/types';
 
 interface ConfigState {
   data: ConfigData | null;
