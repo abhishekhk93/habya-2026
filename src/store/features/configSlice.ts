@@ -15,7 +15,7 @@ const initialState: ConfigState = {
 };
 
 export const fetchConfig = createAsyncThunk('config/fetchConfig', async () => {
-  return await fetchApi<ConfigData>('/api/config');
+  return await fetchApi<ConfigData>('/api/configs');
 });
 
 const configSlice = createSlice({
