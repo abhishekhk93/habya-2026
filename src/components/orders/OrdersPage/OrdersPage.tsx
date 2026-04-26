@@ -6,11 +6,16 @@ import OrderDetailsCard from '../OrderDetailsCard/OrderDetailsCard';
 import SponsorshipItem from '../OrderDetailsCard/SponsorshipItem';
 import Button from '../../uiComponents/Button';
 import * as CONSTANTS from '@/components/constants';
-import { ordersProps } from './OrdersPage.types';
+import { useOrderData } from './useOrderData';
 
 
-export default function MyOrders({ orders }: ordersProps) {
-  const [filter, setFilter] = useState<string>('ALL'); 
+export default function MyOrders() {
+  const { orders, loading, error } = useOrderData();
+  const [filter, setFilter] = useState<string>('ALL');
+
+  if (loading) return null;
+  if (error) return <p>{error}</p>;
+
   const isEmpty = orders.length === 0;
 
   const successfulOrders = orders.filter(or => or.paymentStatus === CONSTANTS.success);
