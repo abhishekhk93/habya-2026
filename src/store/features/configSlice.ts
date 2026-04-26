@@ -29,7 +29,18 @@ const configSlice = createSlice({
       })
       .addCase(fetchConfig.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+
+        const raw = action.payload;
+
+        state.data = {
+          ...raw,
+
+          is_registration_open: raw.is_registration_open === "true",
+          is_shirt_orders_open: raw.is_shirt_orders_open === "true",
+          is_sponsorships_open: raw.is_sponsorships_open === "true",
+          is_captcha_enabled: raw.is_captcha_enabled === "true",
+        };
+
         state.lastFetched = Date.now();
       })
       .addCase(fetchConfig.rejected, (state) => {
