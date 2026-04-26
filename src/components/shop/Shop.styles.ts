@@ -17,13 +17,13 @@ export const shopStyles = {
   // Grid for shirts
   gridContainer: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4",
 
-  shirtCard: "flex flex-col bg-white rounded-2xl border border-black/5 shadow-lg shadow-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 hover:border-black/10 group",
-
+  shirtCard: "flex flex-col rounded-2xl border shadow-lg shadow-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 hover:border-black/10 group bg-[#ffd4b3]/30 w-full mb-4 bg-[#ffd4b3]/30 border-[#ffd4b3] hover:border-[#ffd4b3]/30",
+  
   imageFlipper: "relative w-full aspect-[3/2] bg-gray-50 overflow-hidden",
 
   shirtImage: "object-contain object-center w-full h-full scale-[0.85] transition-all duration-500",
 
-  cardContent: "px-6 py-4 flex flex-col gap-2",
+  cardContent: "px-6 py-4 flex flex-col gap-2 ",
 
   shirtName: "text-md font-semibold text-black tracking-tight flex justify-center items-center",
 
@@ -53,7 +53,7 @@ export const shopStyles = {
 
   chip: "px-3 py-2 rounded-xl border text-xs font-medium cursor-pointer transition-all duration-200",
 
-  chipSelected: "bg-black text-white border-black shadow-md shadow-black/20",
+  chipSelected: "bg-white text-[#B45309] border-[#B45309] shadow-md shadow-[#B45309]/20",
 
   chipUnselected: "bg-white text-black/60 border-black/10 hover:border-black/30 hover:text-black",
 
@@ -69,6 +69,6 @@ export const shopStyles = {
 
   badgeOpen: "opacity-100 pointer-events-auto",
 
-  arrowButton: "absolute top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm shadow flex items-center justify-center text-black/60 hover:text-black transition-colors z-10",
+  arrowButton: "absolute top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/80 border border-[#B45309]/30 backdrop-blur-sm shadow flex items-center justify-center text-[#B45309] hover:bg-[#B45309] hover:text-white transition-colors z-10",
 
 } as const;

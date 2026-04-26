@@ -190,9 +190,13 @@ export default function Shop({ className }: ShopProps) {
                                         Customize your fit today!
                                     </p>
                                 )}
-                                <Button btnType="small" onClick={() => handleOpenModal(design)}>
+                                <button
+                                    type="button"
+                                    className="w-full py-2.5 mt-1 bg-white border border-[#B45309] text-[#B45309] font-bold text-xs sm:text-sm rounded-xl hover:bg-[#ffd4b3] active:bg-[#ffd4b3] transition-colors"
+                                    onClick={() => handleOpenModal(design)}
+                                >
                                     Customize & Add
-                                </Button>
+                                </button>
                             </div>
                         </div>
                     ))}
