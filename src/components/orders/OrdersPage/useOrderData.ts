@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchApi } from "@/lib/fetchApi";
-import type { Order } from "@/app/api/orders/types";
+import type { Order } from "@/app/_disabled_api/orders/types";
 
 export interface OrderDataHookResult {
   orders: Order[];
