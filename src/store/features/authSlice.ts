@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { fetchApi } from '@/lib/fetchApi';
-import type { LoginRequest, LoginResponse } from '@/app/api/auth/login/types';
+import type { LoginRequest, LoginResponse } from '@/app/_disabled_api/auth/login/types';
 
 interface AuthState {
   user: LoginResponse | null;

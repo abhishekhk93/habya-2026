@@ -93,12 +93,12 @@ export default function SponsorshipPage() {
     }
   };
 
-  if (isSponsorshipsOpen === false) {
+  if (!isSponsorshipsOpen) {
     return (
       <div className={s.wrapper}>
-        <ClosedState 
-          title="Sponsorship is Closed" 
-          description="We are not currently accepting new sponsorships for Habya 2026. Thank you for your interest!" 
+        <ClosedState
+          title="Sponsorship is Closed"
+          description="We are not currently accepting new sponsorships for Habya 2026. Thank you for your interest!"
           theme="emerald"
         />
       </div>

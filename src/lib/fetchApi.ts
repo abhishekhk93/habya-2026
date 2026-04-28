@@ -1,5 +1,3 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
-
 interface FetchApiOptions {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: any;
@@ -14,14 +12,11 @@ export async function fetchApi<T>(
 ): Promise<T> {
   const { method = "GET", body, headers, timeout, signal } = options;
 
-  // Prepend BASE_URL if url is relative and BASE_URL is set
-  const fullUrl = url.startsWith("/") && BASE_URL ? `${BASE_URL}${url}` : url;
-
   const controller = new AbortController();
   const timeoutId = timeout ? setTimeout(() => controller.abort(), timeout) : null;
 
   try {
-    const response = await fetch(fullUrl, {
+    const response = await fetch(url, {
       method,
       credentials: "include",
       headers: {

@@ -6,8 +6,8 @@ export type ConfigData = {
   price_shirt_round_neck_sleeveless: string;
   price_shirt_collared_half_sleeves: string;
 
-  is_registration_open: boolean;
-  is_shirt_orders_open: boolean;
-  is_sponsorships_open: boolean;
-  is_captcha_enabled: boolean;
+  is_registration_open: boolean | string;
+  is_shirt_orders_open: boolean | string;
+  is_sponsorships_open: boolean | string;
+  is_captcha_enabled: boolean | string;
 };

@@ -98,12 +98,12 @@ export default function EventRegistration() {
     );
   }
 
-  if (isRegistrationOpen === false) {
+  if (!isRegistrationOpen) {
     return (
       <div className={s.wrapper}>
-        <ClosedState 
-          title="Registration is Closed" 
-          description="Event registrations for Habya 2026 are currently closed. Please check back later for updates." 
+        <ClosedState
+          title="Registration is Closed"
+          description="Event registrations for Habya 2026 are currently closed. Please check back later for updates."
           theme="indigo"
         />
       </div>

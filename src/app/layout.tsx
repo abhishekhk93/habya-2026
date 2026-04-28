@@ -8,7 +8,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Habya 2026",
-  description: "Habya 2026 — Built with Next.js, TypeScript & Tailwind CSS",
+  description: "Habya 2026 — 10th Edition",
 };
 
 export default async function RootLayout({

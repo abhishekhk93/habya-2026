@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getCart, clearCart } from "@/lib/atc/storage";
 import { fetchApi } from "@/lib/fetchApi";
-import type { CheckoutResponse } from "@/app/api/checkout/types";
+import type { CheckoutResponse } from "@/app/_disabled_api/checkout/types";
 import type { Step } from "./Checkout.types";
 import { useAppSelector } from "@/store/hooks";
 
