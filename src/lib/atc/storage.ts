@@ -46,3 +46,15 @@ export const saveCart = (cart: Cart, playerId: string | null | undefined): void 
     console.error("Failed to save cart to localStorage", error);
   }
 };
+
+export const clearCart = (playerId: string | null | undefined): void => {
+  if (typeof window === "undefined" || !playerId) {
+    return;
+  }
+
+  try {
+    localStorage.removeItem(cartKeyForPlayer(playerId));
+  } catch (error) {
+    console.error("Failed to clear cart from localStorage", error);
+  }
+};

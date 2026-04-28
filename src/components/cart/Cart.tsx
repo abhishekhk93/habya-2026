@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { getCart, saveCart } from "@/lib/atc/storage";
 import type { Cart as CartType } from "@/lib/atc/types";
 import { cartStyles as s } from "./Cart.styles";
@@ -11,6 +12,7 @@ import CartSummary from "./CartSummary";
 
 export default function Cart() {
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [cart, setCart] = useState<CartType>({ items: [] });
   const [sponsorshipToRemove, setSponsorshipToRemove] = useState<any>(null);
@@ -45,17 +47,17 @@ export default function Cart() {
   const sponsorships = cart.items.filter((item) => item.itemType === "SPONSORSHIP");
 
   const registrationIcon = (
-    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+    <svg className="h-5 w-5 text-indigo-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
     </svg>
   );
   const shirtIcon = (
-    <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+    <svg className="h-5 w-5 text-[#B45309]" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
     </svg>
   );
   const sponsorshipIcon = (
-    <span className="h-5 w-5 rounded-full bg-gray-200 flex items-center justify-center text-xs">★</span>
+    <span className="h-5 w-5 rounded-full bg-gray-200 flex items-center justify-center text-xs bg-green-100">★</span>
   );
 
   const isEmpty = cart.items.length === 0;
@@ -74,7 +76,21 @@ export default function Cart() {
               </svg>
             </div>
             <h2 className={s.emptyStateTitle}>Your cart is empty</h2>
-            <p className={s.emptyStateText}>You haven't added any items to your cart yet.</p>
+            <ul
+              className={s.emptyStateText}
+              style={{
+                paddingLeft: "18px",
+                textAlign: "left",
+                maxWidth: "360px",
+                margin: "12px auto 0",
+                lineHeight: "1.6"
+              }}
+            >
+              <li style={{ marginBottom: "10px" }}>
+                It may have been cleared after checkout or cancellation.
+                Please add items to continue shopping.
+              </li>
+            </ul>
             <Link href="/" className={s.emptyStateLink}>
               Home
             </Link>
@@ -96,6 +112,7 @@ export default function Cart() {
                     <Button
                       btnType="small"
                       style={{ marginTop: "0px", width: "auto", whiteSpace: "nowrap" }}
+                      onClick={() => router.push('/checkout')}
                     >
                       Proceed to Checkout
                     </Button>

@@ -57,8 +57,19 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     if (item.itemAmount) details.push(<p key="amt">Amount: <strong>₹{item.itemAmount}</strong></p>);
   }
 
+  let hoverBgClass = "hover:bg-gray-50";
+  if (item.itemType === "REGISTRATION") {
+    hoverBgClass = "hover:bg-indigo-100/30";
+  } else if (item.itemType === "TSHIRT") {
+    hoverBgClass = "hover:bg-[#ffd4b3]/30";
+  } else if (item.itemType === "SPONSORSHIP") {
+    hoverBgClass = "hover:bg-green-100/30";
+  }
+
+  const itemBoxClass = s.itemBox.replace("hover:bg-gray-50", hoverBgClass);
+
   return (
-    <li className={`${s.itemBox} flex justify-between items-center`}>
+    <li className={`${itemBoxClass} flex justify-between items-center`}>
       <div className={s.itemContent}>
         <div className={s.iconWrapper}>
           {icon}

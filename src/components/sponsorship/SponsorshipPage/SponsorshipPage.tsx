@@ -7,6 +7,7 @@ import type { SponsorshipLevel } from "./SponsorshipPage.types";
 import { getCart, saveCart } from "@/lib/atc/storage";
 import { addSponsorshipToCart } from "@/lib/atc/addSponsorshipToCart";
 import { useAppSelector } from "@/store/hooks";
+import { ClosedState } from "../../common/ClosedState";
 
 const SPONSORSHIP_LEVELS: SponsorshipLevel[] = [
   { id: "level-15000", name: "Platinum", amount: 15000 },
@@ -19,6 +20,7 @@ const SPONSORSHIP_LEVELS: SponsorshipLevel[] = [
 
 export default function SponsorshipPage() {
   const userPlayerId = useAppSelector((state) => state.auth.user?.playerId);
+  const isSponsorshipsOpen = useAppSelector((state) => state.config.data?.is_sponsorships_open);
   const [selectedLevelId, setSelectedLevelId] = useState<string | null>(null);
   const [customAmount, setCustomAmount] = useState<number>(0);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -90,6 +92,18 @@ export default function SponsorshipPage() {
       removeSponsorshipFromCart();
     }
   };
+
+  if (isSponsorshipsOpen === false) {
+    return (
+      <div className={s.wrapper}>
+        <ClosedState 
+          title="Sponsorship is Closed" 
+          description="We are not currently accepting new sponsorships for Habya 2026. Thank you for your interest!" 
+          theme="emerald"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={s.wrapper}>

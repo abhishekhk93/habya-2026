@@ -9,4 +9,5 @@ export type ConfigData = {
   is_registration_open: boolean;
   is_shirt_orders_open: boolean;
   is_sponsorships_open: boolean;
+  is_captcha_enabled: boolean;
 };

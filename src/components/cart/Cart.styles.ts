@@ -1,5 +1,5 @@
 export const cartStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100svh] pt-6 pb-10 px-4",
   wrapperEmpty: "-mt-4 pt-0 pb-6",
 
   card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
@@ -10,7 +10,7 @@ export const cartStyles = {
 
   section: "flex flex-col bg-white rounded-2xl border border-black/5 shadow-lg shadow-black/5 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 hover:border-black/10 groupl w-full mb-4",
 
-  sectionHeader: "px-6 py-5 border-b border-gray-200",
+  sectionHeader: "flex flex-col rounded-2xl border shadow-lg shadow-black/5 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 w-full mb-4",
 
   sectionTitle: "text-md font-semibold text-black tracking-tight flex justify-left items-center",
 

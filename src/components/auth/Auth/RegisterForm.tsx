@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useRef, type FormEvent, useEffect } from "react";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { signupUser } from "@/store/features/authSlice";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { signInFormStyles as s } from "./AuthForm.styles";
 import type { SignInFormProps } from "./AuthForm.types";
 import Button from "@/components/uiComponents/Button";
+import { ConfigRefetcher } from "@/components/common/ConfigRefetcher";
 
 export function RegisterForm({ onSuccess }: SignInFormProps) {
   const dispatch = useAppDispatch();
@@ -19,6 +20,8 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const isCaptchaEnabled = useAppSelector((state) => state.config.data?.is_captcha_enabled ?? true);
 
   // Custom Dropdown State
   const [isGenderOpen, setIsGenderOpen] = useState(false);
@@ -63,7 +66,7 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
       setError("Please select your date of birth.");
       return;
     }
-    if (!captchaToken) {
+    if (isCaptchaEnabled && !captchaToken) {
       setError("Please complete the CAPTCHA security check.");
       return;
     }
@@ -100,8 +103,10 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={s.form}>
-      <div className={s.inputGroup}>
+    <>
+      <ConfigRefetcher />
+      <form onSubmit={handleSubmit} className={s.form}>
+        <div className={s.inputGroup}>
         <label htmlFor="reg-name" className={s.label}>Name</label>
         <input
           id="reg-name"
@@ -172,24 +177,26 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
         />
       </div>
 
-      <div className={s.inputGroup}>
-        <p className="text-[10px] text-black/40 mb-2 uppercase tracking-widest font-semibold flex items-center gap-1">
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-          Security Check
-        </p>
-        <div className={s.turnstileBox}>
-          <Turnstile
-            ref={turnstileRef}
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
-            onSuccess={(token) => {
-              setCaptchaToken(token);
-              setError("");
-            }}
-            onError={() => setError("Captcha verification failed. Please try again.")}
-            onExpire={() => setCaptchaToken("")}
-          />
+      {isCaptchaEnabled && (
+        <div className={s.inputGroup}>
+          <p className="text-[10px] text-black/40 mb-2 uppercase tracking-widest font-semibold flex items-center gap-1">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            Security Check
+          </p>
+          <div className={s.turnstileBox}>
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"}
+              onSuccess={(token) => {
+                setCaptchaToken(token);
+                setError("");
+              }}
+              onError={() => setError("Captcha verification failed. Please try again.")}
+              onExpire={() => setCaptchaToken("")}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <p className={s.error}>{error || "\u00A0"}</p>
 
@@ -197,5 +204,6 @@ export function RegisterForm({ onSuccess }: SignInFormProps) {
         {isSubmitting ? "Registering..." : "Register"}
       </Button>
     </form>
+    </>
   );
 }

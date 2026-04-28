@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import type { PartnerIdModalProps } from "./EventRegistration.types";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
+import { fetchApi } from "@/lib/fetchApi";
 
 
 export default function PartnerIdModal({ eventName, eventId, categoryCode, onClose, onConfirm }: PartnerIdModalProps) {
@@ -10,12 +11,10 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
   const [error, setError] = useState<string | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Focus first input on open
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
 
-  // Lock body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
@@ -28,7 +27,6 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
     setDigits(next);
     setError(null);
 
-    // Auto-advance to next input
     if (digit && index < 3) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -47,7 +45,6 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
     const next = [...digits];
     for (let i = 0; i < 4; i++) next[i] = pasted[i] ?? "";
     setDigits(next);
-    // Focus the last filled or next empty
     const focusIdx = Math.min(pasted.length, 3);
     inputRefs.current[focusIdx]?.focus();
   };
@@ -66,18 +63,12 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
         categoryCode,
       });
 
-      const res = await Promise.race([
-        fetch(`/api/player/search?${searchParams.toString()}`, {
-          method: "GET",
-        }),
-        new Promise<Response>((_, reject) =>
-          setTimeout(() => reject(new Error("REQUEST_TIMEOUT")), 10000)
-        ),
-      ]);
+      const data = await fetchApi<any>(`/api/player/search?${searchParams.toString()}`, {
+        method: "GET",
+        timeout: 10000,
+      });
 
-      const data = await res.json().catch(() => ({ message: "Invalid server response." }));
-
-      if (!res.ok || !data.isEligible) {
+      if (!data.isEligible) {
         setError(data.message || "Invalid partner ID.");
         return;
       }
@@ -87,11 +78,11 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
         partnerName: data.playerDetails?.fullName || partnerId,
       });
       onClose();
-    } catch (err) {
-      if (err instanceof Error && err.message === "REQUEST_TIMEOUT") {
+    } catch (err: any) {
+      if (err.message === "REQUEST_TIMEOUT") {
         setError("Partner validation timed out. Please try again.");
       } else {
-        setError("Something went wrong. Please try again.");
+        setError(err.message || "Something went wrong. Please try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -100,13 +91,13 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
 
   return (
     <>
-      {/* Backdrop */}
+      { }
       <div
         className={s.backdrop}
         aria-hidden="true"
       />
 
-      {/* Modal */}
+      { }
       <div
         role="dialog"
         aria-modal="true"
@@ -115,13 +106,13 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
       >
         <div className={s.modalContent}>
 
-          {/* Header */}
+          { }
           <h2 className="text-base font-medium text-black/90 text-center leading-snug">
             Enter the profile ID of your partner for{" "}
             <span className="font-semibold">{eventName}</span>
           </h2>
 
-          {/* 4 digit squares */}
+          { }
           <div className="flex justify-center gap-3">
             {digits.map((digit, i) => (
               <input
@@ -140,12 +131,12 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
             ))}
           </div>
 
-          {/* Message placeholder */}
+          { }
           <p className={`${s.errorPlaceholder} ${error ? s.error : "text-transparent"}`}>
             {error || "\u00A0"}
           </p>
 
-          {/* Buttons */}
+          { }
           <div className="flex gap-3">
             <button
               type="button"

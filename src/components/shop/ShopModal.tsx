@@ -175,9 +175,14 @@ export default function ShopModal({ isOpen, design, onClose }: ShopModalProps) {
                             </div>
 
                             {/* Submit */}
-                            <Button type="submit" btnType="small" disabled={!selectedSize}>
+                            <button
+                                type="submit"
+                                disabled={!selectedSize}
+                                // className="w-full py-2.5 mt-2 bg-[#B45309] text-white font-bold text-xs sm:text-sm rounded-xl hover:bg-[#924206] active:bg-[#783605] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                                className="w-full py-2.5 mt-2 border border-[#B45309] text-[#B45309] font-bold text-xs sm:text-sm rounded-xl hover:bg-[#ffd4b3] active:bg-[#ffd4b3] transition-colors disabled:opacity-40"
+                            >
                                 Add to Cart — ₹{design?.price}
-                            </Button>
+                            </button>
                         </form>
                     </div>
                 </div>

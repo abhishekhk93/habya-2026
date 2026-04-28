@@ -9,6 +9,7 @@ import { shirtDesigns } from "./Shop.data";
 import ShopModal from "./ShopModal";
 import { useAppSelector } from "@/store/hooks";
 import { getCart } from "@/lib/atc/storage";
+import { ClosedState } from "../common/ClosedState";
 
 export default function Shop({ className }: ShopProps) {
     const [selectedDesign, setSelectedDesign] = useState<ShirtDesign | null>(null);
@@ -17,7 +18,9 @@ export default function Shop({ className }: ShopProps) {
     const [carouselIndex, setCarouselIndex] = useState<Record<string, number>>({});
 
     const playerId = useAppSelector((state) => state.auth.user?.playerId);
+    const isShirtOrdersOpen = useAppSelector((state) => state.config.data?.is_shirt_orders_open);
     const [cartCounts, setCartCounts] = useState<Record<string, number>>({});
+
 
     useEffect(() => {
         if (!playerId) {
@@ -74,7 +77,20 @@ export default function Shop({ className }: ShopProps) {
         else if (delta < -40) setIndex(id, Math.max(getIndex(id) - 1, 0));
     };
 
+    if (isShirtOrdersOpen === false) {
+        return (
+            <div className={s.wrapper}>
+                <ClosedState 
+                    title="Shirt Orders are Closed" 
+                    description="We are not currently taking new shirt orders for Habya 2026. Please check back later." 
+                    theme="brown"
+                />
+            </div>
+        );
+    }
+
     return (
+
         <div className={s.wrapper}>
             {/* Main Shop Details */}
             <div className={s.card}>
@@ -174,14 +190,19 @@ export default function Shop({ className }: ShopProps) {
                                         Customize your fit today!
                                     </p>
                                 )}
-                                <Button btnType="small" onClick={() => handleOpenModal(design)}>
+                                <button
+                                    type="button"
+                                    className="w-full py-2.5 mt-1 bg-white border border-[#B45309] text-[#B45309] font-bold text-xs sm:text-sm rounded-xl hover:bg-[#ffd4b3] active:bg-[#ffd4b3] transition-colors"
+                                    onClick={() => handleOpenModal(design)}
+                                >
                                     Customize & Add
-                                </Button>
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+
 
             {isModalOpen && (
                 <ShopModal

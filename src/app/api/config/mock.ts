@@ -10,5 +10,6 @@ export const mockConfig: ConfigData = {
 
   is_registration_open: true,
   is_shirt_orders_open: true,
-  is_sponsorships_open: false,
+  is_sponsorships_open: true,
+  is_captcha_enabled: true,
 };
