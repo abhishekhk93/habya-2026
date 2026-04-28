@@ -63,6 +63,102 @@ export const mockOrdersDb: Record<string, Order[]> = {
       ],
     },
     {
+      orderId: "ORD-4",
+      transactionId: "TXN-4",
+      paymentStatus: "PENDING",
+      totalOrderAmount: {
+        orderAmount: 3000,
+        platformFee: 60,
+      },
+      registrations: [],
+      shirts: [
+        {
+          id: "TS-2",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 1000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {
+            type: "round",
+            size: "M",
+            color: "Black",
+            displayName: "Abhi",
+          },
+        },
+      ],
+      sponsorships: [
+        {
+          id: "SP-1",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 2000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {},
+        },
+      ],
+    },
+    {
+      orderId: "ORD-5",
+      transactionId: "TXN-5",
+      paymentStatus: "FAILED",
+      totalOrderAmount: {
+        orderAmount: 3000,
+        platformFee: 60,
+      },
+      registrations: [],
+      shirts: [
+        {
+          id: "TS-1",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 1000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {
+            type: "collared",
+            size: "L",
+            color: "Blue",
+            displayName: "ABHI",
+          },
+        },
+        {
+          id: "TS-5",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 1000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {
+            type: "collared",
+            size: "L",
+            color: "Blue",
+            displayName: "sdfds",
+          },
+        },
+        {
+          id: "TS-2",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 1000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {
+            type: "round",
+            size: "M",
+            color: "Black",
+            displayName: "Abhi",
+          },
+        },
+      ],
+      sponsorships: [
+        {
+          id: "SP-1",
+          createdDate: "10/05/2026 09:00AM",
+          amount: 1000,
+          quantity: 1,
+          createdBy: "Abhishek",
+          additionalAttributes: {},
+        },
+      ],
+    },
+    {
       orderId: "ORD-2",
       transactionId: "TXN-2",
       paymentStatus: "SUCCESS",
