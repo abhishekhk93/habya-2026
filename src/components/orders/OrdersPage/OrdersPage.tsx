@@ -23,23 +23,23 @@ export default function MyOrders() {
   const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || []);
 
   const filteredOrders = (() => {
-  switch (filter) {
-    case CONSTANTS.success:
-      return orders.filter(o => o.paymentStatus === CONSTANTS.success);
+    switch (filter) {
+      case CONSTANTS.success:
+        return orders.filter(o => o.paymentStatus === CONSTANTS.success);
 
-    case CONSTANTS.pending:
-      return orders.filter(o => o.paymentStatus === CONSTANTS.pending);
+      case CONSTANTS.pending:
+        return orders.filter(o => o.paymentStatus === CONSTANTS.pending);
 
-    default:
-      return orders;
-  }
-})();
+      default:
+        return orders;
+    }
+  })();
 
   const filterOptions = ['ALL', CONSTANTS.success, CONSTANTS.pending];
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        <h1 className={s.pageTitle}>My Orders</h1>
+        <h1 className={s.pageTitle}>Orders</h1>
 
         {isEmpty ? (
           <div className={s.emptyState}>
@@ -59,14 +59,14 @@ export default function MyOrders() {
             {combinedSponsorships.length > 0 && <SponsorshipItem />}
 
             <div className={s.pageSubtitle}>Here's a snapshot of your bookings.</div>
-        
-            {!isEmpty && ( pendingOrders?.length > 0 ) && (
+
+            {!isEmpty && (pendingOrders?.length > 0) && (
               <div className={s.filterContainer}>
                 {filterOptions.map(option => (
                   <button
                     key={option}
                     onClick={() => setFilter(option)}
-                    className={`${s.filterButtonBase} ${ filter === option ? s.filterButtonActive : s.filterButtonInactive}`}
+                    className={`${s.filterButtonBase} ${filter === option ? s.filterButtonActive : s.filterButtonInactive}`}
                   >
                     {option === CONSTANTS.success ? 'SUCCESSFUL' : option}
                   </button>
@@ -78,9 +78,9 @@ export default function MyOrders() {
               <OrderDetailsCard key={order.orderId} order={order} />
             ))}
 
-          </> 
+          </>
         )}
-        <Button style={{marginTop: "5px"}} btnType='small'>
+        <Button style={{ marginTop: "5px" }} btnType='small'>
           <Link href="/">
             Back to Home
           </Link>

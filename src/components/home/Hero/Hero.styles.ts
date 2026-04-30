@@ -1,16 +1,18 @@
 export const heroStyles = {
   wrapper: [
     "relative",
-    "h-svh",
+    "min-h-[calc(100svh-220px)]", // Reduced further to avoid desktop scroll
+    "sm:min-h-0", // Let it be natural on larger screens
     "bg-transparent",
     "flex",
     "flex-col",
     "items-center",
-    "justify-center", // Center components vertically
-    "pt-12",
-    "pb-8",
+    "justify-start", // Changed to start so pt-20 works as intended
+    "pt-20", // Pushed down on mobile
+    "sm:pt-12",
+    "pb-4",
+    "px-4",
     "font-sans",
-    "overflow-hidden",
   ].join(" "),
 
   wrapperLoggedIn: [
@@ -27,16 +29,16 @@ export const heroStyles = {
     "pb-10",
     "px-4",
     "font-sans",
-    "overflow-hidden",
   ].join(" "),
 
   container: [
     "w-full",
-    "max-w-[340px]",
+    "max-w-[320px]",
     "sm:max-w-none",
     "flex",
     "flex-col",
-    "gap-8", // Cohesive gap between components
+    "gap-12", // Spread components more on mobile
+    "sm:gap-8",
   ].join(" "),
 
   containerLoggedIn: [

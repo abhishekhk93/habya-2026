@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import { logoutUser } from "@/store/features/authSlice";
+import { logout } from "@/store/features/authSlice";
+import { clearAuthCookie } from "@/app/actions/authActions";
 import { HamburgerMenu } from "@/components/common/HamburgerMenu";
 import { navbarStyles as s } from "./Navbar.styles";
 import { getCart } from "@/lib/atc/storage";
@@ -14,7 +15,7 @@ const BASE_MENU_ITEMS = [
   { label: "Register", href: "/register" },
   { label: "Buy Shirts", href: "/shop" },
   { label: "Sponsor", href: "/sponsorship" },
-  { label: "My Orders", href: "/orders" },
+  { label: "Orders", href: "/orders" },
 ];
 
 export default function Navbar() {
@@ -48,7 +49,12 @@ export default function Navbar() {
   if (isLoading || !isLoggedIn) return null;
 
   const handleLogout = async () => {
-    await dispatch(logoutUser());
+    try {
+      await clearAuthCookie();
+    } catch (e) {
+      console.error("Failed to clear auth cookie", e);
+    }
+    dispatch(logout());
     setMenuOpen(false);
     router.push("/");
   };

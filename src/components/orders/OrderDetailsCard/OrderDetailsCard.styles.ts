@@ -32,7 +32,7 @@ export const orderDetailsCardStyles = {
   itemTitleContainer: "flex flex-col pr-4",
   itemTitle: "text-gray-800 font-medium",
   itemMeta: "text-[12px] text-gray-500 mt-1 leading-relaxed",
-  itemPrice: "font-medium text-gray-900 shrink-0 ml-auto tabular-nums",
+  itemPrice: "font-medium text-sm text-gray-900 shrink-0 ml-auto tabular-nums",
   
   totalSection: "border-t pt-3 border-gray-200 flex justify-between items-center",
   totalLabel: "font-semibold text-gray-500 tracking-wide uppercase text-xs",

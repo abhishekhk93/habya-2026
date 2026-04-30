@@ -52,7 +52,7 @@ export function SponsorshipItem({
       <div className={s.main}>
         <div className={s.headerRow}>
           {!isCustom && (
-            <span className={`${s.amountBadge} ${badgeColor}`}>₹ {level.amount.toLocaleString()}</span>
+            <span className={`${s.amountBadge} ${badgeColor}`}>₹ {(level.amount || 0).toLocaleString()}</span>
           )}
           <h3 className={s.name}>{level.name}</h3>
           <button
