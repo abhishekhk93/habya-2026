@@ -4,6 +4,7 @@ import { StoreProvider } from "@/components/providers/StoreProvider";
 import { Navbar } from "@/components/common/Navbar";
 import { Footer } from "@/components/common/Footer";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
+import { HeroBackground } from "@/components/home/HeroBackground/HeroBackground";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,7 +34,8 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider initialUser={initialUser}>
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen relative">
+            {!initialUser && <HeroBackground />}
             <Navbar />
             <main className="flex-grow">
               {children}

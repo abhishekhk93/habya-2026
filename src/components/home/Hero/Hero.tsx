@@ -9,16 +9,15 @@ import { SectionLabel } from "@/components/home/SectionLabel";
 import { ActionCards } from "@/components/home/ActionCards";
 import { ProfileCard } from "@/components/home/ProfileCard";
 import { AuthActions } from "@/components/home/AuthActions";
-import { HeroBackground } from "@/components/home/HeroBackground/HeroBackground";
 
-export default function Hero({ headline, description }: HeroProps) {
-  const { isLoggedIn, isLoading } = useAppSelector((state) => state.auth);
+export default function Hero({ headline, description, initialIsLoggedIn = false }: HeroProps) {
+  const { isLoggedIn: reduxIsLoggedIn, isLoading } = useAppSelector((state) => state.auth);
 
-  if (isLoading) return null;
+  // Use redux status if loaded, otherwise fall back to initial server status to prevent flicker
+  const isLoggedIn = isLoading ? initialIsLoggedIn : reduxIsLoggedIn;
 
   return (
     <section className={isLoggedIn ? s.wrapperLoggedIn : s.wrapper}>
-      {!isLoggedIn && <HeroBackground />}
       <div className={isLoggedIn ? s.containerLoggedIn : s.container}>
         {/* 1. Title Block or Small Logo at the top */}
         {isLoggedIn ? null : (

@@ -1,4 +1,4 @@
-"use client";
+import Image from "next/image";
 import { ScatteredDots } from "@/components/home/ScatteredDots";
 import { heroIllustrationStyles as s } from "./HeroIllustration.styles";
 
@@ -11,9 +11,13 @@ export default function HeroIllustration({ size = "large" }: HeroIllustrationPro
 
   return (
     <div className={isSmall ? s.wrapperSmall : s.wrapper}>
-      <img
-        src="/images/habya-10-logo.png"
+      <Image
+        src="/images/habya-home-10-logo-1.png"
         alt="Habya Logo"
+        width={650}
+        height={650}
+        priority
+        quality={90}
         className={isSmall ? s.illustrationSmall : s.illustration}
       />
 

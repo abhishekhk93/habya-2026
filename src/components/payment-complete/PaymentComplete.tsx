@@ -15,7 +15,7 @@ export function PaymentComplete(_props: PaymentCompleteProps) {
           <br /><br />
           Your transaction is being processed.
           <br />
-          Please check <b>"My Orders"</b> page after a few minutes for status updates.
+          Please check <b>"Orders"</b> page after a few minutes for status updates.
           <br /><br />
           Contact support if needed.
         </div>

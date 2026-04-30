@@ -3,13 +3,13 @@
 import { scatteredDotsStyles as s } from "./ScatteredDots.styles";
 
 const DOTS = [
-  { top: "85%", left: "35%", isPeach: false },
-  { top: "80%", left: "45%", isPeach: true },
-  { top: "88%", left: "55%", isPeach: false },
-  { top: "82%", left: "65%", isPeach: true },
-  { top: "92%", left: "40%", isPeach: true },
-  { top: "90%", left: "50%", isPeach: false },
-  { top: "95%", left: "60%", isPeach: true },
+  { top: "25%", left: "5%", isPeach: false },
+  { top: "60%", left: "20%", isPeach: true },
+  { top: "40%", left: "35%", isPeach: false },
+  { top: "75%", left: "50%", isPeach: true },
+  { top: "30%", left: "65%", isPeach: true },
+  { top: "85%", left: "80%", isPeach: false },
+  { top: "50%", left: "95%", isPeach: true },
 ];
 
 export default function ScatteredDots() {

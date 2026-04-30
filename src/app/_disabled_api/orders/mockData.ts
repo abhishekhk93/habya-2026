@@ -35,6 +35,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "L",
             color: "Blue",
             displayName: "ABHI",
+            name: "Collared T-Shirt",
           },
         },
         {
@@ -48,6 +49,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "M",
             color: "Black",
             displayName: "Abhi",
+            name: "Round T-Shirt",
           },
         },
       ],
@@ -83,6 +85,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "M",
             color: "Black",
             displayName: "Abhi",
+            name: "Round T-Shirt",
           },
         },
       ],
@@ -118,6 +121,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "L",
             color: "Blue",
             displayName: "ABHI",
+            name: "Collared T-Shirt",
           },
         },
         {
@@ -131,6 +135,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "L",
             color: "Blue",
             displayName: "sdfds",
+            name: "Collared T-Shirt",
           },
         },
         {
@@ -144,6 +149,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "M",
             color: "Black",
             displayName: "Abhi",
+            name: "Round T-Shirt",
           },
         },
       ],
@@ -195,6 +201,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "XL",
             color: "White",
             displayName: "Rahul",
+            name: "Collared T-Shirt",
           },
         },
         {
@@ -208,6 +215,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
             size: "L",
             color: "Green",
             displayName: "R",
+            name: "Round T-Shirt",
           },
         },
       ],
