@@ -107,6 +107,9 @@ export default function Cart() {
             {
               !isEmpty && (
                 <div className={s.checkoutBox}>
+                  <div className={s.sectionTitle} style={{ alignSelf: 'flex-start', width: '100%', paddingLeft: '4px', marginBottom: '-8px' }}>
+                    Your Cart Summary
+                  </div>
                   <CartSummary items={cart.items} />
                   <div className={s.checkoutButtonWrap}>
                     <Button

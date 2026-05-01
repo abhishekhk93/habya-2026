@@ -94,7 +94,9 @@ export default function EventRegistration() {
   if (loading || isRegistrationOpen === undefined) {
     return (
       <div className={s.wrapper}>
-        <Loader message="Warming up registrations..." />
+        <div className={s.card}>
+          <Loader message="Warming up registrations..." />
+        </div>
       </div>
     );
   }
@@ -143,6 +145,12 @@ export default function EventRegistration() {
             doublesPartners={doublesPartners}
             onToggle={handleToggle}
           />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
+            <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
+              <Link href="/cart">Go to Cart</Link>
+            </Button>
+          </div>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 export const ordersStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100dvh] pt-6 pb-10 px-4",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[calc(100svh-220px)] pt-6 pb-10 px-4",
   container: "w-[calc(100%-1rem)] sm:w-full max-w-[700px] mx-auto my-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 shadow-sm border border-[#d9d9d9]",
   pageTitle: "text-2xl font-light tracking-tight text-center text-gray-900",
   pageSubtitle: "text-sm font-light my-4 text-center text-black/60",
