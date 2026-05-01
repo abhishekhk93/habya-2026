@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType } from "./EventRegistration.types";
 import PartnerIdModal from "./PartnerIdModal";
@@ -11,6 +12,8 @@ import { getCart, saveCart } from "@/lib/atc/storage";
 import type { RegistrationAttributes } from "@/lib/atc/types";
 import { useAppSelector } from "@/store/hooks";
 import { ClosedState } from "../../common/ClosedState";
+import { Loader } from "../../common/Loader";
+import Button from "../../uiComponents/Button";
 
 export default function EventRegistration() {
   const isRegistrationOpen = useAppSelector((state) => state.config.data?.is_registration_open);
@@ -88,12 +91,10 @@ export default function EventRegistration() {
     });
   };
 
-  if (loading) {
+  if (loading || isRegistrationOpen === undefined) {
     return (
       <div className={s.wrapper}>
-        <div className={s.card}>
-          <p className={s.loadingState}>Loading eligible events...</p>
-        </div>
+        <Loader message="Warming up registrations..." />
       </div>
     );
   }
@@ -111,11 +112,15 @@ export default function EventRegistration() {
   }
 
   if (error || !data) {
-
     return (
       <div className={s.wrapper}>
         <div className={s.card}>
           <p className={s.errorState}>{error}</p>
+          <Button style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} btnType='small'>
+            <Link href="/">
+              Back to Home
+            </Link>
+          </Button>
         </div>
       </div>
     );

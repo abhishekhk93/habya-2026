@@ -7,14 +7,36 @@ import SponsorshipItem from '../OrderDetailsCard/SponsorshipItem';
 import Button from '../../uiComponents/Button';
 import * as CONSTANTS from '@/components/constants';
 import { useOrderData } from './useOrderData';
+import { Loader } from '../../common/Loader';
 
 
 export default function MyOrders() {
   const { orders, loading, error } = useOrderData();
   const [filter, setFilter] = useState<string>('ALL');
 
-  if (loading) return null;
-  if (error) return <p>{error}</p>;
+  if (loading) {
+    return (
+      <div className={s.wrapper}>
+        <div className={s.container}>
+          <Loader message="Gathering your orders..." />
+        </div>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className={s.wrapper}>
+        <div className={s.container}>
+          <p className={s.errorState}>{error}</p>
+          <Button style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} btnType='small'>
+            <Link href="/">
+              Back to Home
+            </Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   const isEmpty = orders.length === 0;
 

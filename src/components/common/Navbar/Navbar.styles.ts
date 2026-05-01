@@ -13,7 +13,9 @@ export const navbarStyles = {
     "lg:px-16",
     "py-4",
     "sm:py-6",
-    "bg-white",
+    "bg-white/5",
+    "backdrop-blur-sm",
+    "shadow-sm",
   ].join(" "),
 
   logo: [
@@ -25,6 +27,11 @@ export const navbarStyles = {
     "hover:text-black",
     "transition-colors",
     "duration-200",
+    "border",
+    "border-black/10",
+    "rounded-lg",
+    "px-3",
+    "py-1.5",
   ].join(" "),
 
   right: "flex items-center justify-end",
@@ -37,7 +44,7 @@ export const navbarStyles = {
     "right-0",
     "bottom-0",
     "h-px",
-    "bg-[#d9d9d9]",
+    "bg-black/10",
     "origin-left",
     "transition-[opacity,filter]",
     "duration-300",

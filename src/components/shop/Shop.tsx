@@ -10,6 +10,7 @@ import ShopModal from "./ShopModal";
 import { useAppSelector } from "@/store/hooks";
 import { getCart } from "@/lib/atc/storage";
 import { ClosedState } from "../common/ClosedState";
+import { Loader } from "../common/Loader";
 
 export default function Shop({ className }: ShopProps) {
     const [selectedDesign, setSelectedDesign] = useState<ShirtDesign | null>(null);
@@ -76,6 +77,14 @@ export default function Shop({ className }: ShopProps) {
         if (delta > 40) setIndex(id, Math.min(getIndex(id) + 1, total - 1));
         else if (delta < -40) setIndex(id, Math.max(getIndex(id) - 1, 0));
     };
+
+    if (isShirtOrdersOpen === undefined) {
+        return (
+            <div className={s.wrapper}>
+                <Loader message="Folding the tees..." />
+            </div>
+        );
+    }
 
     if (!isShirtOrdersOpen) {
         return (

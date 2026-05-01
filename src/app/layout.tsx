@@ -35,7 +35,7 @@ export default async function RootLayout({
       <body>
         <StoreProvider initialUser={initialUser}>
           <div className="flex flex-col min-h-screen relative">
-            {!initialUser && <HeroBackground />}
+            <HeroBackground />
             <Navbar />
             <main className="flex-grow">
               {children}

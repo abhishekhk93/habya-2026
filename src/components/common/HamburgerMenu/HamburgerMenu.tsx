@@ -52,6 +52,7 @@ export default function HamburgerMenu({
                 href={item.href}
                 className={s.item}
                 onClick={onClose}
+                prefetch={item.prefetch}
               >
                 {item.label}
               </Link>

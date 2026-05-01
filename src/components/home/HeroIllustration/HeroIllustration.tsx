@@ -20,8 +20,6 @@ export default function HeroIllustration({ size = "large" }: HeroIllustrationPro
         quality={90}
         className={isSmall ? s.illustrationSmall : s.illustration}
       />
-
-      {!isSmall && <ScatteredDots />}
     </div>
   );
 }

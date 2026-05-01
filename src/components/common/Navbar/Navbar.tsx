@@ -12,10 +12,10 @@ import { getCart } from "@/lib/atc/storage";
 
 const BASE_MENU_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Register", href: "/register" },
-  { label: "Buy Shirts", href: "/shop" },
+  { label: "Register", href: "/register", prefetch: false },
+  { label: "Buy Shirts", href: "/shop", prefetch: false },
   { label: "Sponsor", href: "/sponsorship" },
-  { label: "Orders", href: "/orders" },
+  { label: "Orders", href: "/orders", prefetch: false },
 ];
 
 export default function Navbar() {
@@ -61,7 +61,7 @@ export default function Navbar() {
 
   const menuItems = [
     ...BASE_MENU_ITEMS,
-    { label: cartCount > 0 ? `Cart (${cartCount})` : "Cart", href: "/cart" },
+    { label: cartCount > 0 ? `Cart (${cartCount})` : "Cart", href: "/cart", prefetch: false },
   ];
 
   return (

@@ -8,6 +8,7 @@ import { getCart, saveCart } from "@/lib/atc/storage";
 import { addSponsorshipToCart } from "@/lib/atc/addSponsorshipToCart";
 import { useAppSelector } from "@/store/hooks";
 import { ClosedState } from "../../common/ClosedState";
+import { Loader } from "../../common/Loader";
 
 const SPONSORSHIP_LEVELS: SponsorshipLevel[] = [
   { id: "level-15000", name: "Platinum", amount: 15000 },
@@ -92,6 +93,14 @@ export default function SponsorshipPage() {
       removeSponsorshipFromCart();
     }
   };
+
+  if (isSponsorshipsOpen === undefined) {
+    return (
+      <div className={s.wrapper}>
+        <Loader message="Getting sponsor-ready..." />
+      </div>
+    );
+  }
 
   if (!isSponsorshipsOpen) {
     return (
