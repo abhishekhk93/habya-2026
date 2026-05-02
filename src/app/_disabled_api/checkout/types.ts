@@ -15,23 +15,23 @@ export type SponsorshipItemAttributes = Record<string, never>;
 
 export type CheckoutCartItem =
   | {
-      itemType: "REGISTRATION";
-      itemAmount: null;
-      itemQuantity: 1;
-      itemAttributes: RegistrationItemAttributes;
-    }
+    itemType: "REGISTRATION";
+    itemAmount: null;
+    itemQuantity: 1;
+    itemAttributes: RegistrationItemAttributes;
+  }
   | {
-      itemType: "TSHIRT";
-      itemAmount: null;
-      itemQuantity: 1;
-      itemAttributes: TShirtItemAttributes;
-    }
+    itemType: "TSHIRT";
+    itemAmount: null;
+    itemQuantity: 1;
+    itemAttributes: TShirtItemAttributes;
+  }
   | {
-      itemType: "SPONSORSHIP";
-      itemAmount: number;
-      itemQuantity: 1;
-      itemAttributes: SponsorshipItemAttributes;
-    };
+    itemType: "SPONSORSHIP";
+    itemAmount: number;
+    itemQuantity: 1;
+    itemAttributes: SponsorshipItemAttributes;
+  };
 
 export interface CheckoutCartRequest {
   items: CheckoutCartItem[];
@@ -48,15 +48,15 @@ export interface CheckoutResponseItem {
   itemAmount: number;
   itemQuantity: 1;
   itemAttributes:
-    | RegistrationItemAttributes
-    | TShirtItemAttributes
-    | SponsorshipItemAttributes;
+  | RegistrationItemAttributes
+  | TShirtItemAttributes
+  | SponsorshipItemAttributes;
 }
 
 export interface CheckoutResponse {
   orderId: string;
   razorpayOrderId: string;
-  paymentStatus: "PENDING" | "SUCCESS" | "FAILED";
+  orderStatus: "PENDING" | "SUCCESS" | "FAILED";
   transactionId: string | null;
   totalOrderAmount: TotalOrderAmount;
   items: CheckoutResponseItem[];

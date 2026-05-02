@@ -39,7 +39,7 @@ export interface SponsorshipItem extends BaseItem {
 export interface Order {
   orderId: string;
   transactionId: string;
-  paymentStatus: string;
+  orderStatus: string;
   totalOrderAmount: TotalOrderAmount;
   registrations?: RegistrationItem[];
   shirts?: ShirtItem[];

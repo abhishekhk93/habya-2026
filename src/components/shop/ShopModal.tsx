@@ -13,10 +13,10 @@ interface ShopModalProps {
     isOpen: boolean;
     design: ShirtDesign | null;
     onClose: () => void;
-    // onAddToCart: (e: React.FormEvent) => void;
+    price: number;
 }
 
-export default function ShopModal({ isOpen, design, onClose }: ShopModalProps) {
+export default function ShopModal({ isOpen, design, onClose, price }: ShopModalProps) {
     const playerId = useAppSelector((state) => state.auth.user?.playerId);
     const [selectedSize, setSelectedSize] = useState<ShirtSize | null>(null);
     const [nameToPrint, setNameToPrint] = useState("");
@@ -181,7 +181,7 @@ export default function ShopModal({ isOpen, design, onClose }: ShopModalProps) {
                                 // className="w-full py-2.5 mt-2 bg-[#B45309] text-white font-bold text-xs sm:text-sm rounded-xl hover:bg-[#924206] active:bg-[#783605] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                                 className="w-full py-2.5 mt-2 border border-[#B45309] text-[#B45309] font-bold text-xs sm:text-sm rounded-xl hover:bg-[#ffd4b3] active:bg-[#ffd4b3] transition-colors disabled:opacity-40"
                             >
-                                Add to Cart — ₹{design?.price}
+                                Add to Cart — ₹{price}
                             </button>
                         </form>
                     </div>

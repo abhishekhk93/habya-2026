@@ -8,6 +8,7 @@ export const shirtDesigns: ShirtDesign[] = [
         frontImage: "/shirts/one-front.png",
         backImage: "/shirts/one-back.png",
         price: 599,
+        configKey: "price_shirt_collared_half",
     },
     {
         id: "d2",
@@ -16,6 +17,7 @@ export const shirtDesigns: ShirtDesign[] = [
         frontImage: "/shirts/two-front.png",
         backImage: "/shirts/two-back.png",
         price: 549,
+        configKey: "price_shirt_round_neck_half",
     },
     {
         id: "d3",
@@ -24,6 +26,7 @@ export const shirtDesigns: ShirtDesign[] = [
         frontImage: "/shirts/three-front.png",
         backImage: "/shirts/three-back.png",
         price: 499,
+        configKey: "price_shirt_round_neck_sleeveless",
     },
 ];
 

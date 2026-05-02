@@ -48,22 +48,22 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
 
   // Status mappings
   const leftColumnColor =
-    order.paymentStatus === CONSTANTS.success ? s.leftColumnSuccess :
-      order.paymentStatus === CONSTANTS.pending ? s.leftColumnPending :
-        order.paymentStatus === CONSTANTS.cancelled ? s.leftColumnCancelled :
-          order.paymentStatus === 'FAILED' ? s.leftColumnFailed : s.leftColumnDefault;
+    order.orderStatus === CONSTANTS.success ? s.leftColumnSuccess :
+      order.orderStatus === CONSTANTS.pending ? s.leftColumnPending :
+        order.orderStatus === CONSTANTS.cancelled ? s.leftColumnCancelled :
+          order.orderStatus === 'FAILED' ? s.leftColumnFailed : s.leftColumnDefault;
 
   const rightColumnColor =
-    order.paymentStatus === CONSTANTS.success ? s.rightColumnSuccess :
-      order.paymentStatus === CONSTANTS.pending ? s.rightColumnPending :
-        order.paymentStatus === CONSTANTS.cancelled ? s.rightColumnCancelled :
-          order.paymentStatus === 'FAILED' ? s.rightColumnFailed : s.rightColumnDefault;
+    order.orderStatus === CONSTANTS.success ? s.rightColumnSuccess :
+      order.orderStatus === CONSTANTS.pending ? s.rightColumnPending :
+        order.orderStatus === CONSTANTS.cancelled ? s.rightColumnCancelled :
+          order.orderStatus === 'FAILED' ? s.rightColumnFailed : s.rightColumnDefault;
 
   const totalsBgColor =
-    order.paymentStatus === CONSTANTS.success ? 'bg-green-50' :
-      order.paymentStatus === CONSTANTS.pending ? 'bg-yellow-50' :
-        order.paymentStatus === CONSTANTS.cancelled ? 'bg-orange-50' :
-          order.paymentStatus === 'FAILED' ? 'bg-red-50' : 'bg-gray-50';
+    order.orderStatus === CONSTANTS.success ? 'bg-green-50' :
+      order.orderStatus === CONSTANTS.pending ? 'bg-yellow-50' :
+        order.orderStatus === CONSTANTS.cancelled ? 'bg-orange-50' :
+          order.orderStatus === 'FAILED' ? 'bg-red-50' : 'bg-gray-50';
 
   return (
     <div className={s.container}>
@@ -73,12 +73,12 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
         </div>
 
         <div>
-          <span className={`${s.statusBadge} ${order.paymentStatus === CONSTANTS.success ? s.statusSuccess :
-              order.paymentStatus === CONSTANTS.pending ? s.statusPending :
-                order.paymentStatus === CONSTANTS.cancelled ? s.statusCancelled :
-                  order.paymentStatus === 'FAILED' ? s.statusFailed : s.statusDefault
+          <span className={`${s.statusBadge} ${order.orderStatus === CONSTANTS.success ? s.statusSuccess :
+            order.orderStatus === CONSTANTS.pending ? s.statusPending :
+              order.orderStatus === CONSTANTS.cancelled ? s.statusCancelled :
+                order.orderStatus === 'FAILED' ? s.statusFailed : s.statusDefault
             }`}>
-            {order.paymentStatus}
+            {order.orderStatus}
           </span>
         </div>
       </div>
@@ -117,17 +117,24 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
           </ul>
         </div>
 
-        <div className={`border-t border-gray-200 flex flex-col gap-1 mt-2 pt-3 pb-3 px-5 -mx-5 -mb-2 ${totalsBgColor}`}>
+        <div className={`border-t border-gray-200 flex flex-col gap-1.5 mt-2 pt-3 pb-3 px-5 -mx-5 -mb-2 ${totalsBgColor}`}>
           <div className="flex justify-between items-center w-full">
             <span className={s.totalLabel}>Order Amount</span>
-            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.orderAmount || totalCart || 0).toLocaleString('en-IN')}</span>
+            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.orderAmount || 0).toLocaleString('en-IN')}</span>
           </div>
-          {order.totalOrderAmount?.platformFee ? (
-            <div className="flex justify-between items-center w-full">
-              <span className={s.totalLabel}>Platform Fee</span>
-              <span className={s.itemPrice}>₹{order.totalOrderAmount.platformFee.toLocaleString('en-IN')}</span>
-            </div>
-          ) : null}
+          <div className="flex justify-between items-center w-full">
+            <span className={s.totalLabel}>Platform Fee</span>
+            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.platformFee || 0).toLocaleString('en-IN')}</span>
+          </div>
+
+          <div className="border-t border-gray-300/40 my-1"></div>
+
+          <div className="flex justify-between items-center w-full">
+            <span className={s.totalLabel} style={{ color: '#111827', fontWeight: 700 }}>Total Amount</span>
+            <span className={s.totalValue}>
+              ₹{((order.totalOrderAmount?.orderAmount || 0) + (order.totalOrderAmount?.platformFee || 0)).toLocaleString('en-IN')}
+            </span>
+          </div>
         </div>
       </div>
     </div>

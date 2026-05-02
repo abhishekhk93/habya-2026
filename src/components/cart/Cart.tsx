@@ -75,7 +75,6 @@ export default function Cart() {
   return (
     <div
       className={`${s.wrapper} ${isEmpty ? s.wrapperEmpty : ""}`}
-      style={{ justifyContent: isEmpty ? "center" : "justify-start" }}
     >
       <div className={`${s.card} ${isEmpty ? s.cardEmpty : ""}`}>
         {isEmpty ? (
@@ -86,21 +85,20 @@ export default function Cart() {
               </svg>
             </div>
             <h2 className={s.emptyStateTitle}>Your cart is empty</h2>
-            <ul
+            <div
               className={s.emptyStateText}
               style={{
-                paddingLeft: "18px",
-                textAlign: "left",
+                textAlign: "center",
                 maxWidth: "360px",
                 margin: "12px auto 0",
                 lineHeight: "1.6"
               }}
             >
-              <li style={{ marginBottom: "10px" }}>
+              <p>
                 It may have been cleared after checkout or cancellation.
                 Please add items to continue shopping.
-              </li>
-            </ul>
+              </p>
+            </div>
             <Link href="/" className={s.emptyStateLink}>
               Home
             </Link>

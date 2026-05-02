@@ -35,13 +35,13 @@ export default function CartSummary({ items }: CartSummaryProps) {
     let fallback: string | undefined = undefined;
 
     if (type === "ROUND_NECK_HALF") {
-      key = "price_shirt_round_neck_half_sleeves";
+      key = "price_shirt_round_neck_half";
       fallback = process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES;
     } else if (type === "ROUND_NECK_SLEEVELESS") {
       key = "price_shirt_round_neck_sleeveless";
       fallback = process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS;
     } else if (type === "COLLARED_HALF") {
-      key = "price_shirt_collared_half_sleeves";
+      key = "price_shirt_collared_half";
       fallback = process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES;
     }
 

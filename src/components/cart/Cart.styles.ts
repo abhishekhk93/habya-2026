@@ -1,9 +1,9 @@
 export const cartStyles = {
-  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[100svh] pt-6 pb-10 px-4",
-  wrapperEmpty: "-mt-4 pt-0 pb-6",
+  wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[calc(100svh-160px)] pt-20 pb-12 px-4",
+  wrapperEmpty: "pt-6 pb-6",
 
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
-  cardEmpty: "py-8 sm:py-10 -translate-y-4",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto my-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 mt-0 shadow-sm border border-[#d9d9d9]",
+  cardEmpty: "py-8 sm:py-10",
 
   pageTitle: "text-2xl font-light tracking-tight mb-2 text-center",
   pageSubtitle: "text-sm font-light mb-4 text-center text-black/60",

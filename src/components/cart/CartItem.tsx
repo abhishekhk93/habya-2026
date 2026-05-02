@@ -32,24 +32,22 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     title = attrs.name || "Event T-Shirt";
     if (attrs.size) {
       const sizeInfo = sizeChart.find(row => row.size === attrs.size);
-      details.push(
-        <p key="size">
-          Size: <strong>{attrs.size}</strong>
-          {sizeInfo && (
-            <span className="text-xs italic text-black/50 ml-1 font-normal">
-              (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
-            </span>
-          )}
-        </p>
-      );
+      details.push(<p key="size">Size: <strong>{attrs.size}</strong></p>);
+      if (sizeInfo) {
+        details.push(
+          <p key="size-info" className="text-[11px] italic text-black/40 font-normal">
+            (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
+          </p>
+        );
+      }
     }
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
     if (attrs.type === "ROUND_NECK_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES)) || 0;
+      price = Number(getConfigValue(config, "price_shirt_round_neck_half", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF)) || 0;
     } else if (attrs.type === "ROUND_NECK_SLEEVELESS") {
       price = Number(getConfigValue(config, "price_shirt_round_neck_sleeveless", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS)) || 0;
     } else if (attrs.type === "COLLARED_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES)) || 0;
+      price = Number(getConfigValue(config, "price_shirt_collared_half", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF)) || 0;
     }
     details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
   } else if (item.itemType === "SPONSORSHIP") {

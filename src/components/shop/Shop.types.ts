@@ -8,6 +8,7 @@ export interface ShirtDesign {
     frontImage: string;
     backImage: string;
     price: number;
+    configKey?: string;
 }
 
 export interface SizeChartItem {

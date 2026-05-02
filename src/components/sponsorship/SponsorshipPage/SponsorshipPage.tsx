@@ -98,7 +98,7 @@ export default function SponsorshipPage() {
 
   if (isSponsorshipsOpen === undefined) {
     return (
-      <div className={s.wrapper}>
+      <div className={s.wrapper} style={{ justifyContent: "center" }}>
         <div className={s.card}>
           <Loader message="Getting sponsor-ready..." />
         </div>
