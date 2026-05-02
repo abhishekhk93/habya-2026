@@ -75,7 +75,6 @@ export default function Cart() {
   return (
     <div
       className={`${s.wrapper} ${isEmpty ? s.wrapperEmpty : ""}`}
-      style={{ justifyContent: isEmpty ? "center" : "justify-start" }}
     >
       <div className={`${s.card} ${isEmpty ? s.cardEmpty : ""}`}>
         {isEmpty ? (

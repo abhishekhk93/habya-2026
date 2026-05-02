@@ -8,8 +8,8 @@ export const heroStyles = {
     "flex-col",
     "items-center",
     "justify-start", // Changed to start so pt-20 works as intended
-    "pt-20", // Pushed down on mobile
-    "sm:pt-12",
+    "pt-32", // Pushed down on mobile
+    "sm:pt-24",
     "pb-4",
     "px-4",
     "font-sans",
