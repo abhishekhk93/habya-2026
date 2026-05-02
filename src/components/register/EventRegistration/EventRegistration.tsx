@@ -64,7 +64,7 @@ export default function EventRegistration() {
     if (newSet.has(event.eventId)) {
       newSet.delete(event.eventId);
       setSelectedEventIds(newSet);
-      removeRegistrationFromCart(event.categoryCode);
+      removeRegistrationFromCart(event.categoryId);
       setDoublesPartners(prev => {
         const next = { ...prev };
         delete next[event.eventId];
@@ -84,7 +84,7 @@ export default function EventRegistration() {
     newSet.add(event.eventId);
     setSelectedEventIds(newSet);
     addOrReplaceRegistrationInCart({
-      categoryCode: event.categoryCode,
+      categoryCode: event.categoryId,
       categoryName: event.name,
       partnerPlayerId: null,
       partnerName: null,
@@ -158,11 +158,11 @@ export default function EventRegistration() {
         <PartnerIdModal
           eventName={doublesModalEvent.name}
           eventId={doublesModalEvent.eventId}
-          categoryCode={doublesModalEvent.categoryCode}
+          categoryCode={doublesModalEvent.categoryId}
           onClose={() => setDoublesModalEvent(null)}
           onConfirm={({ partnerId, partnerName }) => {
             addOrReplaceRegistrationInCart({
-              categoryCode: doublesModalEvent.categoryCode,
+              categoryCode: doublesModalEvent.categoryId,
               categoryName: doublesModalEvent.name,
               partnerPlayerId: partnerId,
               partnerName,
