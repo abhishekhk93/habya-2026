@@ -34,9 +34,11 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    setCart(getCart(playerId));
+    if (playerId) {
+      setCart(getCart(playerId));
+    }
     setMounted(true);
-  }, []);
+  }, [playerId]);
 
   if (!mounted) {
     return null; // Avoid hydration mismatch on initial render

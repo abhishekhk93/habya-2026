@@ -14,7 +14,7 @@ export interface BaseItem {
 export interface RegistrationItem extends BaseItem {
   additionalAttributes: {
     categoryName: string;
-    categoryCode: string;
+    categoryId: string;
     partnerDetails?: {
       fullName: string;
       playerId: string;

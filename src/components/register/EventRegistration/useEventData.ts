@@ -66,7 +66,7 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
           cartSelectedIds.push(eventId);
 
           const inEligibleList = eligibleEvents.find(
-            (e) => e.categoryCode === code || e.eventId === eventId
+            (e) => e.categoryId === code || e.eventId === eventId
           );
           if (inEligibleList?.type !== "DOUBLES") return;
 

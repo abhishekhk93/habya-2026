@@ -37,7 +37,7 @@ export const buildRegistrationLookup = (
   const lookup = new Map<string, RegistrationLookupValue>();
 
   registrations.forEach((registration) => {
-    const categoryCode = registration.additionalAttributes.categoryCode;
+    const categoryId = registration.additionalAttributes.categoryId;
     const partnerDetails = registration.additionalAttributes.partnerDetails;
     const partnerName = partnerDetails
       ? registration.createdBy === currentUserName
@@ -45,7 +45,7 @@ export const buildRegistrationLookup = (
         : registration.createdBy
       : null;
 
-    lookup.set(categoryCode, {
+    lookup.set(categoryId, {
       isRegistered: true,
       partnerName,
     });
@@ -77,10 +77,10 @@ export const transformToEventUIModel = (
   mergedData: MergedEligibleRegistration[]
 ): EventType[] => {
   return mergedData.map((item) => {
-    const categoryCode = normalizeCategoryCode(item.categoryId);
+    const categoryId = normalizeCategoryCode(item.categoryId);
     return {
-      eventId: Number(categoryCode),
-      categoryCode,
+      eventId: Number(categoryId),
+      categoryId,
       name: item.categoryName,
       type: item.categoryType,
       categoryDescription: item.categoryDescription,
