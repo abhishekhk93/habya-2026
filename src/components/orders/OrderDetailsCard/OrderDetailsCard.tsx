@@ -114,15 +114,10 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
                           <span className="font-medium mr-1">Name to Print:</span> <strong>{item.displayName}</strong>
                         </span>
                       )}
-                      <span className={s.itemMeta}>
-                        <span className="font-medium mr-1">Amount:</span> <strong>₹{(item.price || 0).toLocaleString('en-IN')}</strong>
-                      </span>
                     </div>
                   )}
                 </div>
-                {item.type !== 'shirt' && (
-                  <span className={s.itemPrice}>₹{(item.price || 0).toLocaleString('en-IN')}</span>
-                )}
+                <span className={s.itemPrice}>₹{(item.price || 0).toLocaleString('en-IN')}</span>
               </li>
             ))}
           </ul>
