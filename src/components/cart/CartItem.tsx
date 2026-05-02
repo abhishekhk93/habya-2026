@@ -45,11 +45,11 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     }
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
     if (attrs.type === "ROUND_NECK_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_round_neck_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF_SLEEVES)) || 0;
+      price = Number(getConfigValue(config, "price_shirt_round_neck_half", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_HALF)) || 0;
     } else if (attrs.type === "ROUND_NECK_SLEEVELESS") {
       price = Number(getConfigValue(config, "price_shirt_round_neck_sleeveless", process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_SLEEVELESS)) || 0;
     } else if (attrs.type === "COLLARED_HALF") {
-      price = Number(getConfigValue(config, "price_shirt_collared_half_sleeves", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES)) || 0;
+      price = Number(getConfigValue(config, "price_shirt_collared_half", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF)) || 0;
     }
     details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
   } else if (item.itemType === "SPONSORSHIP") {
