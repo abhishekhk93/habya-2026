@@ -120,6 +120,7 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
                 ref={(el) => { inputRefs.current[i] = el; }}
                 type="text"
                 inputMode="numeric"
+                autoComplete="off"
                 maxLength={1}
                 value={digit}
                 onChange={(e) => handleDigitChange(i, e.target.value)}
