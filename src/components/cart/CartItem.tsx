@@ -35,7 +35,7 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
       details.push(
         <p key="size">
           Size: <strong>{attrs.size}</strong>
-          {sizeInfo && <span className="text-black/40"> | {sizeInfo.width}in x {sizeInfo.length}in</span>}
+          {sizeInfo && <span className="text-black/40"> | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)</span>}
         </p>
       );
     }
