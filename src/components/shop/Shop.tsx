@@ -12,6 +12,8 @@ import { useAppSelector } from "@/store/hooks";
 import { getCart } from "@/lib/atc/storage";
 import { ClosedState } from "../common/ClosedState";
 import { Loader } from "../common/Loader";
+import { getConfigValue } from "@/lib/getConfigValue";
+import { ConfigData } from "@/app/_disabled_api/config/types";
 
 export default function Shop({ className }: ShopProps) {
     const [selectedDesign, setSelectedDesign] = useState<ShirtDesign | null>(null);
@@ -20,7 +22,8 @@ export default function Shop({ className }: ShopProps) {
     const [carouselIndex, setCarouselIndex] = useState<Record<string, number>>({});
 
     const playerId = useAppSelector((state) => state.auth.user?.playerId);
-    const isShirtOrdersOpen = useAppSelector((state) => state.config.data?.is_shirt_orders_open);
+    const configData = useAppSelector((state) => state.config.data);
+    const isShirtOrdersOpen = configData?.is_shirt_orders_open;
     const [cartCounts, setCartCounts] = useState<Record<string, number>>({});
 
 
@@ -188,7 +191,15 @@ export default function Shop({ className }: ShopProps) {
                             </div>
 
                             <div className={s.cardContent}>
-                                <h3 className={s.shirtName}>{design.name} <span className={s.shirtPrice}>&nbsp;&nbsp;-&nbsp;&nbsp;₹{design.price}</span></h3>
+                                {(() => {
+                                    const price = Number(getConfigValue(configData, design.configKey as keyof ConfigData, String(design.price))) || design.price;
+                                    return (
+                                        <h3 className={s.shirtName}>
+                                            {design.name}
+                                            <span className={s.shirtPrice}>&nbsp;&nbsp;-&nbsp;&nbsp;₹{price}</span>
+                                        </h3>
+                                    );
+                                })()}
                                 {cartCounts[design.type] ? (
                                     <p className="text-[13px] text-center text-green-600 my-1.5 font-medium tracking-tight flex items-center justify-center">
                                         You added {cartCounts[design.type]} item{cartCounts[design.type] > 1 ? 's' : ''} to the cart
@@ -227,6 +238,7 @@ export default function Shop({ className }: ShopProps) {
                     isOpen={isModalOpen}
                     design={selectedDesign}
                     onClose={handleCloseModal}
+                    price={selectedDesign ? (Number(getConfigValue(configData, selectedDesign.configKey as keyof ConfigData, String(selectedDesign.price))) || selectedDesign.price) : 0}
                 />
             )}
 

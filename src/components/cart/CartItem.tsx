@@ -32,16 +32,14 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     title = attrs.name || "Event T-Shirt";
     if (attrs.size) {
       const sizeInfo = sizeChart.find(row => row.size === attrs.size);
-      details.push(
-        <p key="size">
-          Size: <strong>{attrs.size}</strong>
-          {sizeInfo && (
-            <span className="text-xs italic text-black/50 ml-1 font-normal">
-              (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
-            </span>
-          )}
-        </p>
-      );
+      details.push(<p key="size">Size: <strong>{attrs.size}</strong></p>);
+      if (sizeInfo) {
+        details.push(
+          <p key="size-info" className="text-[11px] italic text-black/40 font-normal">
+            (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
+          </p>
+        );
+      }
     }
     if (attrs.displayName) details.push(<p key="dname">Name to Print: <strong>{attrs.displayName}</strong></p>);
     if (attrs.type === "ROUND_NECK_HALF") {

@@ -117,17 +117,24 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
           </ul>
         </div>
 
-        <div className={`border-t border-gray-200 flex flex-col gap-1 mt-2 pt-3 pb-3 px-5 -mx-5 -mb-2 ${totalsBgColor}`}>
+        <div className={`border-t border-gray-200 flex flex-col gap-1.5 mt-2 pt-3 pb-3 px-5 -mx-5 -mb-2 ${totalsBgColor}`}>
           <div className="flex justify-between items-center w-full">
             <span className={s.totalLabel}>Order Amount</span>
-            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.orderAmount || totalCart || 0).toLocaleString('en-IN')}</span>
+            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.orderAmount || 0).toLocaleString('en-IN')}</span>
           </div>
-          {order.totalOrderAmount?.platformFee ? (
-            <div className="flex justify-between items-center w-full">
-              <span className={s.totalLabel}>Platform Fee</span>
-              <span className={s.itemPrice}>₹{order.totalOrderAmount.platformFee.toLocaleString('en-IN')}</span>
-            </div>
-          ) : null}
+          <div className="flex justify-between items-center w-full">
+            <span className={s.totalLabel}>Platform Fee</span>
+            <span className={s.itemPrice}>₹{(order.totalOrderAmount?.platformFee || 0).toLocaleString('en-IN')}</span>
+          </div>
+
+          <div className="border-t border-gray-300/40 my-1"></div>
+
+          <div className="flex justify-between items-center w-full">
+            <span className={s.totalLabel} style={{ color: '#111827', fontWeight: 700 }}>Total Amount</span>
+            <span className={s.totalValue}>
+              ₹{((order.totalOrderAmount?.orderAmount || 0) + (order.totalOrderAmount?.platformFee || 0)).toLocaleString('en-IN')}
+            </span>
+          </div>
         </div>
       </div>
     </div>
