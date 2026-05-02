@@ -2,14 +2,9 @@ import { useState, useEffect } from "react";
 import { getCart } from "@/lib/atc/storage";
 import type { EligibleEventsResponse } from "@/app/_disabled_api/eligible-events/types";
 import type { Order } from "@/app/_disabled_api/orders/types";
-import {
-  flattenRegistrations,
-  buildRegistrationLookup,
-  mergeEligibleWithRegistrations,
-  transformToEventUIModel,
-} from "@/lib/registration";
+import { normalizeCategoryCode } from "@/lib/registration";
 import { fetchApi } from "@/lib/fetchApi";
-import type { RegisterResponse } from "./EventRegistration.types";
+import type { RegisterResponse, EventType } from "./EventRegistration.types";
 
 export interface EventDataHookResult {
   data: RegisterResponse | null;
@@ -35,13 +30,44 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
           fetchApi<Order[]>("/api/orders?type=registrations&includePartnerRegistrations=true"),
         ]);
 
-        const registrations = flattenRegistrations(ordersJson);
-        const registrationMap = buildRegistrationLookup(registrations, userFullName);
-        const mergedEvents = mergeEligibleWithRegistrations(
-          eligibleEventsJson.eligibleCategories,
-          registrationMap
-        );
-        const eligibleEvents = transformToEventUIModel(mergedEvents);
+        // 1. Flatten registrations from all successful orders
+        const allRegistrations = ordersJson.flatMap((order) => order.registrations ?? []);
+
+        // 2. Build an efficient lookup map (O(n))
+        const registrationLookup = new Map<string, { isRegistered: boolean; partnerName: string | null }>();
+        allRegistrations.forEach((reg) => {
+          const catId = reg.additionalAttributes.categoryId;
+          const partnerDetails = reg.additionalAttributes.partnerDetails;
+
+          let partnerName: string | null = null;
+          if (partnerDetails) {
+            // Partner logic: If I am the partner, the partner is the creator. Otherwise, it's the named partner.
+            partnerName = partnerDetails.fullName === userFullName
+              ? reg.createdBy
+              : partnerDetails.fullName;
+          }
+
+          registrationLookup.set(catId, { isRegistered: true, partnerName });
+        });
+
+        // 3. Merge eligible categories with registration info and transform to UI model
+        const eligibleEvents: EventType[] = eligibleEventsJson.eligibleCategories.map((cat) => {
+          const reg = registrationLookup.get(cat.categoryId);
+          const normalizedId = normalizeCategoryCode(cat.categoryId);
+
+          return {
+            eventId: Number(normalizedId),
+            categoryId: normalizedId,
+            name: cat.categoryName,
+            type: cat.categoryType as "SINGLES" | "DOUBLES",
+            categoryDescription: cat.categoryDescription,
+            isEnabled: cat.isEnabled,
+            registration: {
+              isRegistered: !!reg,
+              partner: reg?.partnerName ? { name: reg.partnerName } : null,
+            },
+          };
+        });
         const transformedData: RegisterResponse = {
           userId: userPlayerId != null && userPlayerId !== "" ? Number(userPlayerId) : 0,
           eligibleEvents,

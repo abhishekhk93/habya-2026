@@ -35,7 +35,7 @@ export default function MyOrders({ orders }: MyOrdersProps) {
             <OrderCard key="combined-orders" order={{
               orderId: 'combined',
               transactionId: '',
-              paymentStatus: '',
+              orderStatus: '',
               totalOrderAmount: { orderAmount: 0, platformFee: 0 },
               registrations: orders.flatMap(o => o.registrations || []),
               shirts: orders.flatMap(o => o.shirts || []),

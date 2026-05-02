@@ -40,17 +40,17 @@ export default function MyOrders() {
 
   const isEmpty = orders.length === 0;
 
-  const successfulOrders = orders.filter(or => or.paymentStatus === CONSTANTS.success);
-  const pendingOrders = orders.filter(or => or.paymentStatus === CONSTANTS.pending);
+  const successfulOrders = orders.filter(or => or.orderStatus === CONSTANTS.success);
+  const pendingOrders = orders.filter(or => or.orderStatus === CONSTANTS.pending);
   const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || []);
 
   const filteredOrders = (() => {
     switch (filter) {
       case CONSTANTS.success:
-        return orders.filter(o => o.paymentStatus === CONSTANTS.success);
+        return orders.filter(o => o.orderStatus === CONSTANTS.success);
 
       case CONSTANTS.pending:
-        return orders.filter(o => o.paymentStatus === CONSTANTS.pending);
+        return orders.filter(o => o.orderStatus === CONSTANTS.pending);
 
       default:
         return orders;
