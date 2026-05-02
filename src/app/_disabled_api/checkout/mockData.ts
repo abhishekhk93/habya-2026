@@ -3,7 +3,7 @@ import { CheckoutResponse } from "./types";
 export const mockCheckoutResponse: CheckoutResponse = {
   orderId: "ORD-1001",
   razorpayOrderId: "order_RZP_ABC123",
-  paymentStatus: "PENDING",
+  orderStatus: "PENDING",
   transactionId: null,
   totalOrderAmount: {
     orderAmount: 9000,

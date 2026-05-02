@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       orderId: order.receipt,
       razorpayOrderId: order.id, // ✅ REAL ORDER ID
-      paymentStatus: "PENDING",
+      orderStatus: "PENDING",
       transactionId: null,
       totalOrderAmount: {
         orderAmount: totalAmount,

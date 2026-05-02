@@ -5,7 +5,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
     {
       orderId: "ORD-1",
       transactionId: "TXN-1",
-      paymentStatus: "SUCCESS",
+      orderStatus: "SUCCESS",
       totalOrderAmount: {
         orderAmount: 3000,
         platformFee: 60,
@@ -67,7 +67,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
     {
       orderId: "ORD-4",
       transactionId: "TXN-4",
-      paymentStatus: "PENDING",
+      orderStatus: "PENDING",
       totalOrderAmount: {
         orderAmount: 3000,
         platformFee: 60,
@@ -103,7 +103,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
     {
       orderId: "ORD-5",
       transactionId: "TXN-5",
-      paymentStatus: "FAILED",
+      orderStatus: "FAILED",
       totalOrderAmount: {
         orderAmount: 3000,
         platformFee: 60,
@@ -167,7 +167,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
     {
       orderId: "ORD-2",
       transactionId: "TXN-2",
-      paymentStatus: "SUCCESS",
+      orderStatus: "SUCCESS",
       totalOrderAmount: {
         orderAmount: 3000,
         platformFee: 60,
@@ -239,7 +239,7 @@ export const mockPartnerRegistrationsDb: Record<string, Order[]> = {
     {
       orderId: "ORD-99",
       transactionId: "TXN-99",
-      paymentStatus: "SUCCESS",
+      orderStatus: "SUCCESS",
       totalOrderAmount: {
         orderAmount: 1000,
         platformFee: 20,
