@@ -13,8 +13,8 @@ import { getCart } from "@/lib/atc/storage";
 const BASE_MENU_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Register", href: "/register", prefetch: false },
-  { label: "Buy Shirts", href: "/shop", prefetch: false },
-  { label: "Sponsor", href: "/sponsorship" },
+  { label: "Buy Shirts", href: "/shop" },
+  { label: "Sponsor", href: "/sponsorship", prefetch: false },
   { label: "Orders", href: "/orders", prefetch: false },
 ];
 

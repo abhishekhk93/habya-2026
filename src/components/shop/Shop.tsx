@@ -81,8 +81,10 @@ export default function Shop({ className }: ShopProps) {
 
     if (isShirtOrdersOpen === undefined) {
         return (
-            <div className={s.wrapper}>
-                <Loader message="Folding the tees..." />
+            <div className={s.wrapper} style={{ justifyContent: "center" }}>
+                <div className={s.card} style={{ maxWidth: "500px" }}>
+                    <Loader message="Folding the tees..." />
+                </div>
             </div>
         );
     }

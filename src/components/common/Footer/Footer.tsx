@@ -14,11 +14,11 @@ export function Footer() {
         </span>
         <span className={s.divider}>|</span>
         <div className={s.links}>
-          <Link href="/privacy" className={s.link}>
+          <Link href="/privacy" className={s.link} prefetch={false}>
             Privacy policy
           </Link>
           <span className={s.linkDivider}>|</span>
-          <Link href="/terms" className={s.link}>
+          <Link href="/terms" className={s.link} prefetch={false}>
             Terms & conditions
           </Link>
         </div>
