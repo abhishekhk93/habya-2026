@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { shopStyles as s } from "./Shop.styles";
 import type { ShirtDesign, ShopProps } from "./Shop.types";
 import Button from "../uiComponents/Button";
@@ -10,6 +11,7 @@ import ShopModal from "./ShopModal";
 import { useAppSelector } from "@/store/hooks";
 import { getCart } from "@/lib/atc/storage";
 import { ClosedState } from "../common/ClosedState";
+import { Loader } from "../common/Loader";
 
 export default function Shop({ className }: ShopProps) {
     const [selectedDesign, setSelectedDesign] = useState<ShirtDesign | null>(null);
@@ -76,6 +78,14 @@ export default function Shop({ className }: ShopProps) {
         if (delta > 40) setIndex(id, Math.min(getIndex(id) + 1, total - 1));
         else if (delta < -40) setIndex(id, Math.max(getIndex(id) - 1, 0));
     };
+
+    if (isShirtOrdersOpen === undefined) {
+        return (
+            <div className={s.wrapper}>
+                <Loader message="Folding the tees..." />
+            </div>
+        );
+    }
 
     if (!isShirtOrdersOpen) {
         return (
@@ -200,6 +210,12 @@ export default function Shop({ className }: ShopProps) {
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
+                    <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
+                        <Link href="/cart">Go to Cart</Link>
+                    </Button>
                 </div>
             </div>
 

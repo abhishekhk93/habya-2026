@@ -20,7 +20,7 @@ export const heroStyles = {
     "min-h-[calc(100svh-72px)]",
     "sm:min-h-[calc(100svh-88px)]",
     "md:min-h-[calc(100svh-120px)]",
-    "bg-white",
+    "bg-transparent",
     "flex",
     "flex-col",
     "items-center",

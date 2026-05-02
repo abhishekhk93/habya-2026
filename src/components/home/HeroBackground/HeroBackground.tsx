@@ -5,7 +5,7 @@ export function HeroBackground() {
   return (
     <div className={s.wrapper}>
       <Image
-        src="/images/home-background.png"
+        src="/images/habya-logo-bg-1.jpg"
         alt=""
         fill
         priority

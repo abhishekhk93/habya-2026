@@ -19,7 +19,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
           createdBy: "Abhishek",
           additionalAttributes: {
             categoryName: "Singles",
-            categoryCode: "001",
+            categoryId: "001",
           },
         },
       ],
@@ -181,7 +181,7 @@ export const mockOrdersDb: Record<string, Order[]> = {
           createdBy: "Abhishek",
           additionalAttributes: {
             categoryName: "Open Men's Doubles",
-            categoryCode: "002",
+            categoryId: "002",
             partnerDetails: {
               fullName: "Kiran",
               playerId: "3344",
@@ -253,7 +253,7 @@ export const mockPartnerRegistrationsDb: Record<string, Order[]> = {
           createdBy: "Kiran Bhat",
           additionalAttributes: {
             categoryName: "Doubles",
-            categoryCode: "002",
+            categoryId: "002",
             partnerDetails: {
               fullName: "Abhishek",
               playerId: "3434",

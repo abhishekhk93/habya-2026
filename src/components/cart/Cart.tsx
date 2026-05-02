@@ -9,9 +9,11 @@ import Button from "../uiComponents/Button";
 import { useAppSelector } from "@/store/hooks";
 import CartList from "./CartList";
 import CartSummary from "./CartSummary";
+import { Loader } from "../common/Loader";
 
 export default function Cart() {
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
+  const isLoading = useAppSelector((state) => state.auth.isLoading);
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [cart, setCart] = useState<CartType>({ items: [] });
@@ -34,12 +36,20 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    setCart(getCart(playerId));
+    if (playerId) {
+      setCart(getCart(playerId));
+    }
     setMounted(true);
-  }, []);
+  }, [playerId]);
 
-  if (!mounted) {
-    return null; // Avoid hydration mismatch on initial render
+  if (isLoading || !mounted) {
+    return (
+      <div className={s.wrapper} style={{ justifyContent: "center" }}>
+        <div className={`${s.card} ${s.cardEmpty}`}>
+          <Loader message="Rounding up your treasures..." />
+        </div>
+      </div>
+    );
   }
 
   const registrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
@@ -107,6 +117,9 @@ export default function Cart() {
             {
               !isEmpty && (
                 <div className={s.checkoutBox}>
+                  <div className={s.sectionTitle} style={{ alignSelf: 'flex-start', width: '100%', paddingLeft: '4px', marginBottom: '-8px' }}>
+                    Your Cart Summary
+                  </div>
                   <CartSummary items={cart.items} />
                   <div className={s.checkoutButtonWrap}>
                     <Button

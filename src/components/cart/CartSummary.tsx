@@ -11,6 +11,7 @@ interface CartSummaryProps {
 
 export default function CartSummary({ items }: CartSummaryProps) {
   const config = useAppSelector((state) => state.config.data);
+  const platformFeePercentage = getConfigValue(config, "platform_fee", "2.8");
 
   const registrations = items.filter((item) => item.itemType === "REGISTRATION");
   const shirts = items.filter((item) => item.itemType === "TSHIRT");
@@ -74,8 +75,9 @@ export default function CartSummary({ items }: CartSummaryProps) {
           <div className={s.totalsFinalValue}>₹{finalAmount}</div>
         </div>
 
-        <div className={s.totalsNote}>
-          Razorpay platform fee of 2.8% will be added in the payment gateway.
+        <div className={s.totalsRow}>
+          <div className={s.totalsLabel}>Razorpay platform fee</div>
+          <div className={s.totalsValue}>+ {platformFeePercentage}%</div>
         </div>
       </div>
     </div>

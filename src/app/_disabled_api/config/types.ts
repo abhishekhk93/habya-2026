@@ -10,4 +10,6 @@ export type ConfigData = {
   is_shirt_orders_open: boolean | string;
   is_sponsorships_open: boolean | string;
   is_captcha_enabled: boolean | string;
+
+  platform_fee: string;
 };

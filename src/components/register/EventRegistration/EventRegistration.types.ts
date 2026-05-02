@@ -10,7 +10,7 @@ export interface EventRegistrationDetails {
 export interface EventType {
   eventId: number;
   /** Same as eligible categoryId (e.g. "003"); use for cart/API, not String(eventId). */
-  categoryCode: string;
+  categoryId: string;
   name: string;
   type: "SINGLES" | "DOUBLES";
   categoryDescription?: string;

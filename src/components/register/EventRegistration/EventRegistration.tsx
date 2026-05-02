@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType } from "./EventRegistration.types";
 import PartnerIdModal from "./PartnerIdModal";
@@ -11,6 +12,8 @@ import { getCart, saveCart } from "@/lib/atc/storage";
 import type { RegistrationAttributes } from "@/lib/atc/types";
 import { useAppSelector } from "@/store/hooks";
 import { ClosedState } from "../../common/ClosedState";
+import { Loader } from "../../common/Loader";
+import Button from "../../uiComponents/Button";
 
 export default function EventRegistration() {
   const isRegistrationOpen = useAppSelector((state) => state.config.data?.is_registration_open);
@@ -61,7 +64,7 @@ export default function EventRegistration() {
     if (newSet.has(event.eventId)) {
       newSet.delete(event.eventId);
       setSelectedEventIds(newSet);
-      removeRegistrationFromCart(event.categoryCode);
+      removeRegistrationFromCart(event.categoryId);
       setDoublesPartners(prev => {
         const next = { ...prev };
         delete next[event.eventId];
@@ -81,18 +84,18 @@ export default function EventRegistration() {
     newSet.add(event.eventId);
     setSelectedEventIds(newSet);
     addOrReplaceRegistrationInCart({
-      categoryCode: event.categoryCode,
+      categoryCode: event.categoryId,
       categoryName: event.name,
       partnerPlayerId: null,
       partnerName: null,
     });
   };
 
-  if (loading) {
+  if (loading || isRegistrationOpen === undefined) {
     return (
       <div className={s.wrapper}>
         <div className={s.card}>
-          <p className={s.loadingState}>Loading eligible events...</p>
+          <Loader message="Warming up registrations..." />
         </div>
       </div>
     );
@@ -111,11 +114,15 @@ export default function EventRegistration() {
   }
 
   if (error || !data) {
-
     return (
       <div className={s.wrapper}>
         <div className={s.card}>
           <p className={s.errorState}>{error}</p>
+          <Button style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} btnType='small'>
+            <Link href="/">
+              Back to Home
+            </Link>
+          </Button>
         </div>
       </div>
     );
@@ -138,6 +145,12 @@ export default function EventRegistration() {
             doublesPartners={doublesPartners}
             onToggle={handleToggle}
           />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
+            <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
+              <Link href="/cart">Go to Cart</Link>
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -145,11 +158,11 @@ export default function EventRegistration() {
         <PartnerIdModal
           eventName={doublesModalEvent.name}
           eventId={doublesModalEvent.eventId}
-          categoryCode={doublesModalEvent.categoryCode}
+          categoryCode={doublesModalEvent.categoryId}
           onClose={() => setDoublesModalEvent(null)}
           onConfirm={({ partnerId, partnerName }) => {
             addOrReplaceRegistrationInCart({
-              categoryCode: doublesModalEvent.categoryCode,
+              categoryCode: doublesModalEvent.categoryId,
               categoryName: doublesModalEvent.name,
               partnerPlayerId: partnerId,
               partnerName,

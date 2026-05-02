@@ -50,7 +50,12 @@ export default function ActionCards() {
   return (
     <div className={s.container}>
       {CARDS.map((card) => (
-        <Link key={card.route} href={card.route} className={s.card}>
+        <Link
+          key={card.route}
+          href={card.route}
+          className={s.card}
+          prefetch={["/register", "/sponsorship", "/cart", "/orders"].includes(card.route) ? false : undefined}
+        >
           <div className={`${s.iconContainer} ${card.bgColor}`}>
             {card.icon}
           </div>
