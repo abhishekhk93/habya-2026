@@ -9,9 +9,11 @@ import Button from "../uiComponents/Button";
 import { useAppSelector } from "@/store/hooks";
 import CartList from "./CartList";
 import CartSummary from "./CartSummary";
+import { Loader } from "../common/Loader";
 
 export default function Cart() {
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
+  const isLoading = useAppSelector((state) => state.auth.isLoading);
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [cart, setCart] = useState<CartType>({ items: [] });
@@ -40,8 +42,14 @@ export default function Cart() {
     setMounted(true);
   }, [playerId]);
 
-  if (!mounted) {
-    return null; // Avoid hydration mismatch on initial render
+  if (isLoading || !mounted) {
+    return (
+      <div className={s.wrapper} style={{ justifyContent: "center" }}>
+        <div className={`${s.card} ${s.cardEmpty}`}>
+          <Loader message="Rounding up your treasures..." />
+        </div>
+      </div>
+    );
   }
 
   const registrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
