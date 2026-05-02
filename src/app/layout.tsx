@@ -35,16 +35,16 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider initialUser={initialUser}>
-          <RouteGuard>
-            <div className="flex flex-col min-h-screen relative">
-              <HeroBackground />
-              <Navbar />
-              <main className="flex-grow">
+          <div className="flex flex-col min-h-screen relative">
+            <HeroBackground />
+            <Navbar />
+            <main className="flex-grow">
+              <RouteGuard>
                 {children}
-              </main>
-              <Footer />
-            </div>
-          </RouteGuard>
+              </RouteGuard>
+            </main>
+            <Footer />
+          </div>
         </StoreProvider>
       </body>
     </html>
