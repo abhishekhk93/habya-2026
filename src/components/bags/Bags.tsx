@@ -209,7 +209,7 @@ export default function Bags() {
                     className="w-full py-2.5 mt-4 bg-white border border-[#B45309] text-[#B45309] font-bold text-xs sm:text-sm rounded-xl hover:bg-[#ffd4b3] active:bg-[#ffd4b3] transition-colors"
                     onClick={() => handleAddToCart(bag.id)}
                   >
-                    Add to Cart — ₹{bagPrice * (quantities[bag.id] || 1)}
+                    Add to Cart - ₹{bagPrice * (quantities[bag.id] || 1)}
                   </button>
                 </div>
               </div>

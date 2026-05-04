@@ -48,6 +48,12 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
       price = Number(getConfigValue(config, "price_shirt_collared_half", process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF)) || 0;
     }
     details.push(<p key="amt">Amount: <strong>₹{price}</strong></p>);
+  } else if (item.itemType === "BAG") {
+    title = "Habya Premium Bag";
+    price = Number(getConfigValue(config, "price_bag", "500")) || 0;
+    const qty = item.itemQuantity || 1;
+    details.push(<p key="qty">Quantity: <strong>{qty}</strong></p>);
+    details.push(<p key="total">Total: <strong>₹{price * qty}</strong></p>);
   } else if (item.itemType === "SPONSORSHIP") {
     title = "Event Sponsorship";
     if (item.itemAmount) details.push(<p key="amt">Amount: <strong>₹{item.itemAmount}</strong></p>);
@@ -56,7 +62,7 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
   let hoverBgClass = "hover:bg-gray-50";
   if (item.itemType === "REGISTRATION") {
     hoverBgClass = "hover:bg-indigo-100/30";
-  } else if (item.itemType === "TSHIRT") {
+  } else if (item.itemType === "TSHIRT" || item.itemType === "BAG") {
     hoverBgClass = "hover:bg-[#ffd4b3]/30";
   } else if (item.itemType === "SPONSORSHIP") {
     hoverBgClass = "hover:bg-green-100/30";

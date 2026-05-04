@@ -54,6 +54,7 @@ export default function Cart() {
 
   const registrations = cart.items.filter((item) => item.itemType === "REGISTRATION");
   const shirts = cart.items.filter((item) => item.itemType === "TSHIRT");
+  const bags = cart.items.filter((item) => item.itemType === "BAG");
   const sponsorships = cart.items.filter((item) => item.itemType === "SPONSORSHIP");
 
   const registrationIcon = (
@@ -64,6 +65,11 @@ export default function Cart() {
   const shirtIcon = (
     <svg className="h-5 w-5 text-[#B45309]" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+    </svg>
+  );
+  const bagIcon = (
+    <svg className="h-5 w-5 text-[#B45309]" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
     </svg>
   );
   const sponsorshipIcon = (
@@ -110,6 +116,7 @@ export default function Cart() {
               <div className={s.pageSubtitle}>All your picks, ready when you are.</div>
               {registrations.length > 0 && <CartList items={registrations} onRemove={handleRemove} title="Event Registrations" icon={registrationIcon} />}
               {shirts.length > 0 && <CartList items={shirts} onRemove={handleRemove} title="Shirts" icon={shirtIcon} />}
+              {bags.length > 0 && <CartList items={bags} onRemove={handleRemove} title="Bags" icon={bagIcon} />}
               {sponsorships.length > 0 && <CartList items={sponsorships} onRemove={handleRemove} title="Sponsorships" icon={sponsorshipIcon} />}
             </div>
             {

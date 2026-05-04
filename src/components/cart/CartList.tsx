@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 
 interface CartListProps {
   items: CartItemType[];
-  onRemove: (item: CartItemType) => void;   
+  onRemove: (item: CartItemType) => void;
   title: string;
   icon: React.ReactNode;
 }
@@ -24,22 +24,28 @@ export default function CartList({ items, onRemove, title, icon }: CartListProps
     customWrapperClass = "bg-[#ffd4b3]/30 border-[#ffd4b3] hover:border-[#ffd4b3]/30";
     customHeaderClass = "border-[#ffd4b3]";
     customDivideClass = "divide-[#ffd4b3]/50";
+  } else if (itemType === "BAG") {
+    customWrapperClass = "bg-[#ffd4b3]/30 border-[#ffd4b3] hover:border-[#ffd4b3]/30";
+    customHeaderClass = "border-[#ffd4b3]";
+    customDivideClass = "divide-[#ffd4b3]/50";
   } else if (itemType === "SPONSORSHIP") {
     customWrapperClass = "bg-green-50 border-green-200 hover:border-green-300";
     customHeaderClass = "border-green-200/60";
     customDivideClass = "divide-green-200/60";
   }
 
+  const totalQuantity = items.reduce((acc, item) => acc + (item.itemQuantity || 1), 0);
+  
   return (
     <div className={`${s.sectionHeader} ${customWrapperClass}`}>
-        <div className={`px-6 py-5 border-b ${customHeaderClass}`}>
-            <h2 className={s.sectionTitle}>{title} ({items.length})</h2>
-        </div>
-        <ul className={`${s.listContainer.replace("divide-gray-100", customDivideClass)}`}>
-            {items.map((item, index) => (
-                <CartItem key={`reg-${index}`} item={item} onRemove={onRemove} icon={icon}/>
-            ))}
-        </ul>
+      <div className={`px-6 py-5 border-b ${customHeaderClass}`}>
+        <h2 className={s.sectionTitle}>{title} ({totalQuantity})</h2>
+      </div>
+      <ul className={`${s.listContainer.replace("divide-gray-100", customDivideClass)}`}>
+        {items.map((item, index) => (
+          <CartItem key={`reg-${index}`} item={item} onRemove={onRemove} icon={icon} />
+        ))}
+      </ul>
     </div>
   );
 }
