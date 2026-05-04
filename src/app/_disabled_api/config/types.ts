@@ -5,6 +5,7 @@ export type ConfigData = {
   price_shirt_round_neck_half: string;
   price_shirt_round_neck_sleeveless: string;
   price_shirt_collared_half: string;
+  price_bag: string;
 
   is_registration_open: boolean | string;
   is_shirt_orders_open: boolean | string;

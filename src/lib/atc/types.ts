@@ -1,4 +1,4 @@
-export type ItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP";
+export type ItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP" | "BAG";
 
 export interface RegistrationAttributes {
   categoryId: string;
@@ -34,6 +34,12 @@ export type CartItem =
     itemAmount: number;
     itemQuantity: null;
     itemAttributes: SponsorshipAttributes;
+  }
+  | {
+    itemType: "BAG";
+    itemAmount: null;
+    itemQuantity: number;
+    itemAttributes: null;
   };
 
 export interface Cart {
