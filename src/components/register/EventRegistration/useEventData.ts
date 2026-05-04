@@ -61,7 +61,8 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
         const cartDoublesPartners: Record<string, { id: string; name: string }> = {};
 
         cartRegistrations.forEach((item) => {
-          const categoryId = item.itemAttributes.categoryCode;
+          // Backward compatibility: check both categoryId and categoryCode
+          const categoryId = item.itemAttributes.categoryId || (item.itemAttributes as any).categoryCode;
           if (!categoryId) return;
 
           cartSelectedIds.push(categoryId);

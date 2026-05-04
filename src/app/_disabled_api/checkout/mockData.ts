@@ -16,7 +16,7 @@ export const mockCheckoutResponse: CheckoutResponse = {
       itemAmount: 1000,
       itemQuantity: 1,
       itemAttributes: {
-        categoryCode: "001",
+        categoryId: "001",
         partnerPlayerId: null,
       },
     },
@@ -26,7 +26,7 @@ export const mockCheckoutResponse: CheckoutResponse = {
       itemAmount: 1000,
       itemQuantity: 1,
       itemAttributes: {
-        categoryCode: "002",
+        categoryId: "002",
         partnerPlayerId: "P123",
       },
     },

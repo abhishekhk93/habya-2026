@@ -23,7 +23,7 @@ export interface RegisterResponse {
 
 export interface PartnerIdModalProps {
   eventName: string;
-  categoryCode: string;
+  categoryId: string;
   onClose: () => void;
   onConfirm: (partner: { partnerId: string; partnerName: string }) => void;
 }

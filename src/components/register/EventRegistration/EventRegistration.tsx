@@ -35,14 +35,15 @@ export default function EventRegistration() {
     }
   }, [loading, data, initialSelectedIds, initialDoublesPartners]);
 
-  const removeRegistrationFromCart = (categoryCode: string) => {
+  const removeRegistrationFromCart = (categoryId: string) => {
     const currentCart = getCart(userPlayerId);
     const updatedCart = {
       ...currentCart,
       items: currentCart.items.filter((item) => {
         if (item.itemType !== "REGISTRATION") return true;
-        const c = item.itemAttributes.categoryCode;
-        return c !== categoryCode;
+        // Backward compatibility: check both categoryId and categoryCode
+        const c = item.itemAttributes.categoryId || (item.itemAttributes as any).categoryCode;
+        return c !== categoryId;
       }),
     };
     saveCart(updatedCart, userPlayerId);
@@ -50,7 +51,7 @@ export default function EventRegistration() {
   };
 
   const addOrReplaceRegistrationInCart = (attributes: RegistrationAttributes) => {
-    removeRegistrationFromCart(attributes.categoryCode);
+    removeRegistrationFromCart(attributes.categoryId);
     addEventsToCart(attributes, userPlayerId);
   };
 
@@ -83,7 +84,7 @@ export default function EventRegistration() {
     newSet.add(event.categoryId);
     setSelectedEventIds(newSet);
     addOrReplaceRegistrationInCart({
-      categoryCode: event.categoryId,
+      categoryId: event.categoryId,
       categoryName: event.name,
       partnerPlayerId: null,
       partnerName: null,
@@ -158,11 +159,11 @@ export default function EventRegistration() {
       {doublesModalEvent && (
         <PartnerIdModal
           eventName={doublesModalEvent.name}
-          categoryCode={doublesModalEvent.categoryId}
+          categoryId={doublesModalEvent.categoryId}
           onClose={() => setDoublesModalEvent(null)}
           onConfirm={({ partnerId, partnerName }) => {
             addOrReplaceRegistrationInCart({
-              categoryCode: doublesModalEvent.categoryId,
+              categoryId: doublesModalEvent.categoryId,
               categoryName: doublesModalEvent.name,
               partnerPlayerId: partnerId,
               partnerName,

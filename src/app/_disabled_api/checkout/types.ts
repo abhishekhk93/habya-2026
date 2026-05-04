@@ -1,7 +1,7 @@
 export type CheckoutItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP";
 
 export interface RegistrationItemAttributes {
-  categoryCode: string;
+  categoryId: string;
   partnerPlayerId: string | null;
 }
 

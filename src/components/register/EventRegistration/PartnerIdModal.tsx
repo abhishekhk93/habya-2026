@@ -5,7 +5,7 @@ import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import { fetchApi } from "@/lib/fetchApi";
 
 
-export default function PartnerIdModal({ eventName, eventId, categoryCode, onClose, onConfirm }: PartnerIdModalProps) {
+export default function PartnerIdModal({ eventName, categoryId, onClose, onConfirm }: PartnerIdModalProps) {
   const [digits, setDigits] = useState<string[]>(["", "", "", ""]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +60,7 @@ export default function PartnerIdModal({ eventName, eventId, categoryCode, onClo
     try {
       const searchParams = new URLSearchParams({
         playerId: partnerId,
-        categoryCode,
+        categoryId,
       });
 
       const data = await fetchApi<any>(`/api/player/search?${searchParams.toString()}`, {

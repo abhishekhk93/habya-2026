@@ -12,9 +12,9 @@ export default function EventList({
     <div className={s.listContainer}>
       {data.eligibleEvents.map((event, index) => {
         const isPreRegistered = event.registration.isRegistered;
-        const isSelected = selectedEventIds.has(event.eventId);
+        const isSelected = selectedEventIds.has(event.categoryId);
         const canInteract = !isPreRegistered && (isSelected || selectedEventIds.size < 2);
-        const partnerName = doublesPartners[event.eventId]?.name;
+        const partnerName = doublesPartners[event.categoryId]?.name;
         const isLastItem = index === data.eligibleEvents.length - 1;
 
         return (
