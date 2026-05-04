@@ -32,7 +32,8 @@ export const eventItemStyles = {
   toggleWrapper: "relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 ease-in-out focus:outline-none",
   toggleEnabled: "bg-indigo-600",
   toggleDisabled: "bg-black/10",
-  toggleThumb: "pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow-sm ring-0 transition duration-300 ease-in-out", 
+  toggleLocked: "bg-slate-300",
+  toggleThumb: "pointer-events-none inline-flex h-4 w-4 rounded-full bg-white shadow-sm ring-0 transition duration-300 ease-in-out", 
   toggleThumbActive: "translate-x-6",
   toggleThumbInactive: "translate-x-1",
 } as const;

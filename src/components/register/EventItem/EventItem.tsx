@@ -35,7 +35,7 @@ export default function EventItem({
     subtitleDisplay = (
       <div className="flex items-center justify-between w-full">
         <span>
-          Registered
+          Registered for this event
           {event.type === "DOUBLES" && event.registration.partner && (
             <> with partner: <strong>{event.registration.partner.name}</strong></>
           )}
@@ -99,7 +99,7 @@ export default function EventItem({
             disabled={!canInteract}
             className={`
               ${s.toggleWrapper} 
-              ${(isSelected || isPreRegistered) ? s.toggleEnabled : s.toggleDisabled} 
+              ${isPreRegistered ? s.toggleLocked : (isSelected ? s.toggleEnabled : s.toggleDisabled)} 
               ${!canInteract && !isPreRegistered ? "opacity-30 cursor-not-allowed" : ""} 
               ${isPreRegistered ? "cursor-not-allowed" : ""}
             `}
@@ -108,8 +108,13 @@ export default function EventItem({
               className={`
                 ${s.toggleThumb} 
                 ${(isSelected || isPreRegistered) ? s.toggleThumbActive : s.toggleThumbInactive}
+                flex items-center justify-center
               `}
-            />
+            >
+              {isPreRegistered && (
+                <div className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+              )}
+            </span>
           </button>
         </div>
 
