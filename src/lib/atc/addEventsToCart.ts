@@ -7,7 +7,7 @@ export const addEventsToCart = (
 ): Cart => {
   // Build explicitly so JSON.stringify(localStorage) never drops keys (undefined is omitted).
   const itemAttributes: RegistrationAttributes = {
-    categoryCode: attributes.categoryCode,
+    categoryId: attributes.categoryId,
     categoryName: attributes.categoryName,
     partnerPlayerId: attributes.partnerPlayerId ?? null,
     partnerName: attributes.partnerName ?? null,

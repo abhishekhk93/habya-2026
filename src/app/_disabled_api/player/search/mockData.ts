@@ -1,6 +1,6 @@
 import { SearchPlayerResponse } from "./types";
 
-export function getMockSearchResponse(playerId: string, categoryCode: string): SearchPlayerResponse {
+export function getMockSearchResponse(playerId: string, categoryId: string): SearchPlayerResponse {
   // Using explicit strings or numbers to trigger the requested errors
   if (playerId === "1111") {
     return {

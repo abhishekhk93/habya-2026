@@ -19,16 +19,16 @@ export async function GET(request: NextRequest) {
     // Extract query parameters
     const { searchParams } = new URL(request.url);
     const playerId = searchParams.get("playerId");
-    const categoryCode = searchParams.get("categoryCode");
+    const categoryId = searchParams.get("categoryId");
 
-    if (!playerId || !categoryCode) {
+    if (!playerId || !categoryId) {
       return NextResponse.json(
-        { message: "playerId and categoryCode are required query parameters" },
+        { message: "playerId and categoryId are required query parameters" },
         { status: 400 }
       );
     }
 
-    const mockResponse = getMockSearchResponse(playerId, categoryCode);
+    const mockResponse = getMockSearchResponse(playerId, categoryId);
 
     return NextResponse.json(mockResponse, { status: 200 });
 

@@ -8,8 +8,6 @@ export interface EventRegistrationDetails {
 }
 
 export interface EventType {
-  eventId: number;
-  /** Same as eligible categoryId (e.g. "003"); use for cart/API, not String(eventId). */
   categoryId: string;
   name: string;
   type: "SINGLES" | "DOUBLES";
@@ -25,8 +23,7 @@ export interface RegisterResponse {
 
 export interface PartnerIdModalProps {
   eventName: string;
-  eventId: number;
-  categoryCode: string;
+  categoryId: string;
   onClose: () => void;
   onConfirm: (partner: { partnerId: string; partnerName: string }) => void;
 }

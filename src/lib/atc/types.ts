@@ -1,7 +1,7 @@
-export type ItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP";
+export type ItemType = "REGISTRATION" | "TSHIRT" | "SPONSORSHIP" | "BAG";
 
 export interface RegistrationAttributes {
-  categoryCode: string;
+  categoryId: string;
   partnerPlayerId?: string | null;
   categoryName: string;
   partnerName?: string | null;
@@ -34,6 +34,12 @@ export type CartItem =
     itemAmount: number;
     itemQuantity: null;
     itemAttributes: SponsorshipAttributes;
+  }
+  | {
+    itemType: "BAG";
+    itemAmount: null;
+    itemQuantity: number;
+    itemAttributes: null;
   };
 
 export interface Cart {
