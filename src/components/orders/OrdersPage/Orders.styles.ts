@@ -3,7 +3,7 @@ export const ordersStyles = {
   container: "w-[calc(100%-1rem)] sm:w-full max-w-[700px] mx-auto my-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-8 sm:px-10 sm:pt-6 sm:pb-8 shadow-sm border border-[#d9d9d9]",
   pageTitle: "text-2xl font-light tracking-tight text-center text-gray-900",
   pageSubtitle: "text-sm font-light my-4 text-center text-black/60",
-  emptyState: "text-center py-20 bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl",
+  emptyState: "w-[calc(100%-1rem)] sm:w-full max-w-[500px] mx-auto my-auto text-center py-12 sm:py-16 px-6 sm:px-10 bg-white shadow-sm border border-[#d9d9d9] rounded-[20px]",
   emptyStateIcon: "mx-auto h-12 w-12 text-gray-400 mb-4",
   emptyStateTitle: "text-lg font-medium text-gray-900",
   emptyStateText: "mt-1 text-sm text-gray-500",
