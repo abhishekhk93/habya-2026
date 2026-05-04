@@ -1,17 +1,17 @@
 export const bagStyles = {
   wrapper: "relative z-10 flex flex-col items-center justify-start min-h-[calc(100svh-160px)] py-12 px-4",
   
-  card: "w-[calc(100%-1rem)] sm:w-full max-w-5xl lg:max-w-[1200px] mx-auto my-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-10 sm:px-10 sm:pt-6 sm:pb-12 mt-0 shadow-sm border border-[#d9d9d9]",
+  card: "w-[calc(100%-1rem)] sm:w-full max-w-md mx-auto my-auto flex flex-col bg-white rounded-[20px] px-6 pt-6 pb-10 sm:px-10 sm:pt-6 sm:pb-12 mt-0 shadow-sm border border-[#d9d9d9]",
 
   header: "text-2xl font-light tracking-tight mb-2 text-center",
 
   subtitle: "text-sm font-light mb-4 text-center",
 
-  container: "h-full w-full flex flex-col lg:flex-row bg-white relative overflow-hidden",
+  container: "h-full w-full flex flex-col items-center bg-white relative overflow-hidden",
 
-  mainSection: "flex-1 h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col",
+  mainSection: "flex-1 h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col items-center",
 
-  gridContainer: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4",
+  gridContainer: "w-full flex flex-col items-center gap-4",
 
   shirtCard: "flex flex-col rounded-2xl border shadow-lg shadow-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 hover:border-black/10 group bg-[#ffd4b3]/30 w-full mb-4 border-[#ffd4b3] hover:border-[#ffd4b3]/30",
   
