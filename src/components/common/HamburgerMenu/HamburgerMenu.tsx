@@ -50,11 +50,21 @@ export default function HamburgerMenu({
             <li key={item.label}>
               <Link
                 href={item.href}
-                className={s.item}
+                className={`${s.item} flex items-center gap-4 relative py-2`}
                 onClick={onClose}
                 prefetch={item.prefetch}
               >
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                {item.icon && (
+                  <div className="relative flex items-center justify-center w-10 h-10 rounded-full border border-black/10 bg-black/5">
+                    <span className="opacity-70 scale-90">{item.icon}</span>
+                    {item.showBadge && (
+                      <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#B45309] text-white rounded-full flex items-center justify-center text-[9px] shadow-sm border border-white">
+                        ★
+                      </span>
+                    )}
+                  </div>
+                )}
               </Link>
             </li>
           ))}

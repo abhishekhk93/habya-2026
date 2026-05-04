@@ -15,6 +15,7 @@ export default function CartSummary({ items }: CartSummaryProps) {
 
   const registrations = items.filter((item) => item.itemType === "REGISTRATION");
   const shirts = items.filter((item) => item.itemType === "TSHIRT");
+  const bags = items.filter((item) => item.itemType === "BAG");
   const sponsorships = items.filter((item) => item.itemType === "SPONSORSHIP");
 
   const registrationsSubtotal = registrations.reduce((acc, item) => {
@@ -49,12 +50,18 @@ export default function CartSummary({ items }: CartSummaryProps) {
     return acc + price;
   }, 0);
 
+  const bagsSubtotal = bags.reduce((acc, item) => {
+    const price = Number(getConfigValue(config, "price_bag", "500")) || 0;
+    return acc + (price * (item.itemQuantity || 1));
+  }, 0);
+
   const sponsorshipsSubtotal = sponsorships.reduce((acc, item) => acc + (item.itemAmount || 0), 0);
-  const finalAmount = registrationsSubtotal + shirtsSubtotal + sponsorshipsSubtotal;
+  const finalAmount = registrationsSubtotal + shirtsSubtotal + bagsSubtotal + sponsorshipsSubtotal;
 
   const splitRows = [
     { label: "Registrations", amount: registrationsSubtotal },
     { label: "Shirts", amount: shirtsSubtotal },
+    { label: "Bags", amount: bagsSubtotal },
     { label: "Sponsorship", amount: sponsorshipsSubtotal },
   ].filter((row) => row.amount > 0);
 
