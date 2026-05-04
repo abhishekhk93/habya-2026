@@ -166,6 +166,7 @@ export default function ShopModal({ isOpen, design, onClose, price }: ShopModalP
                                 <input
                                     type="text"
                                     id="printName"
+                                    autoComplete="off"
                                     value={nameToPrint}
                                     onChange={e => setNameToPrint(e.target.value)}
                                     maxLength={20}

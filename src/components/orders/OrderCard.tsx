@@ -65,10 +65,10 @@ export default function OrderCard({ order }: OrderCardProps) {
               <p><b>Type:</b> {item.additionalAttributes.type}</p>
               <p>
                 <b>Size:</b> {item.additionalAttributes.size}
-                {sizeInfo && <span style={{ fontStyle: "italic" }}> ({sizeInfo.width}in x {sizeInfo.length}in)</span>}
+                {sizeInfo && <span className="text-gray-500"> | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)</span>}
               </p>
               {item.additionalAttributes.displayName && (
-                <p><b>Name:</b> {item.additionalAttributes.displayName}</p>
+                <p><b>Name to Print:</b> {item.additionalAttributes.displayName}</p>
               )}
             </div>
           </div>

@@ -97,18 +97,24 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
                     </span>
                   )}
                   {item.type === 'shirt' && (
-                    <span className={s.itemMeta}>
-                      <span className="font-medium mr-1">Size:</span> <strong>{item.size}</strong>
-                      {(() => {
-                        const sizeInfo = sizeChart.find(row => row.size === item.size);
-                        return sizeInfo ? (
-                          <span className="text-xs italic text-black/50 ml-1 font-normal">
-                            (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
-                          </span>
-                        ) : null;
-                      })()}
-                      {item.displayName ? <><span className="mx-1.5 opacity-50">|</span><span className="font-medium mr-1">Name:</span> {item.displayName}</> : ''}
-                    </span>
+                    <div className="flex flex-col gap-0.5 mt-1">
+                      <span className={s.itemMeta}>
+                        <span className="font-medium mr-1">Size:</span> <strong>{item.size}</strong>
+                        {(() => {
+                          const sizeInfo = sizeChart.find(row => row.size === item.size);
+                          return sizeInfo ? (
+                            <span className="text-black/40 ml-1 font-normal">
+                              | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
+                            </span>
+                          ) : null;
+                        })()}
+                      </span>
+                      {item.displayName && (
+                        <span className={s.itemMeta}>
+                          <span className="font-medium mr-1">Name to Print:</span> <strong>{item.displayName}</strong>
+                        </span>
+                      )}
+                    </div>
                   )}
                 </div>
                 <span className={s.itemPrice}>₹{(item.price || 0).toLocaleString('en-IN')}</span>

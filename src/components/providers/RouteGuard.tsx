@@ -33,9 +33,9 @@ export function RouteGuard({ children }: { children: React.ReactNode }) {
   // show a loader instead of the children.
   if (isProtected && (isLoading || !isLoggedIn)) {
     return (
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100svh-160px)] px-4">
-        <div className="w-full max-w-[500px] bg-white rounded-[20px] p-12 shadow-sm border border-[#d9d9d9] flex flex-col items-center">
-          <Loader message="Verifying access..." />
+      <div className="flex flex-col items-center justify-center py-32 px-4 min-h-[50vh]">
+        <div className="bg-white/80 backdrop-blur-sm rounded-[20px] p-10 shadow-sm border border-gray-100 flex flex-col items-center max-w-[400px] w-full">
+            <Loader message={isLoading ? "Verifying access..." : "Redirecting to home..."} />
         </div>
       </div>
     );

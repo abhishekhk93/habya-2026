@@ -11,11 +11,11 @@ export default function Control({ matchId }: ControlProps) {
 
   useEffect(() => {
     setData(getMatchData(matchId));
-    
+
     const handleStorage = () => {
       setData(getMatchData(matchId));
     };
-    
+
     window.addEventListener("storage", handleStorage);
     window.addEventListener("local-storage", handleStorage);
     return () => {
@@ -42,7 +42,7 @@ export default function Control({ matchId }: ControlProps) {
   return (
     <div className={controlStyles.wrapper}>
       <div className={`${controlStyles.container} ${isMatchFinished ? "opacity-75 transition-opacity" : ""}`}>
-        
+
         {/* Match Header Info */}
         <div className={controlStyles.headerCard}>
           <h2 className={controlStyles.title}>Match Info</h2>
@@ -52,6 +52,7 @@ export default function Control({ matchId }: ControlProps) {
               <input
                 type="text"
                 className={controlStyles.input}
+                autoComplete="off"
                 value={data.eventName}
                 onChange={(e) => updateData({ ...data, eventName: e.target.value })}
                 placeholder="e.g. Finals 2026"
@@ -62,13 +63,14 @@ export default function Control({ matchId }: ControlProps) {
               <input
                 type="text"
                 className={controlStyles.input}
+                autoComplete="off"
                 value={data.round}
                 onChange={(e) => updateData({ ...data, round: e.target.value })}
                 placeholder="e.g. Semi-Final"
               />
             </div>
           </div>
-          
+
           <div className="mt-4 md:mt-5">
             <h3 className="text-base md:text-lg font-medium mb-3">Players</h3>
             <div className={controlStyles.grid2}>
@@ -77,6 +79,7 @@ export default function Control({ matchId }: ControlProps) {
                 <input
                   type="text"
                   className={controlStyles.input}
+                  autoComplete="off"
                   value={data.players[0].name}
                   onChange={(e) => {
                     const newPlayers = [...data.players] as typeof data.players;
@@ -91,6 +94,7 @@ export default function Control({ matchId }: ControlProps) {
                 <input
                   type="text"
                   className={controlStyles.input}
+                  autoComplete="off"
                   value={data.players[1].name}
                   onChange={(e) => {
                     const newPlayers = [...data.players] as typeof data.players;
@@ -110,7 +114,7 @@ export default function Control({ matchId }: ControlProps) {
             <div className={controlStyles.setCardHeader}>
               <span className="font-semibold text-gray-800">Set {i + 1}</span>
             </div>
-            
+
             {/* Player 1 Row */}
             <div className={controlStyles.scoreRow}>
               <span className={controlStyles.scorePlayerName}>
@@ -229,8 +233,8 @@ export default function Control({ matchId }: ControlProps) {
               <button
                 className={`${controlStyles.winnerBtn} py-3 text-base ${data.matchWinner === 1 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
                 onClick={() => {
-                  updateData({ 
-                    ...data, 
+                  updateData({
+                    ...data,
                     matchWinner: data.matchWinner === 1 ? null : 1,
                     status: data.matchWinner === 1 ? "LIVE" : "FINISHED"
                   });
@@ -241,8 +245,8 @@ export default function Control({ matchId }: ControlProps) {
               <button
                 className={`${controlStyles.winnerBtn} py-3 text-base ${data.matchWinner === 2 ? controlStyles.winnerBtnActive : controlStyles.winnerBtnInactive}`}
                 onClick={() => {
-                  updateData({ 
-                    ...data, 
+                  updateData({
+                    ...data,
                     matchWinner: data.matchWinner === 2 ? null : 2,
                     status: data.matchWinner === 2 ? "LIVE" : "FINISHED"
                   });
@@ -253,8 +257,8 @@ export default function Control({ matchId }: ControlProps) {
               <button
                 className={`${controlStyles.winnerBtn} py-3 text-base ${controlStyles.winnerBtnClear}`}
                 onClick={() => {
-                  updateData({ 
-                    ...data, 
+                  updateData({
+                    ...data,
                     matchWinner: null,
                     status: "LIVE"
                   });
