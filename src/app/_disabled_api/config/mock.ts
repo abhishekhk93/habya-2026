@@ -1,6 +1,7 @@
 import { ConfigData } from "./types";
 
 export const mockConfig: ConfigData = {
+  price_bag: "150",
   price_event_singles: "500",
   price_event_doubles: "800",
 
