@@ -56,7 +56,7 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
           const normalizedId = normalizeCategoryCode(cat.categoryId);
 
           return {
-            eventId: Number(normalizedId),
+            eventId: Number(normalizedId) || 0,
             categoryId: normalizedId,
             name: cat.categoryName,
             type: cat.categoryType as "SINGLES" | "DOUBLES",

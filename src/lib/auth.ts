@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "habya-2026-temp-secret-key";
 
-export const COOKIE_NAME = "token";
+export const COOKIE_NAME = "jwt";
 export const COOKIE_MAX_AGE = 60 * 60 * 24; // 24 hours in seconds
 
 // ── Types ────────────────────────────────────────────────────────────────────

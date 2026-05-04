@@ -79,7 +79,7 @@ export const transformToEventUIModel = (
   return mergedData.map((item) => {
     const categoryId = normalizeCategoryCode(item.categoryId);
     return {
-      eventId: Number(categoryId),
+      eventId: Number(categoryId) || 0, // Fallback to 0 if NaN
       categoryId,
       name: item.categoryName,
       type: item.categoryType,

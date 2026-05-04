@@ -19,7 +19,7 @@ export default function EventList({
 
         return (
           <EventItem
-            key={event.eventId}
+            key={event.categoryId}
             event={event}
             isPreRegistered={isPreRegistered}
             isSelected={isSelected}

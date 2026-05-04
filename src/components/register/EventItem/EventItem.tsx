@@ -86,7 +86,7 @@ export default function EventItem({
   }
 
   return (
-    <Fragment key={event.eventId}>
+    <Fragment key={event.categoryId}>
       <div
         className={`${s.eventItem} bg-white`}
       >
