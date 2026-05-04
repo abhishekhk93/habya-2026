@@ -23,9 +23,9 @@ export default function EventRegistration() {
 
   const { data, loading, error, initialSelectedIds, initialDoublesPartners } = useEventData(userFullName, userPlayerId);
 
-  const [selectedEventIds, setSelectedEventIds] = useState<Set<number>>(new Set());
+  const [selectedEventIds, setSelectedEventIds] = useState<Set<string>>(new Set());
   const [doublesModalEvent, setDoublesModalEvent] = useState<EventType | null>(null);
-  const [doublesPartners, setDoublesPartners] = useState<Record<number, { id: string; name: string }>>({});
+  const [doublesPartners, setDoublesPartners] = useState<Record<string, { id: string; name: string }>>({});
 
   // Sync initial state once data is loaded
   useEffect(() => {
@@ -37,13 +37,12 @@ export default function EventRegistration() {
 
   const removeRegistrationFromCart = (categoryCode: string) => {
     const currentCart = getCart(userPlayerId);
-    const codeNum = Number(categoryCode);
     const updatedCart = {
       ...currentCart,
       items: currentCart.items.filter((item) => {
         if (item.itemType !== "REGISTRATION") return true;
         const c = item.itemAttributes.categoryCode;
-        return c !== categoryCode && Number(c) !== codeNum;
+        return c !== categoryCode;
       }),
     };
     saveCart(updatedCart, userPlayerId);
@@ -61,13 +60,13 @@ export default function EventRegistration() {
 
     const newSet = new Set(selectedEventIds);
 
-    if (newSet.has(event.eventId)) {
-      newSet.delete(event.eventId);
+    if (newSet.has(event.categoryId)) {
+      newSet.delete(event.categoryId);
       setSelectedEventIds(newSet);
       removeRegistrationFromCart(event.categoryId);
       setDoublesPartners(prev => {
         const next = { ...prev };
-        delete next[event.eventId];
+        delete next[event.categoryId];
         return next;
       });
       return;
@@ -81,7 +80,7 @@ export default function EventRegistration() {
       return;
     }
 
-    newSet.add(event.eventId);
+    newSet.add(event.categoryId);
     setSelectedEventIds(newSet);
     addOrReplaceRegistrationInCart({
       categoryCode: event.categoryId,
@@ -104,11 +103,13 @@ export default function EventRegistration() {
   if (!isRegistrationOpen) {
     return (
       <div className={s.wrapper}>
-        <ClosedState
-          title="Registration is Closed"
-          description="Event registrations for Habya 2026 are currently closed. Please check back later for updates."
-          theme="indigo"
-        />
+        <div className={s.wrapper}>
+          <ClosedState
+            title="Registration is Closed"
+            description="Event registrations for Habya 2026 are currently closed. Please check back later for updates."
+            theme="indigo"
+          />
+        </div>
       </div>
     );
   }
@@ -157,7 +158,6 @@ export default function EventRegistration() {
       {doublesModalEvent && (
         <PartnerIdModal
           eventName={doublesModalEvent.name}
-          eventId={doublesModalEvent.eventId}
           categoryCode={doublesModalEvent.categoryId}
           onClose={() => setDoublesModalEvent(null)}
           onConfirm={({ partnerId, partnerName }) => {
@@ -169,10 +169,10 @@ export default function EventRegistration() {
             });
             setDoublesPartners(prev => ({
               ...prev,
-              [doublesModalEvent.eventId]: { id: partnerId, name: partnerName },
+              [doublesModalEvent.categoryId]: { id: partnerId, name: partnerName },
             }));
             const newSet = new Set(selectedEventIds);
-            newSet.add(doublesModalEvent.eventId);
+            newSet.add(doublesModalEvent.categoryId);
             setSelectedEventIds(newSet);
           }}
         />
