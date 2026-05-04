@@ -37,10 +37,10 @@ export const profileCardStyles = {
   
   divider: "h-[0.5px] bg-[#ececec] my-[0.75rem] w-full",
   
-  noteRow: "flex items-start justify-start gap-[6px]",
+  noteRow: "flex items-start justify-start",
   
   infoIcon: "text-[#ccc] w-[11px] h-[11px] flex-shrink-0",
   
-  noteList: "list-disc pl-4 text-[12px] md:text-[15px] text-[#8f8f8f] leading-[1.3] text-left",
+  noteList: "list-none text-[12px] md:text-[15px] text-[#8f8f8f] leading-[1.3] text-left p-0 m-0",
   noteItem: "marker:text-[#9a9a9a]",
 } as const;
