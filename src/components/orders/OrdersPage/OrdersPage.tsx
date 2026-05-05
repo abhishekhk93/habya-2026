@@ -61,7 +61,7 @@ export default function MyOrders() {
 
   const successfulOrders = orders.filter(or => or.orderStatus === CONSTANTS.success);
   const pendingOrders = orders.filter(or => or.orderStatus === CONSTANTS.pending);
-  const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || []);
+  const combinedSponsorships = successfulOrders.flatMap(o => o.sponsorships || (o as any).sponshorships || []);
 
   const filteredOrders = (() => {
     switch (filter) {

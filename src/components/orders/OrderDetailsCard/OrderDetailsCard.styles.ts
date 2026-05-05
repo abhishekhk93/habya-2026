@@ -39,7 +39,7 @@ export const orderDetailsCardStyles = {
   totalValue: "font-bold text-gray-900 tracking-tight text-lg tabular-nums",
 
   sponserSection: "rounded-xl bg-gradient-to-r from-blue-50 to-pink-50 border border-blue-100 py-5 px-1 text-center shadow-sm  mt-3 ",
-  sponsorshipTitle: "text-lg font-medium text-blue-900",
-  sponsorshipIconWrapper: "mx-auto flex h-7 w-7 items-center justify-center text-red-600",
-  sponsorshipText: "text-xs text-blue-900 leading-relaxed",
+  sponsorshipTitle: "text-xl font-medium text-blue-900 mb-1",
+  sponsorshipIconWrapper: "mx-auto flex h-7 w-7 items-center justify-center text-red-600 mb-2",
+  sponsorshipText: "text-[15px] text-blue-900 leading-relaxed font-light",
 };

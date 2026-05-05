@@ -44,4 +44,5 @@ export interface Order {
   registrations?: RegistrationItem[];
   shirts?: ShirtItem[];
   sponsorships?: SponsorshipItem[];
+  bags?: BaseItem[];
 }
