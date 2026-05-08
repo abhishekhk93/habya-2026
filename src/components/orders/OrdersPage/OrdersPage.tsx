@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ordersStyles as s } from './Orders.styles';
 import OrderDetailsCard from '../OrderDetailsCard/OrderDetailsCard';
 import SponsorshipItem from '../OrderDetailsCard/SponsorshipItem';
@@ -13,6 +13,13 @@ import { Loader } from '../../common/Loader';
 export default function MyOrders() {
   const { orders, loading, error } = useOrderData();
   const [filter, setFilter] = useState<string>('ALL');
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
+  const handleGoHome = () => {
+    setIsNavigating(true);
+    router.push('/');
+  };
 
   if (loading) {
     return (
@@ -28,10 +35,13 @@ export default function MyOrders() {
       <div className={s.wrapper}>
         <div className={s.container}>
           <p className={s.errorState}>{error}</p>
-          <Button style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} btnType='small'>
-            <Link href="/">
-              Back to Home
-            </Link>
+          <Button 
+            style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} 
+            btnType='small'
+            onClick={handleGoHome}
+            isLoading={isNavigating}
+          >
+            Back to Home
           </Button>
         </div>
       </div>
@@ -51,9 +61,14 @@ export default function MyOrders() {
           </div>
           <h2 className={s.emptyStateTitle}>You have no orders yet</h2>
           <p className={s.emptyStateText}>Looks like you haven't made any purchases for the event.</p>
-          <Link href="/" className={s.emptyStateLink}>
+          <Button 
+            onClick={handleGoHome} 
+            isLoading={isNavigating} 
+            className={s.emptyStateLink}
+            variant="none"
+          >
             Go to Home
-          </Link>
+          </Button>
         </div>
       </div>
     );
@@ -113,10 +128,13 @@ export default function MyOrders() {
           </div>
         )}
 
-        <Button style={{ marginTop: "5px" }} btnType='small'>
-          <Link href="/">
-            Back to Home
-          </Link>
+        <Button 
+          style={{ marginTop: "5px" }} 
+          btnType='small'
+          onClick={handleGoHome}
+          isLoading={isNavigating}
+        >
+          Back to Home
         </Button>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { shopStyles as s } from "./Shop.styles";
 import type { ShirtDesign, ShopProps } from "./Shop.types";
 import Button from "../uiComponents/Button";
@@ -25,6 +25,8 @@ export default function Shop({ className }: ShopProps) {
     const configData = useAppSelector((state) => state.config.data);
     const isShirtOrdersOpen = configData?.is_shirt_orders_open;
     const [cartCounts, setCartCounts] = useState<Record<string, number>>({});
+    const [isNavigating, setIsNavigating] = useState(false);
+    const router = useRouter();
 
 
     useEffect(() => {
@@ -226,8 +228,16 @@ export default function Shop({ className }: ShopProps) {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-                    <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
-                        <Link href="/cart">Go to Cart</Link>
+                    <Button 
+                        style={{ width: '100%', maxWidth: '240px' }} 
+                        btnType='small'
+                        onClick={() => {
+                            setIsNavigating(true);
+                            router.push("/cart");
+                        }}
+                        isLoading={isNavigating}
+                    >
+                        Go to Cart
                     </Button>
                 </div>
             </div>

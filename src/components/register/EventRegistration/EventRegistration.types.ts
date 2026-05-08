@@ -10,7 +10,7 @@ export interface EventRegistrationDetails {
 export interface EventType {
   categoryId: string;
   name: string;
-  type: "SINGLES" | "DOUBLES";
+  type: "SINGLES" | "DOUBLES" | "SPECIAL_DOUBLES";
   categoryDescription?: string;
   isEnabled?: boolean;
   registration: EventRegistrationDetails;
