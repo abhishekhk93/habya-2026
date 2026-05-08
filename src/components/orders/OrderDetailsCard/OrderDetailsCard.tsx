@@ -31,6 +31,18 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
     });
   }
 
+  if (order.bags) {
+    order.bags.forEach((bag: any) => {
+      items.push({
+        id: bag.id,
+        title: `Premium Bags`,
+        price: bag.amount * (bag.quantity || 1),
+        type: 'bag',
+        quantity: bag.quantity || 1
+      });
+    });
+  }
+
   // Handle sponsorships
   const sponsorshipsList = order.sponsorships || (order as any).sponshorships;
   if (sponsorshipsList) {
@@ -89,7 +101,9 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
             {items.map((item, i) => (
               <li key={`${item.id}-${i}`} className={s.itemRow}>
                 <div className={s.itemTitleContainer}>
-                  <span className={s.itemTitle}>{item.title}</span>
+                  <span className={s.itemTitle}>
+                    {item.title} {item.type === 'bag' && ` * ${item.quantity}`}
+                  </span>
                   {item.type === 'event' && item.partner && (
                     <span className={s.itemMeta}>
                       <span className="font-medium mr-1">Partner:</span>
