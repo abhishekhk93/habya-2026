@@ -37,6 +37,7 @@ export default function MyOrders({ orders }: MyOrdersProps) {
               onClick={handleGoHome} 
               isLoading={isNavigating} 
               className={s.emptyStateLink}
+              variant="none"
             >
               Go to Home
             </Button>

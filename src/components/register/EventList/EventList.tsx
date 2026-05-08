@@ -13,7 +13,16 @@ export default function EventList({
       {data.eligibleEvents.map((event, index) => {
         const isPreRegistered = event.registration.isRegistered;
         const isSelected = selectedEventIds.has(event.categoryId);
-        const canInteract = !isPreRegistered && (isSelected || selectedEventIds.size < 2);
+        
+        // Exclusivity for SPECIAL_DOUBLES
+        const isSpecialDoubles = event.type === "SPECIAL_DOUBLES";
+        const otherSpecialDoublesSelected = Array.from(selectedEventIds).some(id => {
+          const e = data.eligibleEvents.find(ev => ev.categoryId === id);
+          return e?.type === "SPECIAL_DOUBLES" && id !== event.categoryId;
+        });
+
+        const canInteract = !isPreRegistered && 
+                          (isSelected || (selectedEventIds.size < 2 && !(isSpecialDoubles && otherSpecialDoublesSelected)));
         const partnerName = doublesPartners[event.categoryId]?.name;
         const isLastItem = index === data.eligibleEvents.length - 1;
 

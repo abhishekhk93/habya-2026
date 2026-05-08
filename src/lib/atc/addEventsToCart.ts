@@ -11,6 +11,7 @@ export const addEventsToCart = (
     categoryName: attributes.categoryName,
     partnerPlayerId: attributes.partnerPlayerId ?? null,
     partnerName: attributes.partnerName ?? null,
+    categoryType: attributes.categoryType ?? null,
   };
 
   return addToCart(

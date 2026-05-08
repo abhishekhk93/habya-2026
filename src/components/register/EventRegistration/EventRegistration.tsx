@@ -86,9 +86,18 @@ export default function EventRegistration() {
     }
 
     if (newSet.size >= 2) return;
+    
+    // Check SPECIAL_DOUBLES exclusivity
+    if (event.type === "SPECIAL_DOUBLES") {
+      const alreadyHasSpecialDoubles = Array.from(selectedEventIds).some(id => {
+        const e = data?.eligibleEvents.find(ev => ev.categoryId === id);
+        return e?.type === "SPECIAL_DOUBLES";
+      });
+      if (alreadyHasSpecialDoubles) return;
+    }
 
-    // For DOUBLES, open the partner modal instead of immediately selecting
-    if (event.type === "DOUBLES") {
+    // For DOUBLES or SPECIAL_DOUBLES, open the partner modal
+    if (event.type === "DOUBLES" || event.type === "SPECIAL_DOUBLES") {
       setDoublesModalEvent(event);
       return;
     }
@@ -98,6 +107,7 @@ export default function EventRegistration() {
     addOrReplaceRegistrationInCart({
       categoryId: event.categoryId,
       categoryName: event.name,
+      categoryType: event.type,
       partnerPlayerId: null,
       partnerName: null,
     });
@@ -185,6 +195,7 @@ export default function EventRegistration() {
             addOrReplaceRegistrationInCart({
               categoryId: doublesModalEvent.categoryId,
               categoryName: doublesModalEvent.name,
+              categoryType: doublesModalEvent.type,
               partnerPlayerId: partnerId,
               partnerName,
             });

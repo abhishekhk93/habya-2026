@@ -5,6 +5,7 @@ export interface RegistrationAttributes {
   partnerPlayerId?: string | null;
   categoryName: string;
   partnerName?: string | null;
+  categoryType?: string | null;
 }
 
 export interface TShirtAttributes {
