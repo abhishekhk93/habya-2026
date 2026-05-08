@@ -64,6 +64,19 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      await fetchApi("/api/auth/logout", {
+        method: "POST",
+      });
+    } catch (err: any) {
+      return rejectWithValue(err.message || 'Logout failed');
+    }
+  }
+);
+
 
 
 const authSlice = createSlice({
@@ -105,7 +118,16 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
     });
 
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.user = null;
+      state.isLoggedIn = false;
+    });
 
+    builder.addCase(logoutUser.rejected, (state) => {
+      // Even if API fails, clear local state
+      state.user = null;
+      state.isLoggedIn = false;
+    });
   },
 });
 
