@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { eventRegistrationStyles as s } from "./EventRegistration.styles";
 import type { EventType } from "./EventRegistration.types";
 import PartnerIdModal from "./PartnerIdModal";
@@ -20,6 +20,18 @@ export default function EventRegistration() {
   const userFullName = useAppSelector((state) => state.auth.user?.fullName) ?? "";
 
   const userPlayerId = useAppSelector((state) => state.auth.user?.playerId);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
+  const handleGoHome = () => {
+    setIsNavigating(true);
+    router.push('/');
+  };
+
+  const handleGoToCart = () => {
+    setIsNavigating(true);
+    router.push('/cart');
+  };
 
   const { data, loading, error, initialSelectedIds, initialDoublesPartners } = useEventData(userFullName, userPlayerId);
 
@@ -120,10 +132,13 @@ export default function EventRegistration() {
       <div className={s.wrapper}>
         <div className={s.card}>
           <p className={s.errorState}>{error}</p>
-          <Button style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} btnType='small'>
-            <Link href="/">
-              Back to Home
-            </Link>
+          <Button 
+            style={{ marginTop: "10px", width: "fit-content", alignSelf: "center" }} 
+            btnType='small'
+            onClick={handleGoHome}
+            isLoading={isNavigating}
+          >
+            Back to Home
           </Button>
         </div>
       </div>
@@ -149,8 +164,13 @@ export default function EventRegistration() {
           />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-            <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
-              <Link href="/cart">Go to Cart</Link>
+            <Button 
+              style={{ width: '100%', maxWidth: '240px' }} 
+              btnType='small'
+              onClick={handleGoToCart}
+              isLoading={isNavigating}
+            >
+              Go to Cart
             </Button>
           </div>
         </div>

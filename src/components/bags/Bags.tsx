@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { bagStyles as s } from "./Bags.styles";
 import type { Bag } from "./Bags.types";
 import { BAGS_DATA } from "./Bags.data";
@@ -17,6 +17,8 @@ export default function Bags() {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [carouselIndex, setCarouselIndex] = useState<Record<string, number>>({});
   const [cartCounts, setCartCounts] = useState<Record<string, number>>({});
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
 
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
   const configData = useAppSelector((state) => state.config.data);
@@ -218,8 +220,16 @@ export default function Bags() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-          <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
-            <Link href="/cart">Go to Cart</Link>
+          <Button 
+            style={{ width: '100%', maxWidth: '240px' }} 
+            btnType='small'
+            onClick={() => {
+              setIsNavigating(true);
+              router.push("/cart");
+            }}
+            isLoading={isNavigating}
+          >
+            Go to Cart
           </Button>
         </div>
       </div>

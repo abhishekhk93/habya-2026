@@ -7,7 +7,7 @@ import type { SponsorshipLevel } from "./SponsorshipPage.types";
 import { getCart, saveCart } from "@/lib/atc/storage";
 import { addSponsorshipToCart } from "@/lib/atc/addSponsorshipToCart";
 import { useAppSelector } from "@/store/hooks";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ClosedState } from "../../common/ClosedState";
 import { Loader } from "../../common/Loader";
 import Button from "../../uiComponents/Button";
@@ -27,6 +27,8 @@ export default function SponsorshipPage() {
   const [selectedLevelId, setSelectedLevelId] = useState<string | null>(null);
   const [customAmount, setCustomAmount] = useState<number>(0);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
 
   // Sync with cart on mount
   useEffect(() => {
@@ -138,8 +140,16 @@ export default function SponsorshipPage() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-          <Button style={{ width: '100%', maxWidth: '240px' }} btnType='small'>
-            <Link href="/cart">Go to Cart</Link>
+          <Button 
+            style={{ width: '100%', maxWidth: '240px' }} 
+            btnType='small'
+            onClick={() => {
+              setIsNavigating(true);
+              router.push("/cart");
+            }}
+            isLoading={isNavigating}
+          >
+            Go to Cart
           </Button>
         </div>
       </div>

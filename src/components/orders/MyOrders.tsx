@@ -1,5 +1,5 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { ordersStyles as s } from './Orders.styles';
 import OrderCard from './OrderCard';
 import type { Order } from '@/app/_disabled_api/orders/types';
@@ -11,6 +11,13 @@ interface MyOrdersProps {
 
 export default function MyOrders({ orders }: MyOrdersProps) {
   const isEmpty = orders.length === 0;
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
+  const handleGoHome = () => {
+    setIsNavigating(true);
+    router.push('/');
+  };
 
   return (
     <div className={s.wrapper}>
@@ -26,9 +33,13 @@ export default function MyOrders({ orders }: MyOrdersProps) {
             </div>
             <h2 className={s.emptyStateTitle}>You have no orders yet</h2>
             <p className={s.emptyStateText}>Looks like you haven't made any purchases for the event.</p>
-            <Link href="/" className={s.emptyStateLink}>
+            <Button 
+              onClick={handleGoHome} 
+              isLoading={isNavigating} 
+              className={s.emptyStateLink}
+            >
               Go to Home
-            </Link>
+            </Button>
           </div>
         ) : (
           <>
@@ -43,10 +54,13 @@ export default function MyOrders({ orders }: MyOrdersProps) {
             }} />
           </>
         )}
-        <Button style={{ marginTop: "5px" }} btnType='small'>
-          <Link href="/">
-            Back to Home
-          </Link>
+        <Button 
+          style={{ marginTop: "5px" }} 
+          btnType='small'
+          onClick={handleGoHome}
+          isLoading={isNavigating}
+        >
+          Back to Home
         </Button>
       </div>
     </div>
