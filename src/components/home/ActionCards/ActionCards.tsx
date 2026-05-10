@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { actionCardsStyles as s } from "./ActionCards.styles";
 
@@ -19,9 +20,8 @@ const CARDS = [
     ),
   },
   {
-    title: "Shop Shirts",
-    subtitle: "Event merchandise",
-    route: "/shop",
+    title: "Shop Merchandise",
+    subtitle: "Select a category",
     bgColor: "bg-[#fff3ee]",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e67e56" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -30,6 +30,10 @@ const CARDS = [
         <path d="M16 10a4 4 0 0 1-8 0" />
       </svg>
     ),
+    sublinks: [
+      { label: "Official Shirts", route: "/shop/shirts" },
+      { label: "Premium Bags", route: "/shop/bags" },
+    ]
   },
   {
     title: "Sponsor the event",
@@ -49,23 +53,52 @@ const CARDS = [
 export default function ActionCards() {
   return (
     <div className={s.container}>
-      {CARDS.map((card) => (
-        <Link
-          key={card.route}
-          href={card.route}
-          className={s.card}
-          prefetch={["/register", "/sponsorship", "/cart", "/orders"].includes(card.route) ? false : undefined}
-        >
-          <div className={`${s.iconContainer} ${card.bgColor}`}>
-            {card.icon}
-          </div>
-          <div className={s.middle}>
-            <div className={s.title}>{card.title}</div>
-            <div className={s.subtitle}>{card.subtitle}</div>
-          </div>
-          <div className={s.chevron} />
-        </Link>
-      ))}
+      {CARDS.map((card, idx) => {
+        const hasSublinks = !!card.sublinks;
+        
+        const cardContent = (
+          <>
+            <div className="flex items-center w-full gap-3 md:gap-4">
+              <div className={`${s.iconContainer} ${card.bgColor}`}>
+                {card.icon}
+              </div>
+              <div className={s.middle}>
+                <div className={s.title}>{card.title}</div>
+                <div className={s.subtitle}>{card.subtitle}</div>
+              </div>
+              {!hasSublinks && <div className={s.chevron} />}
+            </div>
+
+            {card.sublinks && (
+              <div className={s.sublinksContainer}>
+                {card.sublinks.map((sub) => (
+                  <Link key={sub.route} href={sub.route} className={s.sublink}>
+                    {sub.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </>
+        );
+
+        return (
+          <React.Fragment key={card.title + idx}>
+            {!hasSublinks ? (
+              <Link
+                href={card.route || "#"}
+                className={`${s.card} cursor-pointer`}
+                prefetch={["/register", "/sponsorship", "/cart", "/orders"].includes(card.route || "") ? false : undefined}
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <div className={s.card}>
+                {cardContent}
+              </div>
+            )}
+          </React.Fragment>
+        );
+      })}
     </div>
   );
 }

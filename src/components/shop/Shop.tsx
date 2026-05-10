@@ -8,6 +8,7 @@ import type { ShirtDesign, ShopProps } from "./Shop.types";
 import Button from "../uiComponents/Button";
 import { shirtDesigns } from "./Shop.data";
 import ShopModal from "./ShopModal";
+import SizeChartModal from "./SizeChartModal/SizeChartModal";
 import { useAppSelector } from "@/store/hooks";
 import { getCart } from "@/lib/atc/storage";
 import { ClosedState } from "../common/ClosedState";
@@ -18,6 +19,7 @@ import { ConfigData } from "@/app/_disabled_api/config/types";
 export default function Shop({ className }: ShopProps) {
     const [selectedDesign, setSelectedDesign] = useState<ShirtDesign | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSizeChartOpen, setIsSizeChartOpen] = useState(false);
     // Per-card carousel index: 0 = front, 1 = back
     const [carouselIndex, setCarouselIndex] = useState<Record<string, number>>({});
 
@@ -115,6 +117,16 @@ export default function Shop({ className }: ShopProps) {
                 <p className={s.subtitle}>
                     Customize your Habya 2026 gear.
                 </p>
+
+                <button 
+                    onClick={() => setIsSizeChartOpen(true)}
+                    className="flex items-center gap-1.5 text-[13px] font-medium text-[#B45309] hover:text-[#924206] transition-colors mb-6 mx-auto group bg-white border border-[#B45309]/20 px-4 py-1.5 rounded-full hover:border-[#B45309]/50 shadow-sm"
+                >
+                    <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    View Size Chart
+                </button>
 
                 <div className={s.gridContainer}>
                     {shirtDesigns.map(design => (
@@ -251,6 +263,11 @@ export default function Shop({ className }: ShopProps) {
                     price={selectedDesign ? (Number(getConfigValue(configData, selectedDesign.configKey as keyof ConfigData, String(selectedDesign.price))) || selectedDesign.price) : 0}
                 />
             )}
+
+            <SizeChartModal 
+                isOpen={isSizeChartOpen} 
+                onClose={() => setIsSizeChartOpen(false)} 
+            />
 
         </div>
     );

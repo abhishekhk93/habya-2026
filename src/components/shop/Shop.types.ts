@@ -2,13 +2,13 @@ export type ShirtSize = 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XS' | '2XS' | '3XS' | 
 export type ShirtStyle = 'Roundneck Sleeveless' | 'Roundneck Half Sleeves' | 'Collared Half sleeves';
 
 export interface ShirtDesign {
-    id: string;
-    name: string;
-    type: 'ROUND_NECK_HALF' | 'ROUND_NECK_SLEEVELESS' | 'COLLARED_HALF';
-    frontImage: string;
-    backImage: string;
-    price: number;
-    configKey?: string;
+  id: string;
+  name: string;
+  type: 'ROUND_NECK_HALF' | 'ROUND_NECK_SLEEVELESS' | 'COLLARED_HALF' | 'ROUND_NECK_ZIP';
+  frontImage: string;
+  backImage: string;
+  price: number;
+  configKey?: string;
 }
 
 export interface SizeChartItem {
@@ -20,5 +20,5 @@ export interface SizeChartItem {
 };
 
 export interface ShopProps {
-    className?: string;
+  className?: string;
 }

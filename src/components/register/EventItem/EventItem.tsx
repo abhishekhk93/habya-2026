@@ -36,7 +36,7 @@ export default function EventItem({
       <div className="flex items-center justify-between w-full">
         <span>
           Registered for this event
-          {event.type === "DOUBLES" && event.registration.partner && (
+          {(event.type === "DOUBLES" || event.type === "SPECIAL_DOUBLES") && event.registration.partner && (
             <> with partner: <strong>{event.registration.partner.name}</strong></>
           )}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] text-green-600 inline-block align-text-bottom ml-1.5 shrink-0">
@@ -50,7 +50,7 @@ export default function EventItem({
     subtitleDisplay = (
       <div className="flex items-center justify-between w-full">
         <span>
-          {event.type === "DOUBLES" && partnerName ? (
+          {(event.type === "DOUBLES" || event.type === "SPECIAL_DOUBLES") && partnerName ? (
             <>Event added to cart with partner: <strong>{partnerName}</strong></>
           ) : (
             <>Event added to cart</>
