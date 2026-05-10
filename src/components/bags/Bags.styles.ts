@@ -17,7 +17,7 @@ export const bagStyles = {
   
   imageFlipper: "relative w-full aspect-[3/2] bg-white overflow-hidden",
 
-  shirtImage: "object-contain object-center w-full h-full scale-[1.1] transition-all duration-500",
+  shirtImage: "object-contain object-center w-full h-full scale-[0.95] transition-all duration-500",
 
   cardContent: "px-6 py-4 flex flex-col gap-2",
 

@@ -30,7 +30,7 @@ export const shirtDesigns: ShirtDesign[] = [
     },
     {
         id: "d4",
-        name: "Roundneck with Zip",
+        name: "High Collared Zip",
         type: "ROUND_NECK_ZIP",
         frontImage: "/shirts/four-front.png",
         backImage: "/shirts/four-back.png",
