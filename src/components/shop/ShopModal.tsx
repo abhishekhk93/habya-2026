@@ -78,7 +78,7 @@ export default function ShopModal({ isOpen, design, onClose, price }: ShopModalP
                                 alt={design.name}
                                 fill
                                 unoptimized
-                                className="object-contain"
+                                className="object-contain p-4"
                             />
                         )}
                     </div>

@@ -30,7 +30,7 @@ export const shopStyles = {
   shirtPrice: "text-sm font-medium text-black/60",
 
   // Modal styles
-  modalOverlay: "fixed inset-0 z-[60] bg-black/40 backdrop-blur-2xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300",
+  modalOverlay: "fixed inset-0 z-[60] bg-black/40 backdrop-blur-2xl flex items-start sm:items-center justify-center p-4 pt-24 sm:pt-4 opacity-0 pointer-events-none transition-opacity duration-300",
 
   modalOverlayOpen: "opacity-100 pointer-events-auto",
 
@@ -39,7 +39,7 @@ export const shopStyles = {
 
   modalContentOpen: "scale-100",
 
-  modalImageSection: "w-full md:w-5/12 bg-gray-50 relative h-48 md:h-auto",
+  modalImageSection: "w-full md:w-1/2 bg-white relative h-72 md:h-auto overflow-hidden",
 
   modalFormSection: "flex-1 px-4 py-6 md:p-8 flex flex-col gap-6 overflow-y-auto",
 
@@ -59,7 +59,7 @@ export const shopStyles = {
 
   kidsDropdown: "absolute top-full left-0 mt-2 p-2 bg-white border border-black/10 rounded-2xl shadow-xl z-[70] flex flex-wrap gap-2 w-50",
 
-  sizeInfo: "italic font-thin text-[10px]",
+  sizeInfo: "italic font-medium text-xs sm:text-sm text-black/60",
 
   closeButton: "w-8 h-8 flex items-center justify-center rounded-full bg-black/5 text-black/60 hover:bg-black/10 hover:text-black transition-all absolute top-4 right-4",
 

@@ -32,7 +32,7 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
             return {
               categoryId: cat.categoryId,
               name: cat.categoryName,
-              type: cat.categoryType.toUpperCase() as "SINGLES" | "DOUBLES",
+              type: cat.categoryType.toUpperCase() as "SINGLES" | "DOUBLES" | "SPECIAL_DOUBLES",
               categoryDescription: cat.categoryDescription,
               isEnabled: cat.isEnabled,
               registration: {
@@ -70,7 +70,7 @@ export function useEventData(userFullName: string, userPlayerId?: string): Event
           const inEligibleList = eligibleEvents.find(
             (e) => e.categoryId === categoryId
           );
-          if (inEligibleList?.type !== "DOUBLES") return;
+          if (inEligibleList?.type !== "DOUBLES" && inEligibleList?.type !== "SPECIAL_DOUBLES") return;
 
           const partnerId = item.itemAttributes.partnerPlayerId ?? "";
           const partnerName = item.itemAttributes.partnerName ?? "";

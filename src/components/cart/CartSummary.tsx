@@ -44,6 +44,9 @@ export default function CartSummary({ items }: CartSummaryProps) {
     } else if (type === "COLLARED_HALF") {
       key = "price_shirt_collared_half";
       fallback = process.env.NEXT_PUBLIC_PRICE_SHIRT_COLLARED_HALF_SLEEVES;
+    } else if (type === "ROUND_NECK_ZIP") {
+      key = "price_shirt_round_neck_zip";
+      fallback = process.env.NEXT_PUBLIC_PRICE_SHIRT_ROUND_NECK_ZIP;
     }
 
     const price = key ? (Number(getConfigValue(config, key, fallback)) || 0) : 0;

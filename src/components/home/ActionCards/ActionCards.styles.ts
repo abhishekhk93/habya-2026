@@ -3,7 +3,6 @@ export const actionCardsStyles = {
   
   card: [
     "flex",
-    "items-center",
     "bg-white",
     "border",
     "border-[#d9d9d9]",
@@ -15,7 +14,7 @@ export const actionCardsStyles = {
     "transition-all",
     "duration-200",
     "hover:bg-[#fafafa]",
-    "cursor-pointer",
+    "flex-col",
   ].join(" "),
   
   iconContainer: [
@@ -45,5 +44,24 @@ export const actionCardsStyles = {
     "rotate-45",
     "flex-shrink-0",
     "mr-1",
+  ].join(" "),
+
+  sublinksContainer: "flex gap-2 mt-2 ml-[48px] md:ml-[66px] w-fit",
+  
+  sublink: [
+    "flex",
+    "items-center",
+    "bg-[#fff3ee]",
+    "rounded-[6px]",
+    "px-3",
+    "py-1",
+    "md:px-4",
+    "md:py-1.5",
+    "transition-all",
+    "hover:bg-[#ffeadf]",
+    "text-[#e67e56]",
+    "text-[12px]",
+    "md:text-[14px]",
+    "font-medium",
   ].join(" "),
 } as const;

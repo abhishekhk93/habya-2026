@@ -15,9 +15,9 @@ export const profileCardStyles = {
     "flex-col",
   ].join(" "),
   
-  topRow: "flex items-center justify-between",
+  topRow: "flex flex-wrap items-center justify-between gap-y-2 gap-x-4",
   
-  name: "text-[16px] md:text-[22px] font-medium text-[#1a1a1a]",
+  name: "text-[16px] md:text-[22px] font-medium text-[#1a1a1a] break-all max-w-full",
   
   badge: [
     "bg-[#f5f0fe]",
@@ -33,6 +33,8 @@ export const profileCardStyles = {
     "md:text-[18px]",
     "font-medium",
     "leading-none",
+    "whitespace-nowrap",
+    "flex-shrink-0",
   ].join(" "),
   
   divider: "h-[0.5px] bg-[#ececec] my-[0.75rem] w-full",
@@ -41,6 +43,6 @@ export const profileCardStyles = {
   
   infoIcon: "text-[#ccc] w-[11px] h-[11px] flex-shrink-0",
   
-  noteList: "list-none text-[12px] md:text-[15px] text-[#8f8f8f] leading-[1.3] text-left p-0 m-0",
+  noteList: "list-none text-[12px] md:text-[15px] text-black/70 leading-[1.3] text-left p-0 m-0",
   noteItem: "marker:text-[#9a9a9a]",
 } as const;
