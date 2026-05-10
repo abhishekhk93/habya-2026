@@ -99,6 +99,13 @@ export default function Bags() {
           Habya 2026 edition Bag.
         </p>
 
+        <div className="flex items-center justify-center gap-1.5 mb-8 text-[11px] md:text-[12px] text-black/40 bg-black/[0.02] py-1 px-3 rounded-full w-fit mx-auto border border-black/[0.03]">
+          <svg className="w-3.5 h-3.5 text-black/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Final product design and colors may differ slightly</span>
+        </div>
+
         <div className={s.gridContainer}>
           {BAGS_DATA.map(bag => (
             <div key={bag.id} className={s.shirtCard}>
@@ -106,13 +113,13 @@ export default function Bags() {
               <div className={s.imageFlipper} style={{ overflow: "hidden", backgroundColor: "white" }}>
                 <div style={{
                   display: "flex",
-                  width: "200%",
+                  width: bag.images.length > 1 ? "200%" : "100%",
                   height: "100%",
-                  transform: `translateX(-${getIndex(bag.id) * 50}%)`,
+                  transform: `translateX(-${getIndex(bag.id) * (bag.images.length > 1 ? 50 : 0)}%)`,
                   transition: "transform 0.4s cubic-bezier(0.4,0,0.2,1)",
                 }}>
                   {bag.images.map((src, i) => (
-                    <div key={i} style={{ position: "relative", width: "50%", flexShrink: 0, height: "100%" }}>
+                    <div key={i} style={{ position: "relative", width: bag.images.length > 1 ? "50%" : "100%", flexShrink: 0, height: "100%" }}>
                       <Image
                         src={src}
                         alt={i === 0 ? `${bag.name} Front` : `${bag.name} Back`}
@@ -125,47 +132,53 @@ export default function Bags() {
                 </div>
 
                 {/* Arrows */}
-                {getIndex(bag.id) > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setIndex(bag.id, getIndex(bag.id) - 1)}
-                    className={`${s.arrowButton} left-2`}
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                )}
-                {getIndex(bag.id) < 1 && (
-                  <button
-                    type="button"
-                    onClick={() => setIndex(bag.id, getIndex(bag.id) + 1)}
-                    className={`${s.arrowButton} right-2`}
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
+                {bag.images.length > 1 && (
+                  <>
+                    {getIndex(bag.id) > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setIndex(bag.id, getIndex(bag.id) - 1)}
+                        className={`${s.arrowButton} left-2`}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                      </button>
+                    )}
+                    {getIndex(bag.id) < bag.images.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={() => setIndex(bag.id, getIndex(bag.id) + 1)}
+                        className={`${s.arrowButton} right-2`}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
 
               {/* Dot indicators */}
-              <div className="flex justify-center gap-1.5 mt-3 -mb-1 z-10 w-full">
-                {[0, 1].map(i => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => setIndex(bag.id, i)}
-                    className="transition-all duration-300"
-                    style={{
-                      width: getIndex(bag.id) === i ? "16px" : "6px",
-                      height: "6px",
-                      borderRadius: "9999px",
-                      background: getIndex(bag.id) === i ? "#000" : "rgba(0,0,0,0.3)",
-                    }}
-                  />
-                ))}
-              </div>
+              {bag.images.length > 1 && (
+                <div className="flex justify-center gap-1.5 mt-3 -mb-1 z-10 w-full">
+                  {bag.images.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setIndex(bag.id, i)}
+                      className="transition-all duration-300"
+                      style={{
+                        width: getIndex(bag.id) === i ? "16px" : "6px",
+                        height: "6px",
+                        borderRadius: "9999px",
+                        background: getIndex(bag.id) === i ? "#000" : "rgba(0,0,0,0.3)",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
 
               <div className={s.cardContent}>
                 <h3 className={s.shirtName}>

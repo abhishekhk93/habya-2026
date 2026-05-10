@@ -28,6 +28,19 @@ export const actionCardsStyles = {
     "justify-center",
     "flex-shrink-0",
   ].join(" "),
+
+  iconContainerFull: [
+    "w-[36px]",
+    "min-h-[70px]",
+    "md:w-[50px]",
+    "md:min-h-[90px]",
+    "rounded-[10px]",
+    "flex",
+    "items-center",
+    "justify-center",
+    "flex-shrink-0",
+    "self-stretch",
+  ].join(" "),
   
   middle: "flex flex-col flex-1 min-w-0",
   
@@ -46,7 +59,7 @@ export const actionCardsStyles = {
     "mr-1",
   ].join(" "),
 
-  sublinksContainer: "flex gap-2 mt-2 ml-[48px] md:ml-[66px] w-fit",
+  sublinksContainer: "flex gap-2 mt-2 w-fit",
   
   sublink: [
     "flex",

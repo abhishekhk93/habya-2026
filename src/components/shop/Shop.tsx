@@ -118,6 +118,13 @@ export default function Shop({ className }: ShopProps) {
                     Customize your Habya 2026 gear.
                 </p>
 
+                <div className="flex items-center justify-center gap-1.5 mb-8 text-[11px] md:text-[12px] text-black/40 bg-black/[0.02] py-1 px-3 rounded-full w-fit mx-auto border border-black/[0.03]">
+                    <svg className="w-3.5 h-3.5 text-black/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Shirts will proudly feature sponsor branding.</span>
+                </div>
+
                 <button 
                     onClick={() => setIsSizeChartOpen(true)}
                     className="flex items-center gap-1.5 text-[13px] font-medium text-[#B45309] hover:text-[#924206] transition-colors mb-6 mx-auto group bg-white border border-[#B45309]/20 px-4 py-1.5 rounded-full hover:border-[#B45309]/50 shadow-sm"
