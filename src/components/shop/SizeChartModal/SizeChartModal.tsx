@@ -68,7 +68,7 @@ export default function SizeChartModal({ isOpen, onClose }: SizeChartModalProps)
                     <div className="flex flex-col gap-3 justify-center py-2">
                         <div className="p-3 bg-gray-50 rounded-2xl border border-black/5">
                             <p className="text-[13px] leading-relaxed text-black/70">
-                                • Shirt measurements are indicated as shown in the image.<br />
+                                • Measurements are indicated as shown in the image.<br />
                                 • Measurements appear once a size is selected.<br />
                                 • If between sizes, we recommend going one size up.
                             </p>

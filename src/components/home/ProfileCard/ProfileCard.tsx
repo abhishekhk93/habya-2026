@@ -12,7 +12,7 @@ export default function ProfileCard() {
     <div className={s.card}>
       <div className={s.topRow}>
         <div className={s.name}>{user.fullName}</div>
-        <div className={s.badge}>Profile ID: {user.playerId}</div>
+        <div className={s.badge}>Profile ID: <span className="font-bold">{user.playerId}</span></div>
       </div>
 
       <div className={s.divider} />

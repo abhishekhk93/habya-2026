@@ -50,7 +50,7 @@ export default function HamburgerMenu({
             <li key={item.label}>
               <Link
                 href={item.href}
-                className={`${s.item} flex items-center gap-4 relative py-2`}
+                className={`${s.item} flex items-center gap-4 relative`}
                 onClick={onClose}
                 prefetch={item.prefetch}
               >
@@ -68,18 +68,18 @@ export default function HamburgerMenu({
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              className={s.logoutButton}
+              onClick={() => {
+                onLogout();
+                onClose();
+              }}
+            >
+              Logout
+            </button>
+          </li>
         </ul>
-
-        {/* Logout */}
-        <button
-          className={s.logoutButton}
-          onClick={() => {
-            onLogout();
-            onClose();
-          }}
-        >
-          Logout
-        </button>
       </nav>
     </>
   );

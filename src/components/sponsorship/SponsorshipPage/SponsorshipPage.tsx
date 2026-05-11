@@ -51,6 +51,21 @@ export default function SponsorshipPage() {
     }
   }, [userPlayerId, isInitialized]);
 
+  // Debounced effect for custom amount cart updates
+  useEffect(() => {
+    if (!isInitialized || !userPlayerId || selectedLevelId !== "level-custom") return;
+
+    const timer = setTimeout(() => {
+      if (customAmount >= 50 && customAmount <= 99999) {
+        addSponsorshipToCart({ amount: customAmount, playerId: userPlayerId });
+      } else {
+        removeSponsorshipFromCart();
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [customAmount, selectedLevelId, isInitialized, userPlayerId]);
+
   const removeSponsorshipFromCart = () => {
     if (!userPlayerId) return;
     const currentCart = getCart(userPlayerId);
@@ -66,6 +81,7 @@ export default function SponsorshipPage() {
     if (selectedLevelId === levelId) {
       // Untoggle
       setSelectedLevelId(null);
+      setCustomAmount(0); // Clear custom amount when untoggled
       removeSponsorshipFromCart();
     } else {
       // Toggle on a new one
@@ -78,11 +94,10 @@ export default function SponsorshipPage() {
         setCustomAmount(0); // Clear custom amount when fixed level is selected
         addSponsorshipToCart({ amount: level.amount, playerId: userPlayerId });
       } else {
-        // For custom, if we already have a valid amount, add it.
-        if (customAmount > 0) {
+        // For custom, if we already have a valid amount, add it immediately (no debounce for explicit toggle)
+        if (customAmount >= 50) {
           addSponsorshipToCart({ amount: customAmount, playerId: userPlayerId });
         } else {
-          // If custom is selected but amount is invalid yet, remove any existing sponsorship
           removeSponsorshipFromCart();
         }
       }
@@ -90,10 +105,16 @@ export default function SponsorshipPage() {
   };
 
   const handleCustomAmountChange = (amount: number) => {
+    // Only take up to 5 digits
+    if (amount > 99999) return;
     setCustomAmount(amount);
-    if (selectedLevelId === "level-custom" && amount > 0) {
-      addSponsorshipToCart({ amount: amount, playerId: userPlayerId });
+    
+    // Auto-select custom level if amount is within valid range
+    if (amount >= 50) {
+      setSelectedLevelId("level-custom");
     } else if (selectedLevelId === "level-custom") {
+      // If user goes below 50, untoggle
+      setSelectedLevelId(null);
       removeSponsorshipFromCart();
     }
   };
