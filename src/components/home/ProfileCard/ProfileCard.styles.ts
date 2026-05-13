@@ -15,9 +15,9 @@ export const profileCardStyles = {
     "flex-col",
   ].join(" "),
   
-  topRow: "flex flex-wrap items-center justify-between gap-y-2 gap-x-4",
+  topRow: "flex flex-wrap items-center justify-start gap-y-2 gap-x-3",
   
-  name: "text-[16px] md:text-[22px] font-medium text-[#1a1a1a] break-all max-w-full",
+  name: "text-[16px] md:text-[22px] font-medium text-[#1a1a1a] break-words max-w-full",
   
   badge: [
     "bg-[#f5f0fe]",

@@ -136,7 +136,7 @@ export default function Shop({ className }: ShopProps) {
                 </button>
 
                 <div className={s.gridContainer}>
-                    {shirtDesigns.map(design => (
+                    {shirtDesigns.map((design, index) => (
                         <div key={design.id} className={s.shirtCard}
                             onTouchStart={handleTouchStart}
                             onTouchEnd={e => handleTouchEnd(e, design.id, 2)}
@@ -156,7 +156,8 @@ export default function Shop({ className }: ShopProps) {
                                                 src={src}
                                                 alt={i === 0 ? `${design.name} Front` : `${design.name} Back`}
                                                 fill
-                                                unoptimized
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                priority={index === 0 && i === 0}
                                                 className={s.shirtImage}
                                             />
                                         </div>
