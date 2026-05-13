@@ -8,6 +8,7 @@ import { logoutUser } from "@/store/features/authSlice";
 import { HamburgerMenu } from "@/components/common/HamburgerMenu";
 import { navbarStyles as s } from "./Navbar.styles";
 import { getCart } from "@/lib/atc/storage";
+import { SponsorLogo } from "@/components/common/SponsorLogo";
 
 const BASE_MENU_ITEMS = [
   { label: "Home", href: "/" },
@@ -83,7 +84,8 @@ export default function Navbar() {
     <>
       <nav className={s.nav}>
         <Link href="/" className={s.logo} aria-label="Go to home">
-          HABYA 2026
+          <SponsorLogo variant="navbar" />
+          <span>HABYA 2026</span>
         </Link>
 
         <div className={s.right}>

@@ -1,7 +1,7 @@
 export const authActionsStyles = {
   wrapper: [
-    "mt-6",
-    "sm:mt-8",
+    "mt-2",
+    "sm:mt-2",
     "min-h-[88px]",
     "flex",
     "items-center",
