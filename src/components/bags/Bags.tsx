@@ -196,7 +196,7 @@ export default function Bags() {
                   </p>
                 ) : (
                   <p className="text-[13px] text-center text-black/40 my-1.5 font-light tracking-tight">
-                    Durable and stylish sports bag!
+                    Durable and stylish Tote bag!
                   </p>
                 )}
 
@@ -233,8 +233,8 @@ export default function Bags() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-          <Button 
-            style={{ width: '100%', maxWidth: '240px' }} 
+          <Button
+            style={{ width: '100%', maxWidth: '240px' }}
             btnType='small'
             onClick={() => {
               setIsNavigating(true);
