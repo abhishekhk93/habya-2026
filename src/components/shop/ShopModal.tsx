@@ -52,6 +52,8 @@ export default function ShopModal({ isOpen, design, onClose, price }: ShopModalP
                 displayName: nameToPrint,
                 size: selectedSize ?? "",
                 type: design.type,
+                chest: selectedSizeInfo?.width,
+                length: selectedSizeInfo?.length,
             },
             playerId
         );
