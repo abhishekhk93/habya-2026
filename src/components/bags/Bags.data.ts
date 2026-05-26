@@ -6,6 +6,6 @@ export const BAGS_DATA: Bag[] = [
     name: "Habya Premium Bag",
     price: 500, // I'll assume a price, or use a config value if available.
     images: ["/images/habya-bag-1.png"],
-    description: "Durable and stylish sports bag for all your gear.",
+    description: "Durable and stylish Tote bag.",
   }
 ];

@@ -9,6 +9,7 @@ import { SectionLabel } from "@/components/home/SectionLabel";
 import { ActionCards } from "@/components/home/ActionCards";
 import { ProfileCard } from "@/components/home/ProfileCard";
 import { AuthActions } from "@/components/home/AuthActions";
+import { SponsorLogo } from "@/components/common/SponsorLogo";
 
 export default function Hero({ headline, description, initialIsLoggedIn = false }: HeroProps) {
   const { isLoggedIn: reduxIsLoggedIn, isLoading } = useAppSelector((state) => state.auth);
@@ -21,10 +22,13 @@ export default function Hero({ headline, description, initialIsLoggedIn = false 
       <div className={isLoggedIn ? s.containerLoggedIn : s.container}>
         {/* 1. Title Block or Small Logo at the top */}
         {isLoggedIn ? null : (
-          <TitleBlock 
-            title={headline} 
-            subtitle={description || ""} 
-          />
+          <div className="flex flex-col items-center">
+            <SponsorLogo variant="hero" />
+            <TitleBlock 
+              title={headline} 
+              subtitle={description || ""} 
+            />
+          </div>
         )}
 
         {isLoggedIn ? (

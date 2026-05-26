@@ -14,5 +14,6 @@ export const mockConfig: ConfigData = {
   is_shirt_orders_open: true,
   is_sponsorships_open: true,
   is_captcha_enabled: true,
+  is_bag_order_open: true,
   platform_fee: "2.9",
 };

@@ -19,6 +19,8 @@ export const navbarStyles = {
   ].join(" "),
 
   logo: [
+    "flex",
+    "items-center",
     "text-[18px]",
     "sm:text-[20px]",
     "font-medium",

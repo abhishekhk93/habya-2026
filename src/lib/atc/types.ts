@@ -13,6 +13,8 @@ export interface TShirtAttributes {
   displayName: string;
   size: string;
   type: string;
+  chest?: string;
+  length?: string;
 }
 
 export type SponsorshipAttributes = Record<string, never>;

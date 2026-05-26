@@ -52,6 +52,8 @@ export default function ShopModal({ isOpen, design, onClose, price }: ShopModalP
                 displayName: nameToPrint,
                 size: selectedSize ?? "",
                 type: design.type,
+                chest: selectedSizeInfo?.width,
+                length: selectedSizeInfo?.length,
             },
             playerId
         );
@@ -77,7 +79,7 @@ export default function ShopModal({ isOpen, design, onClose, price }: ShopModalP
                                 src={design.frontImage}
                                 alt={design.name}
                                 fill
-                                unoptimized
+                                sizes="(max-width: 768px) 100vw, 50vw"
                                 className="object-contain p-4"
                             />
                         )}

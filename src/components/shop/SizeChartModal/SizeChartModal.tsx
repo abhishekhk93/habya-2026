@@ -41,7 +41,7 @@ export default function SizeChartModal({ isOpen, onClose }: SizeChartModalProps)
                         src="/shirts/size-chart.png" // Placeholder
                         alt="Size Chart"
                         fill
-                        unoptimized
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-contain p-8"
                     />
                 </div>

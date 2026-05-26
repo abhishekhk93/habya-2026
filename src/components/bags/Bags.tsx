@@ -22,7 +22,7 @@ export default function Bags() {
 
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
   const configData = useAppSelector((state) => state.config.data);
-  const isBagOrdersOpen = configData?.is_shirt_orders_open;
+  const isBagOrdersOpen = configData?.is_bag_order_open;
   const bagPrice = configData?.price_bag ? Number(configData.price_bag) : 500;
 
   useEffect(() => {
@@ -196,7 +196,7 @@ export default function Bags() {
                   </p>
                 ) : (
                   <p className="text-[13px] text-center text-black/40 my-1.5 font-light tracking-tight">
-                    Durable and stylish sports bag!
+                    Durable and stylish Tote bag!
                   </p>
                 )}
 
@@ -233,8 +233,8 @@ export default function Bags() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '32px', width: '100%', alignItems: 'center' }}>
-          <Button 
-            style={{ width: '100%', maxWidth: '240px' }} 
+          <Button
+            style={{ width: '100%', maxWidth: '240px' }}
             btnType='small'
             onClick={() => {
               setIsNavigating(true);

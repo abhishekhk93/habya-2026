@@ -1,15 +1,14 @@
 export const heroStyles = {
   wrapper: [
     "relative",
-    "min-h-[calc(100svh-220px)]", // Reduced further to avoid desktop scroll
-    "sm:min-h-0", // Let it be natural on larger screens
+    "min-h-[calc(100svh-120px)]",
     "bg-transparent",
     "flex",
     "flex-col",
     "items-center",
-    "justify-start", // Changed to start so pt-20 works as intended
-    "pt-32", // Pushed down on mobile
-    "sm:pt-24",
+    "justify-start",
+    "pt-40",
+    "sm:pt-32",
     "pb-4",
     "px-4",
     "font-sans",
@@ -37,8 +36,8 @@ export const heroStyles = {
     "sm:max-w-none",
     "flex",
     "flex-col",
-    "gap-12", // Spread components more on mobile
-    "sm:gap-8",
+    "gap-4",
+    "sm:gap-4",
   ].join(" "),
 
   containerLoggedIn: [

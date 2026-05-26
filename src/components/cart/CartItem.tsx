@@ -31,11 +31,20 @@ export default function CartItem({ item, onRemove, icon }: CartItemProps) {
     const attrs = item.itemAttributes as any;
     title = attrs.name || "Event T-Shirt";
     if (attrs.size) {
-      const sizeInfo = sizeChart.find(row => row.size === attrs.size);
+      const chest = attrs.chest;
+      const length = attrs.length;
+
+      // Fallback for older items or safety
+      const sizeInfo = (!chest || !length) ? sizeChart.find(row => row.size === attrs.size) : null;
+      const displayChest = chest || sizeInfo?.width;
+      const displayLength = length || sizeInfo?.length;
+
       details.push(
         <p key="size">
           Size: <strong>{attrs.size}</strong>
-          {sizeInfo && <span className="text-black/40"> | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)</span>}
+          {(displayChest && displayLength) && (
+            <span className="text-black/40"> | (Chest: {displayChest}in - Length: {displayLength}in)</span>
+          )}
         </p>
       );
     }

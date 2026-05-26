@@ -11,6 +11,7 @@ export type ConfigData = {
   is_registration_open: boolean | string;
   is_shirt_orders_open: boolean | string;
   is_sponsorships_open: boolean | string;
+  is_bag_order_open: boolean | string;
   is_captcha_enabled: boolean | string;
 
   platform_fee: string;

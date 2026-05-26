@@ -26,6 +26,8 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
         price: shirt.amount,
         type: 'shirt',
         size: shirt.additionalAttributes.size,
+        chest: shirt.additionalAttributes.chest,
+        length: shirt.additionalAttributes.length,
         displayName: shirt.additionalAttributes.displayName
       });
     });
@@ -115,10 +117,17 @@ export default function OrderDetailsCard({ order }: OrderDetailsCardProps) {
                       <span className={s.itemMeta}>
                         <span className="font-medium mr-1">Size:</span> <strong>{item.size}</strong>
                         {(() => {
-                          const sizeInfo = sizeChart.find(row => row.size === item.size);
-                          return sizeInfo ? (
+                          const displayChest = item.chest;
+                          const displayLength = item.length;
+
+                          // Fallback
+                          const sizeInfo = (!displayChest || !displayLength) ? sizeChart.find(row => row.size === item.size) : null;
+                          const chest = displayChest || sizeInfo?.width;
+                          const length = displayLength || sizeInfo?.length;
+
+                          return (chest && length) ? (
                             <span className="text-black/40 ml-1 font-normal">
-                              | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)
+                              | (Chest: {chest}in - Length: {length}in)
                             </span>
                           ) : null;
                         })()}

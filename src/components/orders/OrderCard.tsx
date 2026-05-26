@@ -52,8 +52,7 @@ export default function OrderCard({ order }: OrderCardProps) {
   };
 
   const renderShirt = (item: ShirtItem) => {
-    let price = item.amount;
-    const sizeInfo = sizeChart.find(row => row.size === item.additionalAttributes.size);
+    const price = item.amount;
 
     return (
       <li key={item.id} className={s.itemRowShirt}>
@@ -65,7 +64,17 @@ export default function OrderCard({ order }: OrderCardProps) {
               <p><b>Type:</b> {item.additionalAttributes.type}</p>
               <p>
                 <b>Size:</b> {item.additionalAttributes.size}
-                {sizeInfo && <span className="text-gray-500"> | (Chest: {sizeInfo.width}in - Length: {sizeInfo.length}in)</span>}
+                {(() => {
+                  const chest = item.additionalAttributes.chest;
+                  const length = item.additionalAttributes.length;
+                  const sizeInfo = (!chest || !length) ? sizeChart.find(row => row.size === item.additionalAttributes.size) : null;
+                  const displayChest = chest || sizeInfo?.width;
+                  const displayLength = length || sizeInfo?.length;
+
+                  return (displayChest && displayLength) ? (
+                    <span className="text-gray-500"> | (Chest: {displayChest}in - Length: {displayLength}in)</span>
+                  ) : null;
+                })()}
               </p>
               {item.additionalAttributes.displayName && (
                 <p><b>Name to Print:</b> {item.additionalAttributes.displayName}</p>

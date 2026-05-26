@@ -29,6 +29,8 @@ export interface ShirtItem extends BaseItem {
     size: string;
     color: string;
     name: string;
+    chest?: string;
+    length?: string;
   };
 }
 
