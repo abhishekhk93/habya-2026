@@ -22,7 +22,7 @@ export default function Bags() {
 
   const playerId = useAppSelector((state) => state.auth.user?.playerId);
   const configData = useAppSelector((state) => state.config.data);
-  const isBagOrdersOpen = configData?.is_shirt_orders_open;
+  const isBagOrdersOpen = configData?.is_bag_order_open;
   const bagPrice = configData?.price_bag ? Number(configData.price_bag) : 500;
 
   useEffect(() => {
